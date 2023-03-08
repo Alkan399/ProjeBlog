@@ -1,0 +1,19 @@
+﻿ÖZELLİKLER
+
+-Blog sayfasında tüm blog yazıları görünecek.
+
+	*Blog yazıları
+	{
+		(Başlık)
+		(Yazı)
+		(Tarih)
+		(Kullanıcı)
+	}
+
+-Anasayfada Son Yazılanlar görünecek.
+
+-Giriş yapılıp yazı yazılabilinecek.
+
+-İletişim kısmından e-posta gönderilecek.
+
+Kullanıcı <--->> Yazı
