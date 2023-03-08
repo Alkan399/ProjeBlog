@@ -3,3 +3,11 @@
 -AppUserDetail
 
 -Content
+
+
+---------------------------
+
+1 - 1
+AppUser <->AppUserDetail
+
+AppUser <->> Content
