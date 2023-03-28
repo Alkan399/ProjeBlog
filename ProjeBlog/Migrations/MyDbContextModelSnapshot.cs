@@ -96,10 +96,7 @@ namespace ProjeBlog.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AppUserID")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("AppUserID1")
+                    b.Property<int>("AppUserID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -120,7 +117,7 @@ namespace ProjeBlog.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("AppUserID1");
+                    b.HasIndex("AppUserID");
 
                     b.ToTable("Contents");
                 });
@@ -140,7 +137,9 @@ namespace ProjeBlog.Migrations
                 {
                     b.HasOne("ProjeBlog.Models.AppUser", "AppUser")
                         .WithMany("Contents")
-                        .HasForeignKey("AppUserID1");
+                        .HasForeignKey("AppUserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("AppUser");
                 });

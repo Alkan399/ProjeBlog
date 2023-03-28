@@ -1,0 +1,63 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using ProjeBlog.Context;
+using ProjeBlog.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ProjeBlog.Controllers
+{
+    public class BlogController : Controller
+    {
+        MyDbContext _db;
+        public BlogController(MyDbContext db)
+        {
+            _db = db;
+        }
+        public IActionResult Blog()
+        {
+            //List<Content> content = _db.Contents.ToList();
+            List<Content> content = _db.Contents.Where(a => a.Status != Enums.DataStatus.Deleted).ToList();
+            return View(content);
+        }
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Content content)
+        {
+            content.AppUserID = 7;
+            _db.Contents.Add(content);
+            _db.SaveChanges();
+            return RedirectToAction("Blog");
+        }
+
+        public IActionResult Update(int id)
+        {
+            Content content = _db.Contents.Find(id);
+            
+            return RedirectToAction("Blog");
+        }
+        [HttpPost]
+        public IActionResult Update(Content content)
+        {
+            content.Status = Enums.DataStatus.Updated;
+            content.UpdatedDate = DateTime.Now;
+            _db.Contents.Update(content);
+            _db.SaveChanges();
+            return View();
+        }
+
+        public IActionResult Delete(int id)
+        {
+            Content content = _db.Contents.Find(id);
+            content.Status = Enums.DataStatus.Deleted;
+            content.UpdatedDate = DateTime.Now;
+            _db.Contents.Update(content);
+            _db.SaveChanges();
+            return RedirectToAction("Blog");
+        }
+        
+    }
+}

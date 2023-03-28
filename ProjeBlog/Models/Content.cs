@@ -9,7 +9,7 @@ namespace ProjeBlog.Models
         [Column(TypeName ="nvarchar(30)"),Required]
         public string Title { get; set; }
 
-        public string AppUserID { get; set; }
+        public int AppUserID { get; set; }
 
         //Relational Property
 
