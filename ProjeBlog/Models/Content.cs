@@ -10,6 +10,8 @@ namespace ProjeBlog.Models
         public string Title { get; set; }
 
         public int AppUserID { get; set; }
+        public string CoverImagePath { get; set; }
+        public int Views { get; set; } = 0;
 
         //Relational Property
 
