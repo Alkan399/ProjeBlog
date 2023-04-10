@@ -1,4 +1,5 @@
 ﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@using ProjeBlog.Models;
 @model List<ProjeBlog.Models.Content>
 @{ 
     string sString = "";
@@ -20,24 +21,16 @@
         @for (int i = 0; i < Model.Count; i++)
         {
             <div class="row">
-                <div class="row w-100" style="background-color:azure;padding:6px;border-style:groove;border-radius:5px">
+                <div class="card" style="width:60%" >
+
                     <div class="row w-100" style="margin-left:10px">
                         <form asp-controller="Blog" asp-action="ContentPage" method="post" id=@Model[i].Title asp-route-idx="@Model[i].ID">
                             @{
-
+                                var methods = new Methods();
                                 string submitTitleId = Model[i].ID.ToString() + "submitTitleId";
-                                if (Model[i].Entry.Length > 200)
-                                {
-                                    sString = Model[i].Entry;
-                                    sString = Model[i].Entry.Substring(0, 200);
-                                }
-                                else
-                                {
-                                    sString = Model[i].Entry;
-                                }
-
+                                sString = methods.BlogContentFormatting(Model[i]);
                             }
-                            
+
                             <input class="h2" type="submit" name="submit" id="@submitTitleId" hidden="hidden" value=@Model[i].Title />
                             <a href="#" onclick="document.getElementById('@submitTitleId').click()" style="text-transform:capitalize;text-decoration-thickness:5px;font-size:larger;">@Model[i].Title</a>
                         </form>
@@ -50,16 +43,17 @@
                         </div>
                         <div class="col-lg-2 col-sm-12">
                             <a class="icon row" asp-controller="Blog" asp-action="Update" asp-route-id="@Model[i].ID">
-                                <i class="bi bi-pen"><label style="font-family:Arial;font-weight:bolder">Düzenle</label></i>
+                                <i class="bi bi-pen"><label style="font-family: Arial; font-weight: bold;">Düzenle</label></i>
                             </a>
                             <a class="icon row" asp-controller="Blog" asp-action="Delete" asp-route-id="@Model[i].ID">
-                                <i class="bi bi-trash"><label style="font-family:Arial;font-weight:bolder">Sil</label></i>
+                                <i class="bi bi-trash"><label style="font-family:Arial;font-weight:bold;">Sil</label></i>
                             </a>
                         </div>
                         
                     </div>
-                    
+
                 </div>
+                
             </div>
 
          }

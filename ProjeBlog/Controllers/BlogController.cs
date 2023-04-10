@@ -59,6 +59,7 @@ namespace ProjeBlog.Controllers
             _db.SaveChanges();
             return RedirectToAction("Blog");
         }
+        [Route("/{idx}")]
         [HttpPost("{idx}")]
         public IActionResult ContentPage(int idx)
         {
@@ -67,7 +68,7 @@ namespace ProjeBlog.Controllers
 
             List<Content> content = _db.Contents.Where(x => x.ID == id).ToList();
             return View(content);
-        }
+        }  
         [HttpGet]
         public IActionResult ContentPage()
         {

@@ -16,7 +16,7 @@
             </div>
             <div class="mb-3">
                 <label class="col-form-label" asp-for="Entry">Yazı</label>
-                <textarea type="text" class="form-control" id="editor" asp-for="Entry"></textarea>
+                <textarea type="text" class="ck-editor" id="editor" asp-for="Entry" ></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">Kaydet</button>
@@ -31,12 +31,12 @@
                 .catch(error => {
                     console.error(error);
                 });
+            //CKEDITOR.instances.editor.setData('<p>This is the editor data.</p>');
+
+            CKEDITOR.instances['#editor'].setData('<p>Deneme</p>');
+            CKEDITOR.instances.{ { id } }.insertText($("asd").attr('data-value'));
         </script>
-        <div>
-            <p>
-                <label></label>
-            </p>
-        </div>
+        
     </div>
 
 </body>
