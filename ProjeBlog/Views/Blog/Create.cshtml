@@ -2,6 +2,7 @@
 @addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 @model ProjeBlog.Models.Content
 <head>
+
     <meta charset="utf-8">
     <title>CKEditor</title>
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
@@ -16,7 +17,7 @@
             </div>
             <div class="mb-3">
                 <label class="col-form-label" asp-for="Entry">Yazı</label>
-                <textarea type="text" class="ck-editor" id="editor" asp-for="Entry" ></textarea>
+                <textarea type="text" class="ck-editor" id="editor" asp-for="Entry"></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">Kaydet</button>
@@ -33,8 +34,8 @@
                 });
             //CKEDITOR.instances.editor.setData('<p>This is the editor data.</p>');
 
-            CKEDITOR.instances['#editor'].setData('<p>Deneme</p>');
-            CKEDITOR.instances.{ { id } }.insertText($("asd").attr('data-value'));
+            //CKEDITOR.instances['#editor'].setData('<p>Deneme</p>');
+            //CKEDITOR.instances.{ { id } }.insertText($("asd").attr('data-value'));
         </script>
         
     </div>
