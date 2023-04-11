@@ -1,0 +1,19 @@
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProjeBlog.Models.AppUser
+
+<div style=" align-self:center">
+
+    <form method="post" asp-controller="UserAuth" asp-action="Login">
+        <div class="row">
+            <input style="width:350px" class="email_text" placeholder="kullanıcı adı / e-posta" id="emailInput" type="text" asp-for="UserName">
+        </div>
+        <div class="row">
+            <input style="width:350px" class="email_text" placeholder="şifre" id="passwordInput" type="text" asp-for="Password">
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-primary" style="resize:both">Kaydet</button>
+        </div>
+
+    </form>
+
+</div>

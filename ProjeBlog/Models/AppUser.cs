@@ -8,7 +8,7 @@ namespace ProjeBlog.Models
     public class AppUser:BaseEntity
     {
         [Required]
-        string UserName { get; set; }
+        public string UserName { get; set; }
         [Required]
         public string Password { get; set; }
         [NotMapped]
