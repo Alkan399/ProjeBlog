@@ -17,7 +17,6 @@ namespace ProjeBlog.Controllers
         }
         public IActionResult Blog()
         {
-            //List<Content> content = _db.Contents.ToList();
             List<Content> content = _db.Contents.Where(a => a.Status != Enums.DataStatus.Deleted).ToList();
             return View(content);
         }
@@ -38,16 +37,17 @@ namespace ProjeBlog.Controllers
         {
             Content content = _db.Contents.Find(id);
             
-            return RedirectToAction("Blog");
+            return View(content);
         }
         [HttpPost]
         public IActionResult Update(Content content)
         {
+            content.AppUserID = 7;
             content.Status = Enums.DataStatus.Updated;
             content.UpdatedDate = DateTime.Now;
             _db.Contents.Update(content);
             _db.SaveChanges();
-            return View();
+            return RedirectToAction("Blog");
         }
 
         public IActionResult Delete(int id)

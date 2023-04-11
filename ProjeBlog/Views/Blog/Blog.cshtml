@@ -28,18 +28,18 @@
                             @{
                                 var methods = new Methods();
                                 string submitTitleId = Model[i].ID.ToString() + "submitTitleId";
-                                sString = methods.BlogContentFormatting(Model[i]);
+                                sString = methods.BlogContentFormatting(Model[i]) + "...";
                             }
 
                             <input class="h2" type="submit" name="submit" id="@submitTitleId" hidden="hidden" value=@Model[i].Title />
-                            <a href="#" onclick="document.getElementById('@submitTitleId').click()" style="text-transform:capitalize;text-decoration-thickness:5px;font-size:larger;">@Model[i].Title</a>
+                            <a href="#" onclick="document.getElementById('@submitTitleId').click()" style="text-transform:capitalize;text-decoration-thickness:5px;font-size:24px;">@Model[i].Title</a>
                         </form>
                     </div>
                     <div class="row w-100" style="margin-left:12px">
                         <div class="col-lg-10 col-sm-12">
-                            <b>
+                            <p>
                                 @Html.Raw(sString)
-                            </b>
+                            </p>
                         </div>
                         <div class="col-lg-2 col-sm-12">
                             <a class="icon row" asp-controller="Blog" asp-action="Update" asp-route-id="@Model[i].ID">
