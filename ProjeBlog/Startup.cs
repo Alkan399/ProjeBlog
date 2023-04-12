@@ -42,7 +42,14 @@ namespace ProjeBlog
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllerRoute(
+                name: "DefaultArea",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+                endpoints.MapControllerRoute(
+                name: "Default",
+                pattern: "{controller=Home}/{action=Index}/{id?}"
+                );
             });
         }
     }

@@ -5,11 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\" />
-    <Folder Include="Areas\Management\Controllers\" />
-    <Folder Include="Areas\Management\Data\" />
-    <Folder Include="Areas\Management\Models\" />
-    <Folder Include="Areas\Management\Views\" />
     <Folder Include="wwwroot\fonts\" />
   </ItemGroup>
 
