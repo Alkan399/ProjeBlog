@@ -11,6 +11,41 @@
             </h1>
             <h2>@Model.Count</h2>
             <label>@Model[0].Email</label>
+
+            <table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID)
+                        </td>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpdatedDate)
+                        </td>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.Role)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </th>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ID })  |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        </td>
+                    </tr>
+                }
+            </table>
+           
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li class="active">Dashboard</li>

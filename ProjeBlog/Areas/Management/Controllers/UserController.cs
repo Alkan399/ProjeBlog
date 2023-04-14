@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace ProjeBlog.Areas.Management.Controllers
         }
         public IActionResult UserList()
         {
-            List<AppUser> users = _db.Users.ToList();
+            List<AppUser> users = _db.Users.Include(d => d.AppUserDetail).Include(e => e.Contents).ToList();
             return View(users);
         }
     }
