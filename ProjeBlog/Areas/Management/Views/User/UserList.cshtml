@@ -12,62 +12,31 @@
             <h2>@Model.Count</h2>
             <label>@Model[0].Email</label>
 
-            <table class="table-striped" style="border:dashed; align-items:center; align-content:center; padding:10px">
-                <tr>
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        User Name
-                    </th>
-                    <th>
-                        Email
-                    </th>
-                    <th>
-                        CreatedDate
-                    </th>
-                    <th>
-                        UpdatedDate
-                    </th>
-                    <th>
-                        Role
-                    </th>
-                    <th>
-                        Status
-                    </th>
-                    <th>
-                        AppUserDetail
-                    </th>
-                </tr>
+            <table>
                 @foreach (var item in Model)
                 {
-
                     <tr>
-
                         <td>
-                            | @Html.DisplayFor(modelItem => item.ID)
+                            @Html.DisplayFor(modelItem => item.ID)
+                        </td>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
                         </td>
                         <td>
-                            | @Html.DisplayFor(modelItem => item.UserName)
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
                         </td>
                         <td>
-                            | @Html.DisplayFor(modelItem => item.Email)
+                            @Html.DisplayFor(modelItem => item.UpdatedDate)
                         </td>
-                        <td>
-                            | @Html.DisplayFor(modelItem => item.CreatedDate)
-                        </td>
-                        <td>
-                            | @Html.DisplayFor(modelItem => item.UpdatedDate)
-                        </td>
-                        <td>
-                            | @Html.DisplayFor(modelItem => item.Role)
-                        </td>
-                        <td>
-                            | @Html.DisplayFor(modelItem => item.Status)
-                        </td>
-                        <td>
-                            | @Html.DisplayFor(modelItem => item.AppUserDetail)
-                        </td>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.Role)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </th>
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                             @Html.ActionLink("Details", "Details", new { id = item.ID })  |
