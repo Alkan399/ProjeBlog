@@ -1,0 +1,86 @@
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<ProjeBlog.Models.AppUser>
+
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Dashboard
+                <small>Control panel</small>
+            </h1>
+            <h2>@Model.Count</h2>
+            <label>@Model[0].Email</label>
+
+            <table class="table-striped" style="border:dashed; align-items:center; align-content:center; padding:10px">
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        User Name
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        CreatedDate
+                    </th>
+                    <th>
+                        UpdatedDate
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        AppUserDetail
+                    </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+
+                        <td>
+                            | @Html.DisplayFor(modelItem => item.ID)
+                        </td>
+                        <td>
+                            | @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            | @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            | @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            | @Html.DisplayFor(modelItem => item.UpdatedDate)
+                        </td>
+                        <td>
+                            | @Html.DisplayFor(modelItem => item.Role)
+                        </td>
+                        <td>
+                            | @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            | @Html.DisplayFor(modelItem => item.AppUserDetail)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ID })  |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        </td>
+                    </tr>
+                }
+            </table>
+           
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
+        </section>
+
+    </div><!-- /.content-wrapper -->
