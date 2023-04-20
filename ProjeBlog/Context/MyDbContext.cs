@@ -23,5 +23,6 @@ namespace ProjeBlog.Context
         public DbSet<AppUser> Users { get; set; }
         public DbSet<AppUserDetail> UsersDetails { get; set; }
         public DbSet<Content> Contents { get; set; }
+        public DbSet<Basvuru> Basvuru { get; set; }
     }
 }

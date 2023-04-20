@@ -1,6 +1,34 @@
 ﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 @model List<ProjeBlog.Models.AppUser>
+<!DOCTYPE html>
+<head>
+    <link href="~/management/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/management/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 
+    <meta charset="UTF-8">
+    <title>AdminLTE 2 | Data Tables</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="~/management/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome Icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <!-- DATA TABLES -->
+    <link href="~/management/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="~/management/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link href="~/management/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
 
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -11,41 +39,63 @@
             </h1>
             <h2>@Model.Count</h2>
             <label>@Model[0].Email</label>
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Hover Data Table</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">User Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Creation Date</th>
+                                <th scope="col">Update Date</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr scope="row">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ID)
+                                    </td>
+                                    <th>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </th>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdatedDate)
+                                    </td>
+                                    <th>
+                                        @Html.DisplayFor(modelItem => item.Role)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </th>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.ID })  |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                            <tfoot>
 
-            <table>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <th>
-                            @Html.DisplayFor(modelItem => item.UserName)
-                        </th>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreatedDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UpdatedDate)
-                        </td>
-                        <th>
-                            @Html.DisplayFor(modelItem => item.Role)
-                        </th>
-                        <th>
-                            @Html.DisplayFor(modelItem => item.Status)
-                        </th>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.ID })  |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                        </td>
-                    </tr>
-                }
-            </table>
-           
+                            </tfoot>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li class="active">Dashboard</li>

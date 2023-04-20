@@ -25,5 +25,11 @@ namespace ProjeBlog.Areas.Management.Controllers
             List<AppUser> users = _db.Users.Include(d => d.AppUserDetail).Include(e => e.Contents).ToList();
             return View(users);
         }
+
+        public IActionResult Create(AppUser user)
+        {
+            _db.Users.Add(user);
+            return View();
+        }
     }
 }
