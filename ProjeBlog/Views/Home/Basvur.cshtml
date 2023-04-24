@@ -1,24 +1,29 @@
-﻿<div><h2  style="text-align:center; font-size:large; ">Başvuru</h2></div>
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProjeBlog.Models.Basvuru
+<div>
+    <h2 style="text-align:center; padding-top:200px; font-size:32px;">Başvuru</h2>
+</div>
 <div>
     <form method="post" asp-controller="Home" asp-action="Basvur">
         <div class="mb-3">
-            <label class="col-form-label" asp-for="Title">Ad</label>
-            <input type="text" class="form-control-range" asp-for="FirstName" />
+            <label class="col-form-label" >Ad</label>
+            <input type="text" class="email_text" placeholder="Ad" asp-for="FirstName" required/>
         </div>
         <div class="mb-3">
-            <label class="col-form-label" asp-for="Title">Soyad</label>
-            <input type="text" class="form-control-range" asp-for="LastName" />
+            <label class="col-form-label" >Soyad</label>
+            <input type="text" class="email_text" placeholder="Soyad" asp-for="LastName" required/>
         </div>
         <div class="mb-3">
-            <label class="col-form-label" asp-for="Title">E-posta</label>
-            <input type="text" class="form-control-range" asp-for="Email" />
+            <label class="col-form-label" >E-posta</label>
+            <input type="text" class="email_text" placeholder="E-Posta" asp-for="Email" required/>
         </div>
         <div class="mb-3">
-            <label class="col-form-label" asp-for="Title">Doğum Tarihi</label>
-            <input type="date" class="form-control-range" asp-for="DateOfBirth" />
+            <label class="col-form-label">Doğum Tarihi</label>
+            <input type="date" class="email_text" placeholder="Doğum Tarihi" asp-for="DateOfBirth" required/>
         </div>
-
-        <button type="submit" class="btn btn-primary">Gönder</button>
-
+        <div style="padding-top:100px;padding-left:88%">
+            <button type="submit" class="btn btn-primary" style="font-size:32px">Gönder</button>
+        </div>
+        
     </form>
 </div>
