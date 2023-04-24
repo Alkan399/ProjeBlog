@@ -1,0 +1,24 @@
+﻿<div><h2  style="text-align:center; font-size:large; ">Başvuru</h2></div>
+<div>
+    <form method="post" asp-controller="Home" asp-action="Basvur">
+        <div class="mb-3">
+            <label class="col-form-label" asp-for="Title">Ad</label>
+            <input type="text" class="form-control-range" asp-for="FirstName" />
+        </div>
+        <div class="mb-3">
+            <label class="col-form-label" asp-for="Title">Soyad</label>
+            <input type="text" class="form-control-range" asp-for="LastName" />
+        </div>
+        <div class="mb-3">
+            <label class="col-form-label" asp-for="Title">E-posta</label>
+            <input type="text" class="form-control-range" asp-for="Email" />
+        </div>
+        <div class="mb-3">
+            <label class="col-form-label" asp-for="Title">Doğum Tarihi</label>
+            <input type="date" class="form-control-range" asp-for="DateOfBirth" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Gönder</button>
+
+    </form>
+</div>

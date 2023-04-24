@@ -8,13 +8,6 @@ namespace ProjeBlog.Models
 {
     public class Basvuru:BaseEntity
     {
-        [Required]
-        public string UserName { get; set; }
-        [Required]
-        public string Password { get; set; }
-        [NotMapped]
-        public string RePassword { get; set; }
-        [Required]
         public string Email { get; set; }
         [Required]
         public string FirstName { get; set; }
@@ -22,9 +15,5 @@ namespace ProjeBlog.Models
         public string LastName { get; set; }
         [Required]
         public DateTime DateOfBirth { get; set; }
-        public int AppUserID { get; set; }
-
-        // Relational Property
-        public AppUser AppUser { get; set; }
     }
 }
