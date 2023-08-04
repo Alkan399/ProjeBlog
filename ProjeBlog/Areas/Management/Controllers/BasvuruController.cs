@@ -9,5 +9,10 @@ namespace ProjeBlog.Areas.Management.Controllers
         {
             return View();
         }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }

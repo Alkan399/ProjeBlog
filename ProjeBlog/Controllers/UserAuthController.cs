@@ -5,6 +5,7 @@ namespace ProjeBlog.Controllers
 {
     public class UserAuthController : Controller
     {
+
         public IActionResult Login()
         {
             return View();

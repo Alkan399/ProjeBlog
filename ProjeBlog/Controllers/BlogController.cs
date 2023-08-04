@@ -27,7 +27,7 @@ namespace ProjeBlog.Controllers
         [HttpPost]
         public IActionResult Create(Content content)
         {
-            content.AppUserID = 7;
+            content.AppUserID = 4;
             _db.Contents.Add(content);
             _db.SaveChanges();
             return RedirectToAction("Blog");
@@ -42,7 +42,7 @@ namespace ProjeBlog.Controllers
         [HttpPost]
         public IActionResult Update(Content content)
         {
-            content.AppUserID = 7;
+            content.AppUserID = 4;
             content.Status = Enums.DataStatus.Updated;
             content.UpdatedDate = DateTime.Now;
             _db.Contents.Update(content);
