@@ -27,7 +27,7 @@ namespace ProjeBlog.Controllers
         [HttpPost]
         public IActionResult Create(Content content)
         {
-            content.AppUserID = 4;
+            content.AppUserID = 1;
             _db.Contents.Add(content);
             _db.SaveChanges();
             return RedirectToAction("Blog");

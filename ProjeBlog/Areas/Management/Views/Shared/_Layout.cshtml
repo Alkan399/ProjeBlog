@@ -1,4 +1,6 @@
 ﻿<head>
+    @addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
     <meta charset="UTF-8">
@@ -341,7 +343,7 @@
                             <span class="label label-primary pull-right">4</span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="~/management/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Başvuru Değerlendir</a></li>
+                            <li><a asp-controller="Basvuru" asp-action="Index"><i class="fa fa-circle-o"></i> Başvuru Değerlendir</a></li>
                             <li><a href="~/management/user/userlist"><i class="fa fa-circle-o"></i> Kayıtlı Kullanıcıları Görüntüle</a></li>
                             <li><a href="~/management/user/create"><i class="fa fa-circle-o"></i> Kullanıcı Kaydet</a></li>
                             <li><a href="~/management/pages/layout/fixed.html"><i class="fa fa-circle-o"></i> İçerikleri Görüntüle</a></li>
@@ -349,6 +351,8 @@
 
                         </ul>
                     </li>
+                </ul>
+                    
                    
             </section>
             <!-- /.sidebar -->

@@ -58,6 +58,55 @@
 
          }
     </div>
+    <div>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            
+            var methods = new Methods();
+            string submitTitleId = Model[i].ID.ToString() + "submitTitleId";
+            sString = methods.BlogContentFormatting(Model[i]) + "...";
+             
+
+            <div class="about_section layout_padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-sm-12">
+                            <div class="about_img"><img src="@Model[i].CoverImagePath"></div>
+                            @*<div class="like_icon"><img src="images/like-icon.png"></div>*@
+                            <p class="post_text">@Model[i].CreatedDate</p>
+                            <h2 class="most_text">@Model[i].Title</h2>
+                            <p class="lorem_text">@Html.Raw(sString)</p>
+                            <div class="social_icon_main">
+                                <div class="social_icon">
+                                    <ul>
+                                        <li><a href="#"><img src="/images/fb-icon.png"></a></li>
+                                        <li><a href="#"><img src="/images/twitter-icon.png"></a></li>
+                                        <li><a href="#"><img src="/images/instagram-icon.png"></a></li>
+                                    </ul>
+                                </div>
+                                <div class="read_bt"><a asp-controller="Blog" asp-action="ContentPage" asp-route-idx="@Model[i].ID">Okumaya Devam Et</a></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-12">
+                            <div class="about_main">
+                                <h1 class="follow_text">CONNECT & FOLLOW</h1>
+                                <div class="follow_icon">
+                                    <ul>
+                                        <li><a href="#"><img src="/images/fb-icon-1.png"></a></li>
+                                        <li><a href="#"><img src="/images/twitter-icon-1.png"></a></li>
+                                        <li><a href="#"><img src="/images/linkedin-icon-1.png"></a></li>
+                                        <li><a href="#"><img src="/images/instagram-icon-1.png"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+    </div>
 
 
 </div>
