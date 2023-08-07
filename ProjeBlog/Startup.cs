@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,7 +45,8 @@ namespace ProjeBlog
             {
                 endpoints.MapControllerRoute(
                 name: "DefaultArea",
-                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}",
+                defaults: new { area = "Blog", controller = "Home", action = "Index" }
                 );
                 endpoints.MapControllerRoute(
                 name: "Default",

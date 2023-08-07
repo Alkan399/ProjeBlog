@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjeBlog.Models;
 
-namespace ProjeBlog.Controllers
+namespace ProjeBlog.Areas.Blog.Controllers
 {
     public class UserAuthController : Controller
     {
+        [Area("Blog")]
+
 
         public IActionResult Login()
         {

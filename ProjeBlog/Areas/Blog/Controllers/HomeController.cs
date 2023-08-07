@@ -2,8 +2,10 @@
 using ProjeBlog.Context;
 using ProjeBlog.Models;
 
-namespace ProjeBlog.Controllers
+namespace ProjeBlog.Areas.Blog.Controllers
 {
+    [Area("Blog")]
+
     public class HomeController : Controller
     {
         MyDbContext _db;

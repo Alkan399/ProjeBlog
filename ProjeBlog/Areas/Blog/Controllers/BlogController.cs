@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProjeBlog.Controllers
+namespace ProjeBlog.Areas.Blog.Controllers
 {
+    [Area("Blog")]
+
     public class BlogController : Controller
     {
         MyDbContext _db;
@@ -36,7 +38,7 @@ namespace ProjeBlog.Controllers
         public IActionResult Update(int id)
         {
             Content content = _db.Contents.Find(id);
-            
+
             return View(content);
         }
         [HttpPost]
@@ -68,7 +70,7 @@ namespace ProjeBlog.Controllers
 
             List<Content> content = _db.Contents.Where(x => x.ID == id).ToList();
             return View(content);
-        }  
+        }
         [HttpGet]
         public IActionResult ContentPage()
         {

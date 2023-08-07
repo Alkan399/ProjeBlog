@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    <div>
+    @*<div>
         @for (int i = 0; i < Model.Count; i++)
         {
             <div class="row">
@@ -57,7 +57,7 @@
             </div>
 
          }
-    </div>
+    </div>*@
     <div>
         @for (int i = 0; i < Model.Count; i++)
         {
@@ -87,7 +87,7 @@
                                 <div class="read_bt"><a asp-controller="Blog" asp-action="ContentPage" asp-route-idx="@Model[i].ID">Okumaya Devam Et</a></div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-sm-12">
+@*                        <div class="col-lg-4 col-sm-12">
                             <div class="about_main">
                                 <h1 class="follow_text">CONNECT & FOLLOW</h1>
                                 <div class="follow_icon">
@@ -99,7 +99,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
             </div>
