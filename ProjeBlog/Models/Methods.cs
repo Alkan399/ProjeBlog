@@ -12,11 +12,13 @@ namespace ProjeBlog.Models
             if (content.Entry.Length > 200)//Burası değişecek
             {
 
-                for (int y = 0; y < 196; y++)
+                for (int y = 0; y < 195; y++)
                 {
-                    string sBr = String.Concat(sString[y + 1], sString[y + 2]) + sString[y + 3] + sString[y + 4];
-                    string sP = String.Concat(sString[y + 1], sString[y + 2]) + sString[y + 3];
-                    if (sBr == "<br>" || sP == "<p>")
+                    //string sBr = String.Concat(sString[y + 1], sString[y + 2]) + sString[y + 3] + sString[y + 4];
+                    string sBr = String.Concat(sString[y], sString[y + 1], sString[y + 2], sString[y + 3]);
+
+                    //string sP = String.Concat(sString[y + 1], sString[y + 2]) + sString[y + 3];
+                    if (sBr == "<br>")
                     {
 
                         sString = sString.Substring(0, y);
@@ -33,11 +35,13 @@ namespace ProjeBlog.Models
             }
             else
             {
-                for (int y = 0; y < content.Entry.Length; y++)
+                for (int y = 0; y < content.Entry.Length - 5; y++)
                 {
-                    string sBr = String.Concat(sString[y + 1], sString[y + 2]) + sString[y + 3] + sString[y + 4];
-                    string sP = String.Concat(sString[y + 1], sString[y + 2]) + sString[y + 3];
-                    if (sBr == "<br>" || sP == "<p>")
+                    //string sBr = String.Concat(sString[y + 1], sString[y + 2]) + sString[y + 3] + sString[y + 4];
+                    //string sP = String.Concat(sString[y + 1], sString[y + 2]) + sString[y + 3];
+
+                    string sBr = String.Concat(sString[y], sString[y + 1], sString[y + 2], sString[y + 3]);
+                    if (sBr == "<br>")
                     {
 
                         sString = sString.Substring(0, y);

@@ -6,34 +6,36 @@
     <title>CKEditor</title>
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 </head>
-<form method="post" asp-controller="Blog" asp-action="Create">
-    <div class="mb-3">
-        <label class="col-form-label" asp-for="Title">Başlık</label>
-        <input type="text" class="form-control" asp-for="Title" />
-    </div>
-    <div class="mb-3">
-        <label class="col-form-label" asp-for="CoverImagePath">Kapak Resmi</label>
-        <input type="text" class="form-control" asp-for="CoverImagePath" />
-    </div>
-    <div class="mb-3">
-        <label class="col-form-label" asp-for="Entry">Yazı</label>
-        <textarea type="text" class="ck-editor" id="editor" asp-for="Entry"></textarea>
-    </div>
+<div style="width:60%; margin-left:auto; margin-right:auto; padding-top: 80px">
+        <form method="post" asp-controller="Blog" asp-action="Create">
+            <div class="mb-3">
+                <label class="col-form-label" asp-for="Title">Başlık</label>
+                <input type="text" class="form-control" asp-for="Title" />
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label" asp-for="CoverImagePath">Kapak Resmi</label>
+                <input type="text" class="form-control" asp-for="CoverImagePath" />
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label" asp-for="Entry">Yazı</label>
+                <textarea type="text" class="ck-editor" id="editor" asp-for="Entry"></textarea>
+            </div>
 
-    <button type="submit" class="btn btn-primary">Kaydet</button>
+            <button type="submit" class="btn btn-primary" style="margin-top:30px; width:120px; height:40px; float:right">Kaydet</button>
 
-</form>
-<script>
-    ClassicEditor
-        .create(document.querySelector('#editor'))
-        .then(editor => {
-            console.log(editor);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-                //CKEDITOR.instances.editor.setData('<p>This is the editor data.</p>');
+        </form>
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#editor'))
+                .then(editor => {
+                    console.log(editor);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+                            //CKEDITOR.instances.editor.setData('<p>This is the editor data.</p>');
 
-                //CKEDITOR.instances['#editor'].setData('<p>Deneme</p>');
-                //CKEDITOR.instances.{ { id } }.insertText($("asd").attr('data-value'));
-</script>
+                            //CKEDITOR.instances['#editor'].setData('<p>Deneme</p>');
+                            //CKEDITOR.instances.{ { id } }.insertText($("asd").attr('data-value'));
+        </script>
+</div>

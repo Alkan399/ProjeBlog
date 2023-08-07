@@ -7,7 +7,6 @@ namespace ProjeBlog.Models
         public string Entry { get; set; }
         [Column(TypeName ="nvarchar(30)"),Required]
         public string Title { get; set; }
-
         public int AppUserID { get; set; }
         public string CoverImagePath { get; set; }
         public int Views { get; set; } = 0;
