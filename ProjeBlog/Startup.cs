@@ -33,8 +33,7 @@ namespace ProjeBlog
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.LoginPath = "/Blog/UserAuth/Login";
-            }); 
-            services.AddScoped<IRepository<T>>
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
