@@ -42,7 +42,7 @@ namespace ProjeBlog.Areas.Blog.Controllers
         [HttpPost]
         public IActionResult Basvur(Basvuru basvuru)
         {
-            _db.Basvuru.Add(basvuru);
+            _db.Basvurus.Add(basvuru);
             _db.SaveChanges();
             return RedirectToAction("Basvur");
         }

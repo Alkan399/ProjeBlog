@@ -1,5 +1,4 @@
-﻿
-@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 @model List<ProjeBlog.Models.Basvuru>
 
 
@@ -15,7 +14,7 @@
     </div><!-- /.box-header -->
     <div class="box-body">
         <table id="ContentTable" class="table table-bordered table-hover">
-            <thead >
+            <thead>
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">FirstName</th>
@@ -45,7 +44,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.DateOfBirth)
                         </td>
-                
+
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                             @Html.ActionLink("Details", "Details", new { id = item.ID })  |

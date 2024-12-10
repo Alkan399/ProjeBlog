@@ -20,5 +20,6 @@ namespace ProjeBlog.Models
         // Relational Property
         public virtual AppUserDetail AppUserDetail { get; set; }
         public virtual List<Content> Contents { get; set; }
+        public virtual Basvuru Basvuru { get; set; }
     }
 }
