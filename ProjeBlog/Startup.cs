@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProjeBlog.Context;
+using ProjeBlog.RepositoryPattern.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,7 @@ namespace ProjeBlog
             {
                 options.LoginPath = "/Blog/UserAuth/Login";
             }); 
+            services.AddScoped<IRepository<T>>
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
