@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProjeBlog.Context;
+using ProjeBlog.Models;
+using ProjeBlog.RepositoryPattern.Base;
+using ProjeBlog.RepositoryPattern.Concrete;
 using ProjeBlog.RepositoryPattern.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -30,10 +33,21 @@ namespace ProjeBlog
         {
             services.AddDbContext<MyDbContext>(options => options.UseSqlServer(_configuration["ConnectionStrings:Mssql"]));
             services.AddControllersWithViews();
+            
+            services.AddScoped<IRepository<AppUser>, Repository<AppUser>>();
+            services.AddScoped<IRepository<Content>, Repository<Content>>();
+            services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.LoginPath = "/Blog/UserAuth/Login";
+                options.Cookie.Name = "UserLoginDetail";
             });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("role", "admin"));
+            });
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +60,7 @@ namespace ProjeBlog
 
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication(); 
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

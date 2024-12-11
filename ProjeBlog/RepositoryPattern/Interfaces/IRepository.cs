@@ -15,6 +15,7 @@ namespace ProjeBlog.RepositoryPattern.Interfaces
         void Delete(int id);
         void SpecialDelete(int id);
         List<T> GetByFilter(Expression<Func<T, bool>> exp);
+        T Default(Expression<Func<T, bool>> exp);
         int Count();
         bool Any(Expression<Func<T, bool>> exp);
         List<T> SelectActivesByLimit(int count);

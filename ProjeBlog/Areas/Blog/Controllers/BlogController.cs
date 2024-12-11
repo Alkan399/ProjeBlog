@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
+using ProjeBlog.RepositoryPattern.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,16 @@ namespace ProjeBlog.Areas.Blog.Controllers
     {
         MyDbContext _db;
         int id;
-        public BlogController(MyDbContext db)
+        IRepository<Content> _repoContent;
+        public BlogController(MyDbContext db,
+            IRepository<Content> repoContent)
         {
             _db = db;
+            _repoContent = repoContent;
         }
         public IActionResult Blog()
         {
-            List<Content> content = _db.Contents.Where(a => a.Status != Enums.DataStatus.Deleted).ToList();
+            List<Content> content = _repoContent.GetAll();
             return View(content);
         }
         public IActionResult Create()
@@ -29,15 +33,14 @@ namespace ProjeBlog.Areas.Blog.Controllers
         [HttpPost]
         public IActionResult Create(Content content)
         {
-            content.AppUserID = 1;
-            _db.Contents.Add(content);
-            _db.SaveChanges();
+            content.AppUserID = 4;
+            _repoContent.Add(content);
             return RedirectToAction("Blog");
         }
 
         public IActionResult Update(int id)
         {
-            Content content = _db.Contents.Find(id);
+            Content content = _repoContent.GetById(id);
 
             return View(content);
         }
@@ -45,20 +48,13 @@ namespace ProjeBlog.Areas.Blog.Controllers
         public IActionResult Update(Content content)
         {
             content.AppUserID = 4;
-            content.Status = Enums.DataStatus.Updated;
-            content.UpdatedDate = DateTime.Now;
-            _db.Contents.Update(content);
-            _db.SaveChanges();
+            _repoContent.Update(content);
             return RedirectToAction("Blog");
         }
 
         public IActionResult Delete(int id)
         {
-            Content content = _db.Contents.Find(id);
-            content.Status = Enums.DataStatus.Deleted;
-            content.UpdatedDate = DateTime.Now;
-            _db.Contents.Update(content);
-            _db.SaveChanges();
+            _repoContent.Delete(id);
             return RedirectToAction("Blog");
         }
         [Route("/{idx}")]
@@ -74,10 +70,9 @@ namespace ProjeBlog.Areas.Blog.Controllers
         [HttpGet]
         public IActionResult ContentPage()
         {
-            /*var c = _db.Contents.Where(x => x.ID == id).ToList();
+            var c = _db.Contents.Where(x => x.ID == id).ToList();
 
-            return View(c.ToList());*/
-            return View();
+            return View(c.ToList());
 
         }
 

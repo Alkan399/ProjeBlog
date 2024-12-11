@@ -12,7 +12,7 @@ namespace ProjeBlog.RepositoryPattern.Base
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
         MyDbContext _db;
-        DbSet<T> table;
+        protected DbSet<T> table;
         public Repository(MyDbContext db)
         {
             _db = db;
@@ -84,6 +84,11 @@ namespace ProjeBlog.RepositoryPattern.Base
             item.UpdatedDate = DateTime.Now;
             table.Update(item);
             Save();
+        }
+
+        public T Default(Expression<Func<T, bool>> exp)
+        {
+            return table.FirstOrDefault(exp);
         }
     }
 }

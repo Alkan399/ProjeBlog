@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
 using System;
@@ -8,7 +9,7 @@ using System.Linq;
 namespace ProjeBlog.Areas.Management.Controllers
 {
     [Area("Management")]
-
+    [Authorize]
     public class ContentController : Controller
     {
         MyDbContext _db;
