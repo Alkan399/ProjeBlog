@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
+using ProjeBlog.RepositoryPattern.Interfaces;
+using System.Collections.Generic;
 
 namespace ProjeBlog.Areas.Blog.Controllers
 {
@@ -10,13 +12,17 @@ namespace ProjeBlog.Areas.Blog.Controllers
     {
         MyDbContext _db;
         int id;
-        public HomeController(MyDbContext db)
+        IRepository<Content> _repoContent;
+        public HomeController(MyDbContext db, 
+            IRepository<Content> repository)
         {
             _db = db;
+            _repoContent = repository;
         }
         public IActionResult Index()
         {
-            return View();
+            List<Content> content = _repoContent.GetAll();
+            return View(content);
         }
         public IActionResult About()
         {
