@@ -359,8 +359,8 @@
                             <span class="label label-primary pull-right">4</span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a asp-area="" asp-controller="Blog" asp-action="Create"><i class="fa fa-circle-o"></i> İçerik Oluştur</a></li>
-                            <li><a asp-area="Management" asp-controller="Content" asp-action="Index"></i> İçeriklerim</a></li>
+                            <li><a asp-area="Management" asp-controller="Content" asp-action="Create"><i class="fa fa-circle-o"></i> İçerik Oluştur</a></li>
+                            <li><a asp-area="Management" asp-controller="Content" asp-action="Index"><i class="fa fa-circle-o"></i> İçeriklerim</a></li>
                             
 
                         </ul>
@@ -374,8 +374,8 @@
         </aside>
         <div class="content-wrapper">
 
-            <section class="content">
-                <div class="row">
+            <section class="content center">
+                <div class="row center">
                     @RenderBody()
 
                 </div>

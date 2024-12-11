@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
@@ -18,36 +19,36 @@ namespace ProjeBlog.Areas.Management.Controllers
         MyDbContext _db;
         int id;
         IRepository<AppUser> _repoUser;
-        string _userId;
+        IRepository<Content> _repoContent;
         public ContentController(MyDbContext db,
             IRepository<AppUser> repoUser,
-            string userId)
+            IRepository<Content> repoContent)
         {
-            _userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "userId")?.Value;
             _db = db;
             _repoUser  = repoUser;
+            _repoContent = repoContent;
+
         }
-        public async Task<IActionResult> Index(string id)
+        HttpContext _httpContext;
+        public  IActionResult Index()
         {
+            int userId = _repoUser.GetUserId(HttpContext);
             //Authorization' dan sonra düzeltilecek
-            List<Content> content = _db.Contents.Where(a => (a.Status != Enums.DataStatus.Deleted) && a.AppUserID == Int32.Parse(id)).ToList();
+            List<Content> content = _db.Contents.Where(a => (a.Status != Enums.DataStatus.Deleted) && a.AppUserID == userId).ToList();
             return View(content);
         }
         public IActionResult Update(int id)
         {
-            Content content = _db.Contents.Find(id);
+            Content content = _repoContent.GetById(id);
 
             return View(content);
         }
         [HttpPost]
         public IActionResult Update(Content content)
         {
-            content.AppUserID = 1;
-            content.Status = Enums.DataStatus.Updated;
-            content.UpdatedDate = DateTime.Now;
-            _db.Contents.Update(content);
-            _db.SaveChanges();
-            return RedirectToAction("Blog");
+            content.AppUserID = _repoUser.GetUserId(HttpContext);
+            _repoContent.Update(content);
+            return RedirectToAction("Index");
         }
         public IActionResult Create()
         {
@@ -57,10 +58,19 @@ namespace ProjeBlog.Areas.Management.Controllers
         [HttpPost]
         public IActionResult Create(Content content)
         {
-            content.AppUserID = 1;
-            _db.Contents.Add(content);
-            _db.SaveChanges();
-            return RedirectToAction("Blog");
+            content.AppUserID = _repoUser.GetUserId(HttpContext);
+            _repoContent.Add(content);
+            return RedirectToAction("Index");
+        }
+        public IActionResult Delete(int id)
+        {
+            _repoContent.Delete(id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult Details(int id)
+        {
+            Content content = _repoContent.GetById(id);
+            return View(content);
         }
     }
 }

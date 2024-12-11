@@ -1,15 +1,16 @@
-﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+﻿
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 @model ProjeBlog.Models.Content
 <head>
-
     <meta charset="utf-8">
     <title>CKEditor</title>
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 </head>
-<div style="width:60%; margin-left:auto; margin-right:auto; padding-top: 80px">
-        <form method="post"asp-area="Management" asp-controller="Content" asp-action="Create">
+<body>
+    <div style="width:80%;display: flex; justify-content: center; align-items: center;margin-left:auto; margin-right:auto;">
+        <form method="post" asp-area="Management" asp-controller="Content" asp-action="Update">
             <div class="mb-3">
-                <label class="col-form-label" asp-for="Title">Başlık</label>
+                <label style="padding:10px" class="col-form-label" asp-for="Title">Başlık</label>
                 <input type="text" class="form-control" asp-for="Title" />
             </div>
             <div class="mb-3">
@@ -17,25 +18,31 @@
                 <input type="text" class="form-control" asp-for="CoverImagePath" />
             </div>
             <div class="mb-3">
-                <label class="col-form-label" asp-for="Entry">Yazı</label>
+                <label style="padding:10px" class="col-form-label" asp-for="Entry">Yazı</label>
                 <textarea type="text" class="ck-editor" id="editor" asp-for="Entry"></textarea>
             </div>
 
-        <button type="submit" class="btn btn-primary" style="margin-top:30px; width:25%; height:40px; float:right">Kaydet</button>
+            <button style="margin-top:15px;margin-bottom:15px;margin-left:auto;margin-right:0;float:right;width:25%" type="submit" class="btn btn-primary">Kaydet</button>
+
+            <label id="contentHiddenLabel" hidden="">@Model.Entry</label>
 
         </form>
         <script>
+            var string = document.getElementById('contentHiddenLabel').textContent;
+            console.log(string);
             ClassicEditor
                 .create(document.querySelector('#editor'))
                 .then(editor => {
+                    editor.setData(string);
                     console.log(editor);
+                    console.log("deneme");
                 })
                 .catch(error => {
                     console.error(error);
                 });
-                            //CKEDITOR.instances.editor.setData('<p>This is the editor data.</p>');
-
-                            //CKEDITOR.instances['#editor'].setData('<p>Deneme</p>');
-                            //CKEDITOR.instances.{ { id } }.insertText($("asd").attr('data-value'));
         </script>
-</div>
+
+
+    </div>
+
+</body>

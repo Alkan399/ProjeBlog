@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
 using ProjeBlog.RepositoryPattern.Interfaces;
@@ -89,6 +90,12 @@ namespace ProjeBlog.RepositoryPattern.Base
         public T Default(Expression<Func<T, bool>> exp)
         {
             return table.FirstOrDefault(exp);
+        }
+
+        public int GetUserId(HttpContext httpContext)
+        {
+            var id = httpContext.User.Claims.FirstOrDefault(x => x.Type == "userId")?.Value;
+            return Int32.Parse(id);
         }
     }
 }

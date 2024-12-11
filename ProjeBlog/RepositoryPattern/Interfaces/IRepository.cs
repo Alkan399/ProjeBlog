@@ -1,4 +1,5 @@
-﻿using ProjeBlog.Models;
+﻿using Microsoft.AspNetCore.Http;
+using ProjeBlog.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -19,5 +20,6 @@ namespace ProjeBlog.RepositoryPattern.Interfaces
         int Count();
         bool Any(Expression<Func<T, bool>> exp);
         List<T> SelectActivesByLimit(int count);
+        int GetUserId(HttpContext httpContext);
     }
 }
