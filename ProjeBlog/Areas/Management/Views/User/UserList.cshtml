@@ -1,19 +1,45 @@
-﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using ProjeBlog.Models
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 @model List<ProjeBlog.Models.AppUser>
+
 <!DOCTYPE html>
 
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                Dashboard
-                <small>Control panel</small>
-            </h1>
-            <h2>@Model.Count</h2>
-            <label>@Model[0].Email</label>
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Hover Data Table</h3>
-                </div><!-- /.box-header -->
+   
+            
+            <h3 class="box-title">Kullanıcılar</h3>
+         <!-- /.box-header -->
+        <!-- Filter Section -->
+        <div class="box">
+            <div class="box-header">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="filterUserName">User Name</label>
+                        <input type="text" id="filterUserName" class="form-control" placeholder="Kullanıcı Adı">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="filterEmail">Email</label>
+                        <input type="text" id="filterEmail" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="filterRole">Role</label>
+                        <input type="text" id="filterRole" class="form-control" placeholder="Rol">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="filterStatus">Durum</label>
+                        <select id="filterStatus" class="form-control">
+                            <option value="">Hepsi</option>
+                            <option value="Active">Aktif</option>
+                            <option value="Inactive">Pasif</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label>&nbsp;</label>
+                        <button id="filterButton" class="btn btn-primary btn-block">Filtreleri Uygula</button>
+                    </div>
+                </div>
+            </div>
                 <div class="box-body">
                     <table id="example2" class="table table-bordered table-hover">
                         <thead>
@@ -53,8 +79,21 @@
                                         @Html.DisplayFor(modelItem => item.Status)
                                     </th>
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.ID })  |
+                                        @Html.ActionLink("Edit", "Update", new { id = item.ID }) |
+                                        <a href="javascript:void(0);" class="details-btn"
+                                           data-id="@item.ID"
+                                           data-username="@item.UserName"
+                                           data-email="@item.Email"
+                                           data-created="@item.CreatedDate"
+                                           data-updated="@item.UpdatedDate"
+                                           data-role="@item.Role"
+                                           data-status="@item.Status"
+                                           data-firstname="@item.AppUserDetail.FirstName"
+                                           data-lastname="@item.AppUserDetail.LastName"
+                                           data-dateofbirth="@item.AppUserDetail.DateOfBirth">
+                                        Details
+                                       </a> |
+
                                         @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                                     </td>
                                 </tr>
@@ -67,8 +106,25 @@
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
 
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
+            
         </section>
+<!-- Modal -->
+<div id="myModal" class="modal" style="display:none;">
+    <div class="modal-content" style="height:60%; width:60%; background-color:aliceblue; margin:auto;margin-top:15px;border:2px solid #ddd">
+        <span class="close" style="width:5%; height:auto;font-size:30px">&times;</span>
+        <h2 style="padding:2%;margin:0;text-align:center; background-color:cadetblue; border:2px solid #4f8e90">Kullanıcı Detayları</h2>
+        <div style="padding: 20px;">
+            <p><strong>Ad:</strong> <span id="modalFirstName">John</span></p>
+            <p><strong>Soyad:</strong> <span id="modalLastName">Doe</span></p>
+            <p><strong>ID:</strong> <span id="modalId">12345</span></p>
+            <p><strong>Doğum Tarihi:</strong> <span id="modalBirthDate">01/01/1990</span></p>
+            <p><strong>Username:</strong> <span id="modalUserName">johndoe</span></p>
+            <p><strong>Rol:</strong> <span id="modalRole">Admin</span></p>
+            <p><strong>Durum:</strong> <span id="modalStatus">Aktif</span></p>
+            <p><strong>Başvuru ID:</strong> <span id="modalApplicationId">98765</span></p>
+        </div>
+    </div>
+</div>
+    
+
+<script src="~/Scripts/UserListDetailModal.js"></script>

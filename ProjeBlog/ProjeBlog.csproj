@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Scripts\UserListDetailModal.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="datatables.net" Version="1.13.6" />
     <PackageReference Include="jQuery" Version="3.7.0" />

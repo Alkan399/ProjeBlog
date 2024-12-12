@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
+using ProjeBlog.Models.Dto;
 using ProjeBlog.RepositoryPattern.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace ProjeBlog.Areas.Management.Controllers
 {
@@ -16,6 +19,7 @@ namespace ProjeBlog.Areas.Management.Controllers
     {
         MyDbContext _db;
         IAppUserRepository _repoAppUser;
+
         public UserController(MyDbContext db,
             IAppUserRepository repoAppUser)
         {
@@ -33,26 +37,49 @@ namespace ProjeBlog.Areas.Management.Controllers
             return View(users);
         }
 
-        public IActionResult Create(AppUser user)
+        public IActionResult Create()
         {
-            _repoAppUser.Add(user);
-            return View();
-        }
-        public IActionResult Edit(int id)
-        {
-            AppUser appUser = _repoAppUser.GetById(id);
             return View();
         }
         [HttpPost]
-        public IActionResult Edit(AppUser appUser)
+        public IActionResult Create(AppUser user)
         {
-            _repoAppUser.Update(appUser);
+            
+            _repoAppUser.Add(user);
             return View();
+        }
+        public IActionResult Update(int id)
+        {
+            AppUser appUser = _repoAppUser.GetUserWithDetailById(id);
+            return View(appUser);
+        }
+        [HttpPost]
+        public IActionResult Update(AppUser appUser)
+        {
+            _repoAppUser.UpdateUserWithDetails(appUser);
+            return RedirectToAction("UserList");   
         }
         public IActionResult Delete(int id)
         {
             _repoAppUser.Delete(id);
-            return View();
+            return RedirectToAction("UserList");
+        }
+        [Route("User/FilterUsers")]
+        [HttpPost]
+        public IActionResult FilterUsers([FromBody] AppUserFilterDto criteria)
+        {
+            Expression<Func<AppUser, bool>> filterExpression = user =>
+                (string.IsNullOrEmpty(criteria.UserName) || user.UserName.Contains(criteria.UserName)) &&
+                (string.IsNullOrEmpty(criteria.Email) || user.Email.Contains(criteria.Email)) &&
+                (string.IsNullOrEmpty(criteria.Role) || user.Role.ToString() == criteria.Role.ToString()) &&
+                (string.IsNullOrEmpty(criteria.Status) || user.Status.ToString() == criteria.Status.ToString());
+
+            var filteredUsers = _repoAppUser.GetByFilter(filterExpression);
+            if (filteredUsers == null || !filteredUsers.Any())
+            {
+                return Json(new { message = "No users found." });
+            }
+            return Json(filteredUsers);
         }
     }
 }

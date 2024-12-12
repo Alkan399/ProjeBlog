@@ -19,7 +19,7 @@ namespace ProjeBlog.RepositoryPattern.Base
             _db = db;
             table = db.Set<T>();
         }
-        private void Save()
+        public void Save()
         {
             _db.SaveChanges();
         }
