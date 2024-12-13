@@ -71,10 +71,13 @@ namespace ProjeBlog.Areas.Management.Controllers
             Expression<Func<AppUser, bool>> filterExpression = user =>
                 (string.IsNullOrEmpty(criteria.UserName) || user.UserName.Contains(criteria.UserName)) &&
                 (string.IsNullOrEmpty(criteria.Email) || user.Email.Contains(criteria.Email)) &&
-                (string.IsNullOrEmpty(criteria.Role) || user.Role.ToString() == criteria.Role.ToString()) &&
-                (string.IsNullOrEmpty(criteria.Status) || user.Status.ToString() == criteria.Status.ToString());
+                (string.IsNullOrEmpty(criteria.Role) || (criteria.Role == "Admin"
+            ? user.Role == Enums.Role.Admin : user.Role == Enums.Role.User)) &&
+                (string.IsNullOrEmpty(criteria.Status) || (criteria.Status == "Active"
+            ? user.Status == Enums.DataStatus.Inserted || user.Status == Enums.DataStatus.Updated
+            : user.Status == Enums.DataStatus.Deleted));
 
-            var filteredUsers = _repoAppUser.GetByFilter(filterExpression);
+            var filteredUsers = _repoAppUser.GetUserWithDetailsByFilter(filterExpression);
             if (filteredUsers == null || !filteredUsers.Any())
             {
                 return Json(new { message = "No users found." });

@@ -24,7 +24,12 @@
                     </div>
                     <div class="col-md-2">
                         <label for="filterRole">Role</label>
-                        <input type="text" id="filterRole" class="form-control" placeholder="Rol">
+                        @* <input type="text" id="filterRole" class="form-control" placeholder="Rol"> *@
+                        <select id="filterRole" class="form-control">
+                            <option value="">Hepsi</option>
+                            <option value="Admin">Admin</option>
+                            <option value="User">User</option>
+                        </select>
                     </div>
                     <div class="col-md-2">
                         <label for="filterStatus">Durum</label>
@@ -41,7 +46,7 @@
                 </div>
             </div>
                 <div class="box-body">
-                    <table id="example2" class="table table-bordered table-hover">
+                    <table id="tableUsers" class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">Id</th>

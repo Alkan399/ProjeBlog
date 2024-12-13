@@ -6,6 +6,7 @@ using ProjeBlog.RepositoryPattern.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace ProjeBlog.RepositoryPattern.Concrete
 {
@@ -43,6 +44,10 @@ namespace ProjeBlog.RepositoryPattern.Concrete
             tableUserDetails.Update(userDetail);
             table.Update(user);
             Save();
+        }
+        public List<AppUser> GetUserWithDetailsByFilter(Expression<Func<AppUser, bool>> exp)
+        {
+            return table.Where(exp).Include(x => x.AppUserDetail).ToList();
         }
     }
 }

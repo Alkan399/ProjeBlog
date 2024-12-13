@@ -15,6 +15,7 @@ using ProjeBlog.RepositoryPattern.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ProjeBlog
@@ -37,6 +38,10 @@ namespace ProjeBlog
             services.AddScoped<IRepository<AppUser>, Repository<AppUser>>();
             services.AddScoped<IRepository<Content>, Repository<Content>>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+            });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.LoginPath = "/Blog/UserAuth/Login";

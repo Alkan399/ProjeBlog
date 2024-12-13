@@ -1,4 +1,6 @@
-﻿namespace ProjeBlog.Models.Dto
+﻿using ProjeBlog.Enums;
+
+namespace ProjeBlog.Models.Dto
 {
     public class AppUserFilterDto
     {
