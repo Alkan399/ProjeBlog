@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
 using ProjeBlog.Models.Dto;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection.Metadata;
 
 namespace ProjeBlog.Areas.Management.Controllers
 {
@@ -56,8 +58,19 @@ namespace ProjeBlog.Areas.Management.Controllers
         [HttpPost]
         public IActionResult Update(AppUser appUser)
         {
+            string msg = "Kayıt güncelleme BAŞARISIZ!";
             _repoAppUser.UpdateUserWithDetails(appUser);
-            return RedirectToAction("UserList");   
+            AppUser c = _repoAppUser.GetById(appUser.ID);
+            if (appUser.UserName == c.UserName && appUser.Role == c.Role && appUser.Email == c.Email && appUser.AppUserDetail.DateOfBirth == c.AppUserDetail.DateOfBirth && appUser.AppUserDetail.FirstName == c.AppUserDetail.FirstName && appUser.AppUserDetail.LastName == c.AppUserDetail.LastName)
+            {
+                msg = "Kayıt güncelleme BAŞARILI!";
+                ViewData["Message"] = msg;
+            }
+            else
+            {
+                ViewData["Message"] = msg;
+            }
+            return View(appUser);
         }
         public IActionResult Delete(int id)
         {
@@ -82,7 +95,12 @@ namespace ProjeBlog.Areas.Management.Controllers
             {
                 return Json(new { message = "No users found." });
             }
-            return Json(filteredUsers);
+            var jsonResponse = JsonConvert.SerializeObject(filteredUsers, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                Formatting = Formatting.Indented
+            });
+            return Content(jsonResponse, "application/json");
         }
     }
 }

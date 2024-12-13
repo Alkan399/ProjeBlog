@@ -17,8 +17,8 @@ namespace ProjeBlog.RepositoryPattern.Concrete
         { 
             tableAppUsers = db.Set<AppUser>();
         }
-        public List<Content> GetUserWithDetailsByFilter(Expression<Func<Content, bool>> exp)
-        {
+        public List<Content> GetContentWithUser(Expression<Func<Content, bool>> exp)
+        { 
             return table.Where(exp).Include(x => x.AppUser).ToList();
         }
     }

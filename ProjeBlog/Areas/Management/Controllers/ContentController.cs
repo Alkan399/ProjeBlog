@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
 using ProjeBlog.Models.Dto;
@@ -55,10 +56,21 @@ namespace ProjeBlog.Areas.Management.Controllers
         [HttpPost]
         public IActionResult Update(Content content)
         {
+            string msg = "Kayıt güncelleme BAŞARISIZ!";
             content.AppUserID = _repoUser.GetUserId(HttpContext);
             _repoContent.Update(content);
-            return RedirectToAction("Index");
-        }
+            Content c = _repoContent.GetById(content.ID);
+            if(content.Title == c.Title && content.CoverImagePath == c.CoverImagePath && content.Entry == c.Entry)
+            {
+                msg = "Kayıt güncelleme BAŞARILI!";
+                ViewData["Message"] = msg;
+            }
+            else
+            {
+                ViewData["Message"] = msg;
+            }
+            return View(content);
+        }   
         public IActionResult Create()
         {
             return View();
@@ -76,6 +88,11 @@ namespace ProjeBlog.Areas.Management.Controllers
             _repoContent.Delete(id);
             return RedirectToAction("Index");
         }
+        public IActionResult DeleteManagement(int id)
+        {
+            _repoContent.Delete(id);
+            return RedirectToAction("ListAllContents");
+        }
         public IActionResult Details(int id)
         {
             Content content = _repoContent.GetById(id);
@@ -91,12 +108,15 @@ namespace ProjeBlog.Areas.Management.Controllers
             ? content.Status == Enums.DataStatus.Inserted || content.Status == Enums.DataStatus.Updated
             : content.Status == Enums.DataStatus.Deleted));
 
-            var filteredUsers = _repoContent.GetUserWithDetailsByFilter(filterExpression);
-            if (filteredUsers == null || !filteredUsers.Any())
+            var filteredContents = _repoContent.GetContentWithUser(filterExpression);
+            
+            var jsonResponse = JsonConvert.SerializeObject(filteredContents, new JsonSerializerSettings
             {
-                return Json(new { message = "No users found." });
-            }
-            return Json(filteredUsers);
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                Formatting = Formatting.Indented 
+            });
+
+            return Content(jsonResponse, "application/json");
         }
     }
 }

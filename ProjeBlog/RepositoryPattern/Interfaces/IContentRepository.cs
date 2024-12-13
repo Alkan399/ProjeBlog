@@ -7,6 +7,6 @@ namespace ProjeBlog.RepositoryPattern.Interfaces
 {
     public interface IContentRepository : IRepository<Content>
     {
-        List<Content> GetUserWithDetailsByFilter(Expression<Func<Content, bool>> exp);
+        List<Content> GetContentWithUser(Expression<Func<Content, bool>> exp);
     }
 }

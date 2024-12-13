@@ -4,6 +4,7 @@ var closeModal = document.getElementsByClassName("close")[0];
 
 // Detaylar linkine tıklanıldığında modal açılacak
 document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("filterButton").click();
     attachDetailsEventListeners();
 });
 
@@ -49,39 +50,53 @@ function updateTable(users) {
     const tableBody = document.querySelector("#tableUsers tbody");
     tableBody.innerHTML = ""; // Mevcut tabloyu temizle
 
-    (users.$values).forEach(user => {
-        const row = `
+    // Eğer gelen içerik boşsa, kullanıcıya bilgi ver
+    if (users == null) {
+        const noDataRow = `
+            <tr>
+                <td colspan="7" style="text-align:center; color: red;">Veri bulunamadı.</td>
+            </tr>
+        `;
+        tableBody.insertAdjacentHTML("beforeend", noDataRow);
+    }
+    else {
+        users.forEach(user => {
+            const row = `
             <tr scope="row">
-                <td>${user.id}</td>
-                <th>${user.userName}</th>
-                <td>${user.email}</td>
-                <td>${new Date(user.createdDate).toLocaleDateString()}</td>
-                <td>${new Date(user.updatedDate).toLocaleDateString()}</td>
-                <th>${getRoleText(user.role)}</th>
-                <th>${getStatusText(user.status)}</th>
+                <td>${(user.ID).toString()}</td>
+                <th>${user.UserName}</th>
+                <td>${user.Email}</td>
+                <td>${new Date(user.CreatedDate).toLocaleDateString()}</td>
+                <td>${new Date(user.UpdatedDate).toLocaleDateString()}</td>
+                <th>${getRoleText(user.Role)}</th>
+                <th>${getStatusText(user.Status)}</th>
                 <td>
-                    <a href="/Management/User/Update/${user.id}">Edit</a> |
+                    <a href="/Management/User/Update/${(user.ID).toString()}">Edit</a> |
                     <a href="javascript:void(0);" class="details-btn"
-                    data-id="${user.id}"
-                    data-username="${user.userName}"
-                    data-email="${user.email}"
-                    data-created="${user.createdDate}"
-                    data-updated="${user.updatedDate}"
-                    data-role="${user.role}"
-                    data-status="${user.status}"
-                    data-firstname="${user.appUserDetail.firstName || ''}"
-                    data-lastname="${user.appUserDetail.lastName || ''}"
-                    data-dateofbirth="${user.appUserDetail.dateOfBirth || ''}">
+                    data-id="${(user.ID).toString()}"
+                    data-username="${user.UserName}"
+                    data-email="${user.Email}"
+                    data-created="${user.CreatedDate}"
+                    data-updated="${user.UpdatedDate}"
+                    data-role="${user.Role}"
+                    data-status="${user.Status}"
+                    data-firstname="${user.AppUserDetail.FirstName || ''}"
+                    data-lastname="${user.AppUserDetail.LastName || ''}"
+                    data-dateofbirth="${user.AppUserDetail.DateOfBirth || ''}">
                     Details
                    </a> |
-                   <a href="/Management/User/Delete/${user.id}">Delete</a>
+                   <a href="/Management/User/Delete/${(user.ID).toString()}">Delete</a>
                 </td>
             </tr>
         `;
-        tableBody.insertAdjacentHTML("beforeend", row); // Yeni satırları tabloya ekle
-    });
+            tableBody.insertAdjacentHTML("beforeend", row); // Yeni satırları tabloya ekle
+        });
+       
+    }
     attachDetailsEventListeners();
 }
+
+
 function getRoleText(role) {
     switch (role) {
         case 0:
