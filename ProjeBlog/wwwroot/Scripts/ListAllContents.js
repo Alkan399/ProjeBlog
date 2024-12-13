@@ -1,4 +1,5 @@
-﻿document.getElementById("filterButton").addEventListener("click", function () {
+﻿
+document.getElementById("filterButton").addEventListener("click", function () {
     const filters = {
         userName: document.getElementById("filterUserName").value,
         title: document.getElementById("filterTitle").value,
@@ -42,15 +43,13 @@ function updateTable(contents) {
                 <th>${getStatusText(content.status)}</th>
                 <td>
                     <a href="/Management/User/Update/${content.id}">Edit</a> |
-                    <a href="javascript:void(0);" class="details-btn">Görüntüle</a>
-                     |
-                   <a href="/Management/User/Delete/${content.id}">Delete</a>
+                    <a href="javascript:void(0);" class="details-btn">Görüntüle</a> | 
+                    <a href="/Management/User/Delete/${content.id}">Delete</a>
                 </td>
             </tr>
         `;
         tableBody.insertAdjacentHTML("beforeend", row); // Yeni satırları tabloya ekle
     });
-    attachDetailsEventListeners();
 }
 function getStatusText(status) {
     switch (status) {
