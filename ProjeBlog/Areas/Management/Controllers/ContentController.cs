@@ -12,6 +12,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using X.PagedList.Extensions;
 
 namespace ProjeBlog.Areas.Management.Controllers
 {
@@ -98,7 +99,12 @@ namespace ProjeBlog.Areas.Management.Controllers
             Content content = _repoContent.GetById(id);
             return View(content);
         }
-        public IActionResult FilterContents([FromBody] ContentFilterDto criteria)
+        public IActionResult DetailsManagement(int id)
+        {
+            Content content = _repoContent.GetById(id);
+            return View(content);
+        }
+        public IActionResult FilterContents([FromBody] ContentFilterDto criteria, int page)
         {
             Expression<Func<Content, bool>> filterExpression = content =>
                 (string.IsNullOrEmpty(criteria.UserName) || content.AppUser.UserName.Contains(criteria.UserName)) &&
@@ -108,15 +114,24 @@ namespace ProjeBlog.Areas.Management.Controllers
             ? content.Status == Enums.DataStatus.Inserted || content.Status == Enums.DataStatus.Updated
             : content.Status == Enums.DataStatus.Deleted));
 
-            var filteredContents = _repoContent.GetContentWithUser(filterExpression);
-            
-            var jsonResponse = JsonConvert.SerializeObject(filteredContents, new JsonSerializerSettings
+            var filteredContents = _repoContent.GetContentWithUser(filterExpression).ToPagedList(page,2);
+
+            var jsonResponse = new
+            {
+                PageNumber = filteredContents.PageNumber, // Mevcut sayfa
+                PageCount = filteredContents.PageCount,   // Toplam sayfa
+                HasNextPage = filteredContents.HasNextPage, // Sonraki sayfa var mı
+                HasPreviousPage = filteredContents.HasPreviousPage, // Önceki sayfa var mı
+                Contents = filteredContents // Sayfa içerikleri
+            };
+
+            var serializedResponse = JsonConvert.SerializeObject(jsonResponse, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                Formatting = Formatting.Indented 
+                Formatting = Formatting.Indented
             });
 
-            return Content(jsonResponse, "application/json");
+            return Content(serializedResponse, "application/json");
         }
     }
 }
