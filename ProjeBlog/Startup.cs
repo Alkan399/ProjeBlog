@@ -34,7 +34,8 @@ namespace ProjeBlog
         {
             services.AddDbContext<MyDbContext>(options => options.UseSqlServer(_configuration["ConnectionStrings:Mssql"]));
             services.AddControllersWithViews();
-            
+
+            services.AddScoped<IRepository<Category>, Repository<Category>>();
             services.AddScoped<IRepository<AppUser>, Repository<AppUser>>();
             services.AddScoped<IRepository<Content>, Repository<Content>>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();

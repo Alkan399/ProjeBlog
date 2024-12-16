@@ -104,7 +104,7 @@ namespace ProjeBlog.Areas.Management.Controllers
             Content content = _repoContent.GetById(id);
             return View(content);
         }
-        public IActionResult FilterContents([FromBody] ContentFilterDto criteria, int page)
+        public IActionResult FilterContents([FromBody] ContentFilterDto criteria, [FromQuery]int page)
         {
             Expression<Func<Content, bool>> filterExpression = content =>
                 (string.IsNullOrEmpty(criteria.UserName) || content.AppUser.UserName.Contains(criteria.UserName)) &&

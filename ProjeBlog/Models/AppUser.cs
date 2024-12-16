@@ -21,5 +21,6 @@ namespace ProjeBlog.Models
         public virtual AppUserDetail AppUserDetail { get; set; }
         public virtual List<Content> Contents { get; set; }
         public virtual Basvuru Basvuru { get; set; }
+        public virtual List<Comment> Comment { get; set; }
     }
 }

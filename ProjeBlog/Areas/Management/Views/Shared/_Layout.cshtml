@@ -342,14 +342,55 @@
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-files-o"></i>
-                            <span>Yönetim İşlemleri</span>
-                            <span class="label label-primary pull-right">4</span>
+                            <span>Yönetim İşlemleri</span>  
+                            <span class="label label-primary pull-right"></span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a asp-controller="Basvuru" asp-action="BasvuruList"><i class="fa fa-circle-o"></i> Başvuru Yönetim</a></li>
-                            <li><a href="~/management/user/userlist"><i class="fa fa-circle-o"></i>Kullanıcı Yönetim</a></li>
-                            <li><a href="~/management/user/create"><i class="fa fa-circle-o"></i> Kullanıcı Kaydet</a></li>
-                            <li><a href="~/management/content/listallcontents"><i class="fa fa-circle-o"></i>İçerik Yönetim</a></li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i>
+                                    <span>Kullanıcı Yönetim İşlemleri</span>
+                                    <span class="label label-primary pull-right"></span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="~/management/user/userlist"><i class="fa fa-circle-o"></i>Kullanıcı Yönetim</a></li>
+                                    <li><a href="~/management/user/create"><i class="fa fa-circle-o"></i> Kullanıcı Kaydet</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-users"></i>
+                                    <span>Başvuru Yönetim İşlemleri</span>
+                                    <span class="label label-primary pull-right"></span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a asp-controller="Basvuru" asp-action="BasvuruList"><i class="fa fa-circle-o"></i> Başvuru Yönetim</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-files-o"></i>
+                                    <span>İçerik Yönetim İşlemleri</span>
+                                    <span class="label label-primary pull-right"></span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="~/management/content/listallcontents"><i class="fa fa-circle-o"></i>İçerik Yönetim</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-files-o"></i>
+                                    <span>Kategori Yönetim İşlemleri</span>
+                                    <span class="label label-primary pull-right"></span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="~/management/category/index"><i class="fa fa-circle-o"></i>Kategorileri Görüntüle</a></li>
+                                    <li><a href="~/management/category/create"><i class="fa fa-circle-o"></i>Kategori Ekle</a></li>
+
+                                </ul>
+                            </li>
+                            
+                            
                             <li><a ><i class="fa fa-circle-o"></i> İstatistikler</a></li>
 
                         </ul>
