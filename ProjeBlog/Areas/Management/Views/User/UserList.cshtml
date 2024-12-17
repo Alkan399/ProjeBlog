@@ -8,7 +8,7 @@
         <section class="content-header">
    
             
-            <h3 class="box-title">Kullanıcılar</h3>
+            <h3 class="box-title">Kullanıcı Yönetim</h3>
          <!-- /.box-header -->
         <!-- Filter Section -->
         <div class="box">
@@ -39,6 +39,15 @@
                             <option value="Inactive">Pasif</option>
                         </select>
                     </div>
+                <div class="col-md-2">
+                    <label>Sayfada Gösterilecek Kayıt Sayısı</label>
+                    <select id="dropdownPage" class="form-control">
+                        <option value="1">1(Test)</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
                     <div class="col-md-2">
                         <label>&nbsp;</label>
                         <button id="filterButton" class="btn btn-primary btn-block">Filtreleri Uygula</button>
@@ -46,9 +55,9 @@
                 </div>
             </div>
                 <div class="box-body">
-                    <table id="tableUsers" class="table table-bordered table-hover">
+            <table id="tableContents" class="table table-bordered table-hover">
                         <thead>
-                            <tr>
+                        <tr style="text-align:center;">
                                 <th scope="col">Id</th>
                                 <th scope="col">User Name</th>
                                 <th scope="col">Email</th>
@@ -59,53 +68,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr scope="row">
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ID)
-                                    </td>
-                                    <th>
-                                        @Html.DisplayFor(modelItem => item.UserName)
-                                    </th>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Email)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CreatedDate)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.UpdatedDate)
-                                    </td>
-                                    <th>
-                                        @Html.DisplayFor(modelItem => item.Role)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayFor(modelItem => item.Status)
-                                    </th>
-                                    <td>
-                                        @Html.ActionLink("Edit", "Update", new { id = item.ID }) |
-                                        <a href="javascript:void(0);" class="details-btn"
-                                           data-id="@item.ID"
-                                           data-username="@item.UserName"
-                                           data-email="@item.Email"
-                                           data-created="@item.CreatedDate"
-                                           data-updated="@item.UpdatedDate"
-                                           data-role="@item.Role"
-                                           data-status="@item.Status"
-                                           data-firstname="@item.AppUserDetail.FirstName"
-                                           data-lastname="@item.AppUserDetail.LastName"
-                                           data-dateofbirth="@item.AppUserDetail.DateOfBirth">
-                                        Details
-                                       </a> |
-
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                          
+                        </tbody>
+                            <tfoot style="text-align:center">
+                                <tr>
+                                    <td colspan="9">
                                     </td>
                                 </tr>
-                            }
-                        </tbody>
-                            <tfoot>
-
                             </tfoot>
                     </table>
                 </div><!-- /.box-body -->
@@ -132,4 +101,4 @@
 </div>
     
 
-<script src="~/Scripts/UserListDetailModal.js"></script>
+<script type="module" src="~/Scripts/UserListDetailModal.js"></script>

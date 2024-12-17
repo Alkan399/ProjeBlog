@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProjeBlog.Areas.Blog.Controllers;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
+using ProjeBlog.RepositoryPattern.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,17 +16,20 @@ namespace ProjeBlog.Areas.Management.Controllers
     {
         MyDbContext _db;
         int id;
-        public BasvuruController(MyDbContext db)
+        IRepository<Basvuru> _basvuruRepository;
+        public BasvuruController(MyDbContext db, IRepository<Basvuru> basvuruRepository)
         {
             _db = db;
+            _basvuruRepository = basvuruRepository;
         }
         public IActionResult BasvuruList()
         {
             List<Basvuru> content = _db.Basvurus.ToList();
             return View(content);
         }
-        public IActionResult Create()
+        public IActionResult Create(Basvuru basvuru)
         {
+            _basvuruRepository.Add(basvuru);
             return View();
         }
 

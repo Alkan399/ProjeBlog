@@ -1,4 +1,7 @@
-﻿// Modal'ı açma ve kapama işlemleri
+﻿import { getStatusText, checkDateTime } from './CommonLibrary/CommonRepo.js';
+let currentPage = 1;
+let pageToGo = 1;
+// Modal'ı açma ve kapama işlemleri
 var modal = document.getElementById("myModal");
 var closeModal = document.getElementsByClassName("close")[0];
 
@@ -23,14 +26,18 @@ window.onclick = function (event) {
 }
 
 document.getElementById("filterButton").addEventListener("click", function () {
+
     const filters = {
         userName: document.getElementById("filterUserName").value,
         email: document.getElementById("filterEmail").value,
         role: document.getElementById("filterRole").value,
-        status: document.getElementById("filterStatus").value
+        status: document.getElementById("filterStatus").value,
+        itemsPerPage: document.getElementById("dropdownPage").value
     };
+    const page = parseInt(pageToGo);
+    const url = `/Management/User/FilterUsers?page=${encodeURIComponent(page)}`;
 
-    fetch('/User/FilterUsers', {
+    fetch(url, {
         method: 'POST',
 
         headers: {
@@ -44,14 +51,71 @@ document.getElementById("filterButton").addEventListener("click", function () {
             updateTable(data);
         })
         .catch(error => console.error('Error:', error));
+    currentPage = pageToGo;
 });
 
 function updateTable(users) {
-    const tableBody = document.querySelector("#tableUsers tbody");
+    pageToGo = 1;
+    const tableBody = document.querySelector("#tableContents tbody");
+    const tableFooter = document.querySelector("#tableContents tfoot tr td");
     tableBody.innerHTML = ""; // Mevcut tabloyu temizle
+    console.log(pageToGo);
+    console.log(users.Contents);
 
+    tableFooter.innerHTML = "";
+
+    const back = `
+                        <a href="" class="page" data-page="${currentPage - 1}">
+                            <
+                        </a>
+                    
+                    `;
+    const forward = `
+                        <a href="" class="page" data-page="${currentPage + 1}">
+                            >
+                        </a>
+                    
+                    `;
+    if (currentPage != 1) {
+        tableFooter.insertAdjacentHTML("beforeend", back);
+    }
+
+    for (let i = 1; i < users.PageCount + 1; i++) {
+        const rowFooter = `
+                    
+                        <a href="" class="page" data-page="${i}">
+                            ${i}
+                        </a>
+                    
+                    `;
+        tableFooter.insertAdjacentHTML("beforeend", rowFooter);
+
+    }
+
+    if (currentPage != users.PageCount) {
+        tableFooter.insertAdjacentHTML("beforeend", forward);
+    }
+
+
+    const pageLinks = document.getElementsByClassName("page");
+    Array.from(pageLinks).forEach(link => {
+        if (currentPage != link.dataset.page) {
+            link.style.textDecoration = "none";
+        }
+        else {
+            link.style.textDecoration = "underline";
+        }
+
+        link.addEventListener("click", function (event) {
+            event.preventDefault(); // Varsayılan link davranışını engelle
+            console.log(this.dataset.page);
+            pageToGo = parseInt(this.dataset.page); // Data-page değerini al
+            document.getElementById("filterButton").click(); // Filtre butonunu tetikle
+        });
+    });
+    console.log(users);
     // Eğer gelen içerik boşsa, kullanıcıya bilgi ver
-    if (users == null) {
+    if (users.Contents.length == 0) {
         const noDataRow = `
             <tr>
                 <td colspan="7" style="text-align:center; color: red;">Veri bulunamadı.</td>
@@ -60,16 +124,16 @@ function updateTable(users) {
         tableBody.insertAdjacentHTML("beforeend", noDataRow);
     }
     else {
-        users.forEach(user => {
+        users.Contents.forEach(user => {
             const row = `
-            <tr scope="row">
+            <tr scope="row" style="text-align:center;">
                 <td>${(user.ID).toString()}</td>
-                <th>${user.UserName}</th>
+                <td><b>${user.UserName}</b></td>
                 <td>${user.Email}</td>
                 <td>${new Date(user.CreatedDate).toLocaleDateString()}</td>
                 <td>${new Date(user.UpdatedDate).toLocaleDateString()}</td>
-                <th>${getRoleText(user.Role)}</th>
-                <th>${getStatusText(user.Status)}</th>
+                <td>${getRoleText(user.Role)}</td>
+                <td><b>${getStatusText(user.Status)}</b></td>
                 <td>
                     <a href="/Management/User/Update/${(user.ID).toString()}">Edit</a> |
                     <a href="javascript:void(0);" class="details-btn"
@@ -109,18 +173,18 @@ function getRoleText(role) {
             return role; // Eğer bilinmeyen bir role varsa, olduğu gibi göster
     }
 }
-function getStatusText(status) {
-    switch (status) {
-        case 1:
-            return 'Aktif';
-        case 2:
-            return 'Aktif';
-        case 3:
-            return 'Silinmiş';
-        default:
-            return status; // Eğer bilinmeyen bir status varsa, olduğu gibi göster
-    }
-}
+//function getStatusText(status) {
+//    switch (status) {
+//        case 1:
+//            return 'Aktif';
+//        case 2:
+//            return 'Aktif';
+//        case 3:
+//            return 'Silinmiş';
+//        default:
+//            return status; // Eğer bilinmeyen bir status varsa, olduğu gibi göster
+//    }
+//}
 
 function attachDetailsEventListeners() {
     const detailsBtns = document.querySelectorAll(".details-btn");

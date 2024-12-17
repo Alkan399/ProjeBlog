@@ -45,7 +45,8 @@ namespace ProjeBlog.Areas.Management.Controllers
         {
             int userId = _repoUser.GetUserId(HttpContext);
             //Authorization' dan sonra düzeltilecek
-            List<Content> content = _db.Contents.Where(a => (a.Status != Enums.DataStatus.Deleted) && a.AppUserID == userId).ToList();
+            List<Content> content = _repoContent.GetAll();
+            ViewData["Categories"] = _repoContent.GetCategories();
             return View(content);
         }
         public IActionResult Update(int id)
@@ -110,11 +111,12 @@ namespace ProjeBlog.Areas.Management.Controllers
                 (string.IsNullOrEmpty(criteria.UserName) || content.AppUser.UserName.Contains(criteria.UserName)) &&
                 (string.IsNullOrEmpty(criteria.Title) || content.Title.Contains(criteria.Title)) &&
                 (string.IsNullOrEmpty(criteria.Entry) || content.Entry.Contains(criteria.Entry)) &&
+                (string.IsNullOrEmpty(criteria.Category) || content.Category.ID.Equals(criteria.Category)) &&
                 (string.IsNullOrEmpty(criteria.Status) || (criteria.Status == "Active"
             ? content.Status == Enums.DataStatus.Inserted || content.Status == Enums.DataStatus.Updated
             : content.Status == Enums.DataStatus.Deleted));
 
-            var filteredContents = _repoContent.GetContentWithUser(filterExpression).ToPagedList(page,2);
+            var filteredContents = _repoContent.GetContentWithUser(filterExpression).ToPagedList(page,criteria.ItemsPerPage);
 
             var jsonResponse = new
             {

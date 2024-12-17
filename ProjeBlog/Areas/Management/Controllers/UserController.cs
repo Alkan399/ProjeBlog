@@ -12,6 +12,7 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection.Metadata;
+using X.PagedList.Extensions;
 
 namespace ProjeBlog.Areas.Management.Controllers
 {
@@ -34,8 +35,7 @@ namespace ProjeBlog.Areas.Management.Controllers
         }
         public IActionResult UserList()
         {
-            List<AppUser> users = _repoAppUser.GetUsersWithDetail(
-                );
+            List<AppUser> users = _repoAppUser.GetUsersWithDetail();
             return View(users);
         }
 
@@ -77,9 +77,7 @@ namespace ProjeBlog.Areas.Management.Controllers
             _repoAppUser.Delete(id);
             return RedirectToAction("UserList");
         }
-        [Route("User/FilterUsers")]
-        [HttpPost]
-        public IActionResult FilterUsers([FromBody] AppUserFilterDto criteria)
+        public IActionResult FilterUsers([FromBody] AppUserFilterDto criteria, [FromQuery]int page)
         {
             Expression<Func<AppUser, bool>> filterExpression = user =>
                 (string.IsNullOrEmpty(criteria.UserName) || user.UserName.Contains(criteria.UserName)) &&
@@ -90,17 +88,23 @@ namespace ProjeBlog.Areas.Management.Controllers
             ? user.Status == Enums.DataStatus.Inserted || user.Status == Enums.DataStatus.Updated
             : user.Status == Enums.DataStatus.Deleted));
 
-            var filteredUsers = _repoAppUser.GetUserWithDetailsByFilter(filterExpression);
-            if (filteredUsers == null || !filteredUsers.Any())
+            var filteredUsers = _repoAppUser.GetUserWithDetailsByFilter(filterExpression).ToPagedList(page, criteria.ItemsPerPage);
+            
+            var jsonResponse = new
             {
-                return Json(new { message = "No users found." });
-            }
-            var jsonResponse = JsonConvert.SerializeObject(filteredUsers, new JsonSerializerSettings
+                PageNumber = filteredUsers.PageNumber, // Mevcut sayfa
+                PageCount = filteredUsers.PageCount,   // Toplam sayfa
+                HasNextPage = filteredUsers.HasNextPage, // Sonraki sayfa var mı
+                HasPreviousPage = filteredUsers.HasPreviousPage, // Önceki sayfa var mı
+                Contents = filteredUsers // Sayfa içerikleri
+            };
+            var serializedResponse = JsonConvert.SerializeObject(jsonResponse, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 Formatting = Formatting.Indented
             });
-            return Content(jsonResponse, "application/json");
+
+            return Content(serializedResponse, "application/json");
         }
     }
 }

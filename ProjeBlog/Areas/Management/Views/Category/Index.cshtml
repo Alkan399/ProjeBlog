@@ -1,6 +1,78 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-deneme
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<ProjeBlog.Models.Category>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+@*<script src="js/jquery.min.js" type="text/javascript"></script>*@
+@*<script src="js/jquery.dataTables.js/jquery.dataTables.js/jquery.dataTables.min.js" type="text/javascript"></script>*@
+<script src="/management/plugins/datatables/jquery.dataTables.js"></script>
+
+
+<!DOCTYPE html>
+<h3>Kategori Yönetim</h3>
+<div class="box">
+    <div class="box-header">
+        <div class="row">
+            <div class="col-md-2">
+                <label for="filterUserName">Kullanıcı Adı</label>
+                <input type="text" id="filterName" class="form-control" placeholder="Kategori Adı">
+            </div>
+            <div class="col-md-2">
+                <label for="filterDescription">Açıklama</label>
+                <input type="text" id="filterDescription" class="form-control" placeholder="Açıklama">
+            </div>
+            <div class="col-md-2">
+                <label for="filterId">Id</label>
+                <input type="text" id="filterId" class="form-control" placeholder="Id">
+
+            </div>
+            <div class="col-md-2">
+                <label for="filterStatus">Durum</label>
+                <select id="filterStatus" class="form-control">
+                    <option value="">Hepsi</option>
+                    <option value="Active">Aktif</option>
+                    <option value="Inactive">Pasif</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>Sayfada Gösterilecek Kayıt Sayısı</label>
+                <select id="dropdownPage" class="form-control">
+                    <option value="1">1(Test)</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>&nbsp;</label>
+                <button id="filterButton" class="btn btn-primary btn-block">Filtreleri Uygula</button>
+            </div>
+            
+        </div>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <table id="tableContents" class="table table-bordered table-hover">
+            <thead>
+                <tr style="text-align:center;">
+                    <th scope="col" style="text-align:center;">Id</th>
+                    <th scope="col" style="text-align:center;">Adı</th>
+                    <th scope="col" style="text-align:center;">Açıklama</th>
+                    <th scope="col" style="text-align:center;">Oluşturma Tarihi</th>
+                    <th scope="col" style="text-align:center;">Güncelleme Tarihi</th>
+                    <th scope="col" style="text-align:center;">Durumu</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+            <tfoot style="text-align:center">
+                <tr>
+                    <td colspan="8">
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+<script type="module" src="~/Scripts/categoryIndex.js"></script>

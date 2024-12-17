@@ -1,24 +1,20 @@
-﻿
-import { getStatusText, checkDateTime } from './CommonLibrary/CommonRepo.js';
+﻿import { getStatusText, checkDateTime } from './CommonLibrary/CommonRepo.js';
 let currentPage = 1;
 let pageToGo = 1;
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("filterButton").click();
 });
 
-
-
 document.getElementById("filterButton").addEventListener("click", function () {
     const filters = {
-        userName: document.getElementById("filterUserName").value,
-        title: document.getElementById("filterTitle").value,
-        entry: document.getElementById("filterEntry").value,
+        name: document.getElementById("filterName").value,
+        description: document.getElementById("filterDescription").value,
+        id: document.getElementById("filterId").value,
         status: document.getElementById("filterStatus").value,
-        itemsPerPage: document.getElementById("dropdownPage").value,
-        category: document.getElementById("filterCategory").value.toString()
+        itemsPerPage: document.getElementById("dropdownPage").value
     };
     const page = parseInt(pageToGo);
-    const url = `/Management/Content/FilterContents?page=${encodeURIComponent(page)}`;
+    const url = `/Management/Category/FilterCategories?page=${encodeURIComponent(page)}`;
 
     fetch(url, {
         method: 'POST',
@@ -43,12 +39,12 @@ function updateTable(contents) {
     const tableFooter = document.querySelector("#tableContents tfoot tr td");
     tableBody.innerHTML = ""; // Mevcut tabloyu temizle
     console.log(pageToGo);
-    console.log(contents.Contents);
+    console.log(contents.Categories);
 
     tableFooter.innerHTML = "";
 
     const back = `
-                        <a href="" class="page" data-page="${currentPage-1}">
+                        <a href="" class="page" data-page="${currentPage - 1}">
                             <
                         </a>
                     
@@ -78,7 +74,7 @@ function updateTable(contents) {
     if (currentPage != contents.PageCount) {
         tableFooter.insertAdjacentHTML("beforeend", forward);
     }
-    
+
 
     const pageLinks = document.getElementsByClassName("page");
     Array.from(pageLinks).forEach(link => {
@@ -88,7 +84,7 @@ function updateTable(contents) {
         else {
             link.style.textDecoration = "underline";
         }
-        
+
         link.addEventListener("click", function (event) {
             event.preventDefault(); // Varsayılan link davranışını engelle
             console.log(this.dataset.page);
@@ -99,7 +95,7 @@ function updateTable(contents) {
 
 
     // Eğer gelen içerik boşsa, kullanıcıya bilgi ver
-    if (contents.Contents.length == 0) {
+    if (contents.Categories.length == 0) {
         const noDataRow = `
             <tr>
                 <td colspan="7" style="text-align:center; color: red;">Veri bulunamadı.</td>
@@ -107,36 +103,26 @@ function updateTable(contents) {
         `;
         tableBody.insertAdjacentHTML("beforeend", noDataRow);
     }
-    else {  
+    else {
         // İçerik varsa, tabloyu doldur
-        contents.Contents.forEach(content => {
+        contents.Categories.forEach(content => {
             const row = `
                 <tr scope="row" style="text-align:center;">
                     <td>${(content.ID).toString()}</td>
-                    <td style=""><b>${content.AppUser.UserName}</b></td>
-                    <td style="text-align:center">
-                        <a href="${content.CoverImagePath}">
-                            <img src="${content.CoverImagePath}" style="max-height:60px; margin:auto;">
-                        </a>
-                    </td>
-                    <td><a href="/Management/Content/DetailsManagement/${(content.ID).toString()}">${content.Title}</a></td>
-                    <td>${content.Category.Name}</td>
+                    
+                    <td><a href="/Management/Content/DetailsManagement/${(content.ID).toString()}">${content.Name}</a></td>
+                    <td>${(content.Description).toString()}</td>
                     <td>${new Date(content.CreatedDate).toLocaleDateString()}</td>
                     <td>${checkDateTime(new Date(content.UpdatedDate).toLocaleDateString())}</td>
                     <td>${getStatusText(content.Status)}</td>
                     <td>
-                        <a href="/Management/Content/Update/${(content.ID).toString()}">Edit</a> |
-                        <a href="/Management/Content/DetailsManagement/${(content.ID).toString()}" class="details-btn">Görüntüle</a> | 
-                        <a href="/Management/Content/DeleteManagement/${(content.ID).toString()}">Delete</a>
+                        <a href="/Management/Category/Update/${(content.ID).toString()}">Edit</a> |
+                        <a href="/Management/Category/Delete/${(content.ID).toString()}">Delete</a>
                     </td>
                 </tr>
             `;
             tableBody.insertAdjacentHTML("beforeend", row); // Yeni satırları tabloya ekle
         });
-        
+
     }
 }
-
-
-
-

@@ -1,5 +1,43 @@
-﻿<span>
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@using ProjeBlog.Models;
+@model ProjeBlog.Models.Basvuru
+<h3>Başvuru Oluştur</h3>
+<div class="container mt-5" style="margin: 0 auto; max-width: 600px;">
+    <div class="card shadow">
+        <div class="card-header text-center bg-primary text-white">
+            <h4>Başvuru Oluştur</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-area="Management" asp-controller="Basvuru" asp-action="Create">
+                <div class="form-group mb-3">
+                    <label for="Name">Ad:</label>
+                    <input type="text" class="form-control" asp-for="FirstName" id="Name" />
+                </div>
 
-    Basvuru deneme yazısı
+                <div class="form-group mb-3">
+                    <label for="LastName">Soyad</label>
+                    <input type="text" class="form-control" asp-for="LastName" id="LastName" />
+                </div>
 
-</span>
+                <div class="form-group mb-3">
+                    <label for="Email">E-posta:</label>
+                    <input type="email" class="form-control" asp-for="Email" id="Email" />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="DateOfBirth">Doğum Tarihi:</label>
+                    <input type="date" class="form-control" asp-for="DateOfBirth" id="DateOfBirth" />
+                </div>
+
+
+                <div class="form-group mb-3">
+                    <label for="Description">Açıklama</label>
+                    <input type="text" class="form-control" asp-for="Description" id="Description" />
+                </div>
+                <div class="text-center">
+                    <button type="submit" style="width:50%" class="btn btn-primary">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

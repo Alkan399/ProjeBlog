@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
@@ -96,6 +97,11 @@ namespace ProjeBlog.RepositoryPattern.Base
         {
             var id = httpContext.User.Claims.FirstOrDefault(x => x.Type == "userId")?.Value;
             return Int32.Parse(id);
+        }
+
+        public JsonResult NoRecordsMessage(List<T> values)
+        {
+            throw new NotImplementedException();
         }
     }
 }

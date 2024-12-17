@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using ProjeBlog.Models;
 using System;
 using System.Collections.Generic;
@@ -21,5 +22,6 @@ namespace ProjeBlog.RepositoryPattern.Interfaces
         bool Any(Expression<Func<T, bool>> exp);
         List<T> SelectActivesByLimit(int count);
         int GetUserId(HttpContext httpContext);
+        JsonResult NoRecordsMessage(List<T> values);
     }
 }

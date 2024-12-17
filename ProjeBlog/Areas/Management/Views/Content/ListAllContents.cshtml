@@ -1,4 +1,6 @@
-﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using ProjeBlog.Models
+@using ProjeBlog.Enums
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 @model List<ProjeBlog.Models.Content>
 
 
@@ -10,8 +12,9 @@
 
 
 <!DOCTYPE html>
+<h3>İçerik Yönetim</h3>
 <div class="box">  
-    <h4>İçerik Yönetim</h4>
+    
     <div class="box-header">
         <div class="row">
             <div class="col-md-2">
@@ -22,10 +25,29 @@
                 <label for="filterTitle">Başlık</label>
                 <input type="text" id="filterTitle" class="form-control" placeholder="Başlık">
             </div>
+            <div class ="col-md-2">
+                <label for="filterCategory">Kategori</label>
+                <select id="filterCategory" class="form-control">
+                    <option value="">Hepsi</option>
+                    @{
+                        var Categories = ViewData["Categories"] as List<Category>;
+                        foreach (var category in Categories)
+                        {
+                            if (category.Status == ProjeBlog.Enums.DataStatus.Deleted)
+                            {
+                                <option value="@category.ID">@category.Name (Silindi)</option>
+                            }
+                            else
+                            {
+                                <option value="@category.ID">@category.Name</option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
             <div class="col-md-2">
                 <label for="filterEntry">İçerik üzerinden ara</label>
                 <input type="text" id="filterEntry" class="form-control" placeholder="Kelime">
-                
             </div>
             <div class="col-md-2">
                 <label for="filterStatus">Durum</label>
@@ -33,6 +55,15 @@
                     <option value="">Hepsi</option>
                     <option value="Active">Aktif</option>
                     <option value="Inactive">Pasif</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>Sayfada Gösterilecek Kayıt Sayısı</label>
+                <select id="dropdownPage" class="form-control">
+                    <option value="1">1(Test)</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
                 </select>
             </div>
             <div class="col-md-2">
@@ -47,49 +78,21 @@
                 <tr style="text-align:center;">
                     <th scope="col" style="text-align:center;">Id</th>
                     <th scope="col" style="text-align:center;">Kullanıcı</th>
-                    <th scope="col" style="text-align:center;" style="width:75px">Kapak Resmi</th>
+                    <th scope="col" style="text-align:center; width:75px">Kapak Resmi</th>
                     <th scope="col" style="text-align:center;">Başlık</th>
-                    <th scope="col" style="text-align:center;">Oluşturma Tarihi</th>
+                    <th scope="col" style="text-align:center;">Kategori</th>
+                    <th scope="col" style="text-align:center; max-width:40px">Oluşturma Tarihi</th>
                     <th scope="col" style="text-align:center;">Güncelleme Tarihi</th>
                     <th scope="col" style="text-align:center;">Durumu</th>
+                    <th scope="col" style="text-align:center;">İşlem</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr scope="row">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AppUserID)
-                        </td>
-                        <td>
-                            <a href="@item.CoverImagePath">
-                                <img src="@item.CoverImagePath" style="width:60px">
-                            </a>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreatedDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UpdatedDate)
-                        </td>
-
-                        <td>
-                            @Html.ActionLink("Edit", "Update", new { id = item.ID }) |
-                            @Html.ActionLink("Details", "DetailsManagement", new { id = item.ID })  |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                        </td>
-                    </tr>
-                }
+                
             </tbody>
             <tfoot style="text-align:center">
                 <tr>
-                    <td colspan="8">
+                    <td colspan="9">
 
                     </td>
                 </tr>
@@ -97,4 +100,4 @@
         </table>
     </div><!-- /.box-body -->
 </div><!-- /.box -->
-<script src="~/Scripts/ListAllContents.js"></script>
+<script type="module" src="~/Scripts/ListAllContents.js"></script>

@@ -8,5 +8,6 @@ namespace ProjeBlog.Models.Dto
         public string Email { get; set; }
         public string Role { get; set; }
         public string Status { get; set; }
+        public int ItemsPerPage { get; set; }
     }
 }
