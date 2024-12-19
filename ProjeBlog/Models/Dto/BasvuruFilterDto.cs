@@ -10,7 +10,7 @@ namespace ProjeBlog.Models.Dto
         public string Email { get; set; }
         public string Status { get; set; }
         public int ItemsPerPage {  get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
 
     }
 }

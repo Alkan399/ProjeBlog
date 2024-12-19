@@ -1,4 +1,5 @@
 ﻿using ProjeBlog.Enums;
+using System;
 
 namespace ProjeBlog.Models.Dto
 {
@@ -8,6 +9,7 @@ namespace ProjeBlog.Models.Dto
         public string Email { get; set; }
         public string Role { get; set; }
         public string Status { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public int ItemsPerPage { get; set; }
     }
 }

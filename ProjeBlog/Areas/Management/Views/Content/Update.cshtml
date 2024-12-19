@@ -6,62 +6,63 @@
     <title>CKEditor</title>
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 </head>
-<body>
-    <div>
-        <div style="width:80%;display: flex; justify-content: center; align-items: center;margin-left:auto; margin-right:auto;">
-            <form method="post" asp-area="Management" asp-controller="Content" asp-action="Update">
-                <div class="mb-3">
-                    <label style="padding:10px" class="col-form-label" asp-for="Title">Başlık</label>
-                    <input type="text" class="form-control" asp-for="Title" />
-                </div>
-                <div class="mb-3">
-                    <label style="padding:10px" class="col-form-label" asp-for="CategoryID">Kategori</label>
-                    <input type="text" class="form-control" asp-for="CategoryID" />
-                </div>
-                <div class="mb-3">
-                    <label class="col-form-label" asp-for="CoverImagePath">Kapak Resmi</label>
-                    <input type="text" class="form-control" asp-for="CoverImagePath" />
-                </div>
-                <div class="mb-3">
-                    <label style="padding:10px" class="col-form-label" asp-for="Entry">Yazı</label>
-                    <textarea type="text" class="ck-editor" id="editor" asp-for="Entry"></textarea>
-                </div>
+    <div class="box">
+        <div class="card shadow" style="margin:auto">
 
-                <button style="margin-top:15px;margin-bottom:15px;margin-left:auto;margin-right:0;float:right;width:25%" type="submit" class="btn btn-primary">Kaydet</button>
-
-                <label id="contentHiddenLabel" hidden="">@Model.Entry</label>
-
-            </form>
-            <script>
-                var string = document.getElementById('contentHiddenLabel').textContent;
-                console.log(string);
-                ClassicEditor
-                    .create(document.querySelector('#editor'))
-                    .then(editor => {
-                        editor.setData(string);
-                        console.log(editor);
-                        console.log("deneme");
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-            </script>
-        </div>
-
-        <div>
-            @{
-                string message = ViewData["Message"] as string;
-            }
-
-            @if (!string.IsNullOrEmpty(message))
-            {
-                <div class="alert alert-info">
-                    @message
-                </div>
-            }
-        </div>
         
+            <div style="width:80%;display: flex; justify-content: center; align-items: center;margin-left:auto; margin-right:auto;">
+                <form method="post" asp-area="Management" asp-controller="Content" asp-action="Update">
+                    <div class="mb-3">
+                        <label style="padding:10px" class="col-form-label" asp-for="Title">Başlık</label>
+                        <input type="text" class="form-control" asp-for="Title" />
+                    </div>
+                    <div class="mb-3">
+                        <label style="padding:10px" class="col-form-label" asp-for="CategoryID">Kategori</label>
+                        <input type="text" class="form-control" asp-for="CategoryID" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label" asp-for="CoverImagePath">Kapak Resmi</label>
+                        <input type="text" class="form-control" asp-for="CoverImagePath" />
+                    </div>
+                    <div class="mb-3">
+                        <label style="padding:10px" class="col-form-label" asp-for="Entry">Yazı</label>
+                        <textarea type="text" class="ck-editor" id="editor" asp-for="Entry"></textarea>
+                    </div>
 
+                    <button style="margin-top:15px;margin-bottom:15px;margin-left:auto;margin-right:0;float:right;width:25%" type="submit" class="btn btn-primary">Kaydet</button>
+
+                    <label id="contentHiddenLabel" hidden="">@Model.Entry</label>
+
+                </form>
+                <script>
+                    var string = document.getElementById('contentHiddenLabel').textContent;
+                    console.log(string);
+                    ClassicEditor
+                        .create(document.querySelector('#editor'))
+                        .then(editor => {
+                            editor.setData(string);
+                            console.log(editor);
+                            console.log("deneme");
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                </script>
+            </div>
+
+            <div>
+                @{
+                    string message = ViewData["Message"] as string;
+                }
+
+                @if (!string.IsNullOrEmpty(message))
+                {
+                    <div class="alert alert-info">
+                        @message
+                    </div>
+                }
+            </div>
+        
+        </div>
     </div>
 
-</body>

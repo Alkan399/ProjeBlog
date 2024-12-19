@@ -15,25 +15,27 @@
             </div>
         }
     </div>
-    <div class="card shadow">
-        <div class="card-header text-center bg-primary text-white">
-            <h4>Kategori Güncelle</h4>
-        </div>
-        <div class="card-body">
-            <form method="post" asp-area="Management" asp-controller="Category" asp-action="Update">
-                <div class="form-group mb-3">
-                    <label for="Name">Kategori:</label>
-                    <input type="text" class="form-control" asp-for="Name" id="UserName" />
-                </div>
+        <div class="box">
+        <div class="card shadow" style="margin:10%">
+            <div class="card-header text-center bg-primary text-white">
+                <h4>Kategori Güncelle</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-area="Management" asp-controller="Category" asp-action="Update">
+                    <div class="form-group mb-3">
+                        <label for="Name">Kategori:</label>
+                        <input type="text" class="form-control" asp-for="Name" id="UserName" />
+                    </div>
 
-                <div class="form-group mb-3">
-                    <label for="Description">Açıklama:</label>
-                    <input type="text" class="form-control" asp-for="Description" id="Password" />
-                </div>
-                <div class="text-center">
-                    <button type="submit" style="width:50%" class="btn btn-primary">Kaydet</button>
-                </div>
-            </form>
+                    <div class="form-group mb-3">
+                        <label for="Description">Açıklama:</label>
+                        <input type="text" class="form-control" asp-for="Description" id="Password" />
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" style="width:50%; margin:10%" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

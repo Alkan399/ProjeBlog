@@ -21,7 +21,7 @@
             </div>
             <div class="col-md-2">
                 <label for="filterDateOfBirth">Doğum Tarihi</label>
-                <input type="datetime" id="filterDateOfBirth" class="form-control" placeholder="Doğum Tarihi">
+                <input type="date" id="filterDateOfBirth" class="form-control" placeholder="Doğum Tarihi">
             </div>
             <div class="col-md-2">
                 <label for="filterEmail">e-posta</label>
@@ -51,16 +51,18 @@
         </div>
     </div><!-- /.box-header -->
     <div class="box-body">
-        <table id="ContentTable" class="table table-bordered table-hover">
+        <table id="tableBasvurus" class="table table-bordered table-hover">
             <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">FirstName</th>
-                    <th scope="col">LastName</th>
-                    <th scope="col">Creation Date</th>
-                    <th scope="col">Update Date</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">DateOfBirth</th>
+                <tr style="text-align:center;">
+                    <th style="text-align:center;" scope="col">Id</th>
+                    <th style="text-align:center;" scope="col">Adı</th>
+                    <th style="text-align:center;" scope="col">Soyadı</th>
+                    <th style="text-align:center;" scope="col">E-posta</th>
+                    <th style="text-align:center;" scope="col">DateOfBirth</th>
+                    <th style="text-align:center;" scope="col">Creation Date</th>
+                    <th style="text-align:center;" scope="col">Update Date</th>
+                    <th style="text-align:center;" scope="col">Status</th>
+                    <th style="text-align:center;" scope="col">İşlem</th>
                 </tr>
             </thead>
             <tbody>

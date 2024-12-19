@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Reflection.Metadata.Ecma335;
+using System.Text.RegularExpressions;
+using System.Web;
+using HtmlAgilityPack;
 
 namespace ProjeBlog.Models
 {
@@ -57,7 +60,12 @@ namespace ProjeBlog.Models
                 }
 
             }
-            return sString;
+            //var htmlDoc = new HtmlDocument();
+            //htmlDoc.LoadHtml(sString);
+
+            //return htmlDoc.DocumentNode.OuterHtml;
+            sString = HttpUtility.HtmlDecode(sString);
+            return Regex.Replace(sString, "<.*?>", String.Empty);
         }
     }
 }

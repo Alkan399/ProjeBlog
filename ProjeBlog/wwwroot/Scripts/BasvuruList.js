@@ -10,37 +10,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.getElementById("filterButton").addEventListener("click", function () {
     const filters = {
-        firstName: document.getElementById("filterFirstName").value,
-        lastName: document.getElementById("filterLastName").value,
-        email: document.getElementById("filterEmail").value,
-        status: document.getElementById("filterStatus").value,
-        itemsPerPage: document.getElementById("dropdownPage").value,
-        dateOfBirth: document.getElementById("filterDateOfBirth").value
+        firstName: document.getElementById("filterFirstName").value || null,
+        lastName: document.getElementById("filterLastName").value || null,
+        email: document.getElementById("filterEmail").value || null,
+        status: document.getElementById("filterStatus").value || null,
+        itemsPerPage: document.getElementById("dropdownPage").value || null,
+        dateOfBirth: document.getElementById("filterDateOfBirth").value.toString() || null
     };
+
     const page = parseInt(pageToGo);
-    const url = `/Management/Basvuru/FilterBasvurus?page=${encodeURIComponent(page)}`;
+    console.log(filters);
 
-    fetch(url, {
+    fetch(`/Management/Basvuru/FilterBasvurus?page=${encodeURIComponent(page)}`, {
         method: 'POST',
-
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         },
-        body: JSON.stringify(filters)
+        body: JSON.stringify(filters)  // JSON.stringify ile gönderim yapıyoruz
     })
         .then(response => response.json())
         .then(data => {
             console.log(data);
             updateTable(data);
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error(error));
     currentPage = pageToGo;
 });
 
 function updateTable(basvurus) {
     pageToGo = 1;
-    const tableBody = document.querySelector("#tableContents tbody");
-    const tableFooter = document.querySelector("#tableContents tfoot tr td");
+    const tableBody = document.querySelector("#tableBasvurus tbody");
+    const tableFooter = document.querySelector("#tableBasvurus tfoot tr td");
     tableBody.innerHTML = ""; // Mevcut tabloyu temizle
     console.log(pageToGo);
     console.log(basvurus.Contents);
@@ -113,21 +114,17 @@ function updateTable(basvurus) {
             const row = `
                 <tr scope="row" style="text-align:center;">
                     <td>${(content.ID).toString()}</td>
-                    <td style=""><b>${content.AppUser.UserName}</b></td>
-                    <td style="text-align:center">
-                        <a href="${content.CoverImagePath}">
-                            <img src="${content.CoverImagePath}" style="max-height:60px; margin:auto;">
-                        </a>
-                    </td>
-                    <td><a href="/Management/Content/DetailsManagement/${(content.ID).toString()}">${content.Title}</a></td>
-                    <td>${content.Category.Name}</td>
+                    <td style=""><b>${content.FirstName}</b></td>
+                    <td style=""><b>${content.LastName}</b></td>
+                    <td>${content.Email}</td>
+                    <td>${new Date(content.DateOfBirth).toLocaleDateString()}</td>
                     <td>${new Date(content.CreatedDate).toLocaleDateString()}</td>
                     <td>${checkDateTime(new Date(content.UpdatedDate).toLocaleDateString())}</td>
                     <td>${getStatusText(content.Status)}</td>
                     <td>
-                        <a href="/Management/Content/Update/${(content.ID).toString()}">Edit</a> |
-                        <a href="/Management/Content/DetailsManagement/${(content.ID).toString()}" class="details-btn">Görüntüle</a> | 
-                        <a href="/Management/Content/DeleteManagement/${(content.ID).toString()}">Delete</a>
+                        <a href="/Management/Basvuru/Update/${(content.ID).toString()}">Edit</a> |
+                        <a href="/Management/Basvuru/DetailsManagement/${(content.ID).toString()}" class="details-btn">Görüntüle</a> | 
+                        <a href="/Management/basvuru/Delete/${(content.ID).toString()}">Delete</a>
                     </td>
                 </tr>
             `;

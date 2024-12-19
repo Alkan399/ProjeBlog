@@ -2,18 +2,30 @@
 @addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin:2%;padding:2%;">
         <div class="col-lg-10 col-sm-12">
+            
+            <div style="padding-top:30px;text-align:center;">
+                <row>@{
+                    if(Model[0].CoverImagePath != null)
+                    {
+                        <img style="max-height:65vh;text-align:center; margin:3vh;" src="@Model[0].CoverImagePath" />
+                    }
+                    else{
 
-            <div class="row" style="padding-top:30px;">
-                <h3 style="margin-left:auto; margin-right:auto">@Model[0].Title </h3>
+                    }
+                    }
+                    
+                </row>
+                <row>
+                    <h3 style="margin-left:auto; margin-right:auto">@Model[0].Title </h3>
+                </row>
             </div>
             <div class="row">
                 <article>@Html.Raw(@Model[0].Entry)</article>
             </div>
-
         </div>
-        <div class="col-lg-2 col-sm-12">
+        <div class="col-lg-2 col-sm-12" style="border-width:2px;border-left:groove;">
             <h2 style="margin-left:2px">Deneme</h2> 
         </div>
 

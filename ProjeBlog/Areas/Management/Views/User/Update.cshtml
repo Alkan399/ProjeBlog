@@ -3,73 +3,75 @@
 @model ProjeBlog.Models.AppUser
 
 <div class="container mt-5" style="margin: 0 auto; max-width: 600px;">
-    <div class="card shadow">
-        <div class="card-header text-center bg-primary text-white">
-            <h4>Kullanıcıyı Güncelle</h4>
-        </div>
-        <div class="card-body">
-            <form method="post" asp-area="Management" asp-controller="User" asp-action="Update">
-                <div class="form-group mb-3">
-                    <label for="UserName">Kullanıcı Adı:</label>
-                    <input type="text" class="form-control" asp-for="UserName" id="UserName" value="@Model.UserName" />
-                </div>
-                <input type="hidden" class="form-control" asp-for="AppUserDetail.AppUserID" id="UserId" value="@Model.ID" />
-                <input type="hidden" class="form-control" asp-for="AppUserDetail.ID" id="UserDetailsId" value="@Model.AppUserDetail.ID" />
+    <div class="box">
+        <div class="card shadow" style="margin:10%">
+            <div class="card-header text-center bg-primary text-white">
+                <h4>Kullanıcıyı Güncelle</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-area="Management" asp-controller="User" asp-action="Update">
+                    <div class="form-group mb-3">
+                        <label for="UserName">Kullanıcı Adı:</label>
+                        <input type="text" class="form-control" asp-for="UserName" id="UserName" value="@Model.UserName" />
+                    </div>
+                    <input type="hidden" class="form-control" asp-for="AppUserDetail.AppUserID" id="UserId" value="@Model.ID" />
+                    <input type="hidden" class="form-control" asp-for="AppUserDetail.ID" id="UserDetailsId" value="@Model.AppUserDetail.ID" />
 
-                <div class="form-group mb-3">
-                    <label for="Password">Şifre:</label>
-                    <input type="password" class="form-control" asp-for="Password" id="Password" value="@Model.Password" />
-                </div>
+                    <div class="form-group mb-3">
+                        <label for="Password">Şifre:</label>
+                        <input type="password" class="form-control" asp-for="Password" id="Password" value="@Model.Password" />
+                    </div>
 
-                <div class="form-group mb-3">
-                    <label for="RePassword">Şifre Tekrarı:</label>
-                    <input type="password" class="form-control" asp-for="RePassword" id="RePassword" value="@Model.RePassword" />
-                </div>
+                    <div class="form-group mb-3">
+                        <label for="RePassword">Şifre Tekrarı:</label>
+                        <input type="password" class="form-control" asp-for="RePassword" id="RePassword" value="@Model.RePassword" />
+                    </div>
 
-                <div class="form-group mb-3">
-                    <label for="Email">E-posta:</label>
-                    <input type="email" class="form-control" asp-for="Email" id="Email" value="@Model.Email" />
-                </div>
+                    <div class="form-group mb-3">
+                        <label for="Email">E-posta:</label>
+                        <input type="email" class="form-control" asp-for="Email" id="Email" value="@Model.Email" />
+                    </div>
 
-                <div class="form-group mb-3">
-                    <label for="FirstName">Ad:</label>
-                    <input type="text" class="form-control" asp-for="AppUserDetail.FirstName" id="FirstName" value="@Model.AppUserDetail.FirstName" />
-                </div>
+                    <div class="form-group mb-3">
+                        <label for="FirstName">Ad:</label>
+                        <input type="text" class="form-control" asp-for="AppUserDetail.FirstName" id="FirstName" value="@Model.AppUserDetail.FirstName" />
+                    </div>
 
-                <div class="form-group mb-3">
-                    <label for="LastName">Soyad:</label>
-                    <input type="text" class="form-control" asp-for="AppUserDetail.LastName" id="LastName" value="@Model.AppUserDetail.LastName" />
-                </div>
+                    <div class="form-group mb-3">
+                        <label for="LastName">Soyad:</label>
+                        <input type="text" class="form-control" asp-for="AppUserDetail.LastName" id="LastName" value="@Model.AppUserDetail.LastName" />
+                    </div>
 
-                <div class="form-group mb-3">
-                    <label for="DateOfBirth">Doğum Tarihi:</label>
-                    <input type="date" class="form-control" asp-for="AppUserDetail.DateOfBirth" id="DateOfBirth" value="@Model.AppUserDetail.DateOfBirth" />
-                </div>
+                    <div class="form-group mb-3">
+                        <label for="DateOfBirth">Doğum Tarihi:</label>
+                        <input type="date" class="form-control" asp-for="AppUserDetail.DateOfBirth" id="DateOfBirth" value="@Model.AppUserDetail.DateOfBirth" />
+                    </div>
 
-                <div class="form-group mb-3">
-                <label for="Status">Kullanıcı Durumu:</label>
-                <select class="form-control" asp-for="Role" id="Status">
-                    <option value="0">Admin</option>
-                    <option value="1">Kullanıcı</option>
-                </select>
-                </div>
+                    <div class="form-group mb-3">
+                    <label for="Status">Kullanıcı Durumu:</label>
+                    <select class="form-control" asp-for="Role" id="Status">
+                        <option value="0">Admin</option>
+                        <option value="1">Kullanıcı</option>
+                    </select>
+                    </div>
 
-                <div class="text-center">
-                    <button type="submit" style="width:50%" class="btn btn-primary">Kaydet</button>
-                </div>
-            </form>
-        </div>
-        <div>
-            @{
-                string message = ViewData["Message"] as string;
-            }
+                    <div class="text-center">
+                        <button type="submit" style="width:50%" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+            <div>
+                @{
+                    string message = ViewData["Message"] as string;
+                }
 
-            @if (!string.IsNullOrEmpty(message))
-            {
-                <div class="alert alert-info">
-                    @message
-                </div>
-            }
+                @if (!string.IsNullOrEmpty(message))
+                {
+                    <div class="alert alert-info">
+                        @message
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
