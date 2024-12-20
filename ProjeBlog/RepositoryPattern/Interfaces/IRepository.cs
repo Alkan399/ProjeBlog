@@ -22,6 +22,7 @@ namespace ProjeBlog.RepositoryPattern.Interfaces
         bool Any(Expression<Func<T, bool>> exp);
         List<T> SelectActivesByLimit(int count);
         int GetUserId(HttpContext httpContext);
+        T GetUserByCookie(HttpContext httpContext);
         JsonResult NoRecordsMessage(List<T> values);
     }
 }

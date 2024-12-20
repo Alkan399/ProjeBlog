@@ -6,7 +6,7 @@
 }
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
-<div class="container col-lg-8 col-sm-12">
+<div class="container col-lg-10 col-sm-10" style="border-right: 2px groove;">
     @{
         var methods = new Methods();
         for (int i = 0; i < Model.Count; i++)
@@ -15,15 +15,15 @@
             sString = methods.BlogContentFormatting(Model[i]) + "...";
 
             <!-- Her içerik için dış katman -->
-            <div class="about_section layout_padding">
-                <div class="container">
-                    <div class="row" style="border-bottom-style:groove; border-width:2px; padding:3%; text-align:center">
+            <div class="" style="background-color:aliceblue">
+                <div class="container d-flex flex-wrap justify-content-center align-items-center" style="padding-top:3vh; width:auto; text-align:center;">
+                    <div class="row col-sm-6 col-md-8 col-lg-11" style="border-bottom-style:groove; border-width:2px; text-align:center; max-width:100%;background-color:white">
                         <!-- Sol kısım: İçerik -->
-                        <div class="" style="padding:3%; text-align:center; margin-left:auto; margin-right:auto;">
+                        <div style="padding:3%; text-align:center; margin-left:auto; margin-right:auto;">
                             @if (Model[i].CoverImagePath != null)
                             {
                                 <div class="about_img">
-                                    <img style="max-height:65vh;" src="@Model[i].CoverImagePath">
+                                    <img style="max-height:40vh;" src="@Model[i].CoverImagePath">
                                 </div>
                             }
                             
@@ -34,7 +34,7 @@
                                 </a>
                             </h2>
                             <div class="content-preview">
-                                <p class="lorem_text">213a</p>
+                                <p class="lorem_text">@Html.Raw(sString)</p>
                             </div>
                             <div class="social_icon_main">
                                 <div class="social_icon col-lg-8">
@@ -44,7 +44,7 @@
                                         <li><a href="#"><img src="/images/instagram-icon.png"></a></li>
                                     </ul>
                                 </div>
-                                <div class="read_bt col-lg-2">
+                                <div class="read_bt col-lg-2 d-flex flex-column">
                                     <a asp-controller="Blog" asp-action="ContentPage" asp-route-idx="@Model[i].ID">Okumaya Devam Et</a>
                                 </div>
                             </div>
@@ -55,5 +55,26 @@
         }
     }
 </div>
-<div class="col-lg-4 col-sm-12" style="border-width:2px;border-left-style:groove;">
+<div class="col-lg-2 col-sm-2" style="width:100%;height:100%;">
+    <div class="newsletter_main">
+        <h1 class="recent_taital">Recent post</h1>
+        <div class="recent_box">
+            <div class="recent_left">
+                <div class="image_6"><img src="images/img-6.png"></div>
+            </div>
+            <div class="recent_right">
+                <h3 class="consectetur_text">Consectetur adipiscing</h3>
+                <p class="dolor_text">ipsum dolor sit amet, consectetur adipiscing </p>
+            </div>
+        </div>
+        <div class="recent_box">
+            <div class="recent_left">
+                <div class="image_6"><img src="images/img-7.png"></div>
+            </div>
+            <div class="recent_right">
+                <h3 class="consectetur_text">Consectetur adipiscing</h3>
+                <p class="dolor_text">ipsum dolor sit amet, consectetur adipiscing </p>
+            </div>
+        </div>
+    </div>
 </div>

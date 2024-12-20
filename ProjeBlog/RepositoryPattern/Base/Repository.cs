@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Claims;
 
 namespace ProjeBlog.RepositoryPattern.Base
 {
@@ -95,13 +96,20 @@ namespace ProjeBlog.RepositoryPattern.Base
 
         public int GetUserId(HttpContext httpContext)
         {
-            var id = httpContext.User.Claims.FirstOrDefault(x => x.Type == "userId")?.Value;
+            //var id = httpContext.User.Claims.FirstOrDefault(x => x.Type == "userId")?.Value;
+            var id = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             return Int32.Parse(id);
         }
 
         public JsonResult NoRecordsMessage(List<T> values)
         {
             throw new NotImplementedException();
+        }
+
+        public T GetUserByCookie(HttpContext httpContext)
+        {
+            int userId = GetUserId(httpContext);
+            return table.Find(userId);
         }
     }
 }

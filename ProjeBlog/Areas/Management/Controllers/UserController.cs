@@ -33,12 +33,15 @@ namespace ProjeBlog.Areas.Management.Controllers
         {
             return View();
         }
+        public IActionResult GetCurrentUser()
+        {
+            return View();
+        }
         public IActionResult UserList()
         {
             List<AppUser> users = _repoAppUser.GetUsersWithDetail();
             return View(users);
         }
-
         public IActionResult Create()
         {
             return View();

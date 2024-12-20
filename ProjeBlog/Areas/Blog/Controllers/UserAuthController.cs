@@ -33,11 +33,17 @@ namespace ProjeBlog.Areas.Blog.Controllers
                 bool isValid = BCrypt.Net.BCrypt.Verify(user.Password, selectedUser.Password);
                 if (isValid)
                 {
+                    //List<Claim> claims = new List<Claim>()
+                    //{
+                    //    new Claim("userName", selectedUser.UserName),
+                    //    new Claim("userId", selectedUser.ID.ToString()),
+                    //    new Claim("role", selectedUser.Role.ToString())
+                    //};
                     List<Claim> claims = new List<Claim>()
                     {
-                        new Claim("userName", selectedUser.UserName),
-                        new Claim("userId", selectedUser.ID.ToString()),
-                        new Claim("role", selectedUser.Role.ToString())
+                        new Claim(ClaimTypes.Name, selectedUser.UserName),
+                        new Claim(ClaimTypes.NameIdentifier, selectedUser.ID.ToString()),
+                        new Claim(ClaimTypes.Role, selectedUser.Role.ToString())
                     };
                     ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     ClaimsPrincipal principal = new ClaimsPrincipal(identity);

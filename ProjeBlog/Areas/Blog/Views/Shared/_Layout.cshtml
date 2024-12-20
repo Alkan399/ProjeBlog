@@ -47,88 +47,94 @@
         }
     </style>
 </head>
-<header id="header">
-    <!-- header section start -->
-    <div class="header">
-        <div class="container-fluid header_main">
-            <nav id="navbarContents" class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="logo" asp-controller="Home" asp-action="index"><img src="~/images/logo.png"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="home" asp-action="index">Ana Sayfa</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="home" asp-action="about">Hakkında</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="blog" asp-action="blog">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="home" asp-action="basvur">Başvur</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="home" asp-action="contact">İletişim</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="UserAuth" asp-action="login">Giriş</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="home" asp-action="index"><img src="~/images/serach-icon.png"></a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
 
-    </div>
-</header>
-<body>
-    
+
+<body style="display: flex;
+    flex-direction: column;
+    height: auto;
+    margin: 0;overflow:scroll;">
+    <header id="header">
+        <!-- header section start -->
+        <div class="header">
+            <div class="container-fluid header_main">
+                <nav id="navbarContents" class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="logo" asp-controller="Home" asp-action="index"><img src="~/images/logo.png"></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="home" asp-action="index">Ana Sayfa</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="home" asp-action="about">Hakkında</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="blog" asp-action="blog">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="home" asp-action="basvur">Başvur</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="home" asp-action="contact">İletişim</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="UserAuth" asp-action="login">Giriş</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="home" asp-action="index"><img src="~/images/serach-icon.png"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+        </div>
+    </header>
     <!-- contact section end -->
-    <div style="margin-bottom:50px">
+    <div style="margin-bottom:50px;">
         @* <div class="container" style="margin-top:20px"> *@
             @RenderBody()
         @* </div> *@
     </div>
 
-</body>
-<footer>
-    <!-- footer section start -->
-    <div class="footer_section layout_padding">
-        <div class="container">
-            <div class="footer_logo"><a href="index.html"><img src="~/images/footer-logo.png"></a></div>
-            <div class="footer_menu">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="features.html">Features</a></li>
-                    <li><a href="contact.html">contact us</a></li>
-                </ul>
-            </div>
-            <div class="contact_menu">
-                <ul>
-                    <li><a href="#"><img src="images/call-icon.png"></a></li>
-                    <li><a href="#">Call : +01 1234567890</a></li>
-                    <li><a href="blog.html"><img src="~/images/mail-icon.png"></a></li>
-                    <li><a href="features.html">demo@gmail.com</a></li>
-                </ul>
+    <footer>
+        <!-- footer section start -->
+        <div class="footer_section layout_padding">
+            <div class="container">
+                <div class="footer_logo"><a href="index.html"><img src="~/images/footer-logo.png"></a></div>
+                <div class="footer_menu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="contact.html">contact us</a></li>
+                    </ul>
+                </div>
+                <div class="contact_menu">
+                    <ul>
+                        <li><a href="#"><img src="images/call-icon.png"></a></li>
+                        <li><a href="#">Call : +01 1234567890</a></li>
+                        <li><a href="blog.html"><img src="~/images/mail-icon.png"></a></li>
+                        <li><a href="features.html">demo@gmail.com</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- footer section end -->
-</footer>
-
-    <!-- copyright section start -->
+        <!-- footer section end -->
+    </footer>
     <div class="copyright_section">
         <div class="container">
             <p class="copyright_text">Copyright 2020 All Right Reserved By.<a href="https://html.design"> Free  html Templates</a></p>
         </div>
     </div>
+</body>
+
+
+    <!-- copyright section start -->
+    
     <!-- copyright section end -->
     <!-- Javascript files-->
     <script src="~/js/jquery.min.js"></script>

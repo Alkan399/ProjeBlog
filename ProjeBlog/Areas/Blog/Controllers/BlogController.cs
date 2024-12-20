@@ -23,7 +23,7 @@ namespace ProjeBlog.Areas.Blog.Controllers
         }
         public IActionResult Blog()
         {
-            List<Content> content = _repoContent.GetAll();
+            List<Content> content = _repoContent.GetAll().Where(x => x.Status != Enums.DataStatus.Deleted).ToList();
             return View(content);
         }
         public IActionResult Create()
@@ -57,15 +57,22 @@ namespace ProjeBlog.Areas.Blog.Controllers
             _repoContent.Delete(id);
             return RedirectToAction("Blog");
         }
-        [Route("/{idx}")]
-        [HttpPost("{idx}")]
+        [Route("/{idx}")]   
         public IActionResult ContentPage(int idx)
         {
             id = idx;
             //ViewBag.Id = id.ToString();
 
-            List<Content> content = _db.Contents.Where(x => x.ID == id).ToList();
-            return View(content);
+            List<Content> content = _db.Contents.Where(x => x.ID == id && x.Status != Enums.DataStatus.Deleted).ToList();
+            if (content.Count > 0)
+            {
+                return View(content);
+            }
+            else 
+            {
+                //return RedirectToAction("Blog");
+                return NotFound();
+            }
         }
         [HttpGet]
         public IActionResult ContentPage()

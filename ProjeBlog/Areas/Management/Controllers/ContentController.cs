@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Http;
+using System.Reflection.Metadata;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using X.PagedList.Extensions;
@@ -33,12 +35,13 @@ namespace ProjeBlog.Areas.Management.Controllers
             _repoContent = repoContent;
 
         }
-        HttpContext _httpContext;
+        public HttpContext _httpContext;
         public  IActionResult Index()
         {
-            int userId = _repoUser.GetUserId(HttpContext);
+            AppUser user = _repoUser.GetUserByCookie(HttpContext);
             //Authorization' dan sonra düzeltilecek
-            List<Content> content = _db.Contents.Where(a => (a.Status != Enums.DataStatus.Deleted) && a.AppUserID == userId).ToList();
+            List<Content> content = _db.Contents.Where(a => (a.Status != Enums.DataStatus.Deleted) && a.AppUserID == user.ID).ToList();
+            ViewData["Categories"] = _repoContent.GetCategories();
             return View(content);
         }
         public IActionResult ListAllContents()
@@ -107,17 +110,51 @@ namespace ProjeBlog.Areas.Management.Controllers
         }
         public IActionResult FilterContents([FromBody] ContentFilterDto criteria, [FromQuery]int page)
         {
+            
             Expression<Func<Content, bool>> filterExpression = content =>
                 (string.IsNullOrEmpty(criteria.UserName) || content.AppUser.UserName.Contains(criteria.UserName)) &&
                 (string.IsNullOrEmpty(criteria.Title) || content.Title.Contains(criteria.Title)) &&
                 (string.IsNullOrEmpty(criteria.Entry) || content.Entry.Contains(criteria.Entry)) &&
-                (string.IsNullOrEmpty(criteria.Category) || content.Category.ID.Equals(criteria.Category)) &&
+                (string.IsNullOrEmpty(criteria.Category) || (content.Category.ID).ToString().Equals(criteria.Category)) &&
                 (string.IsNullOrEmpty(criteria.Status) || (criteria.Status == "Active"
             ? content.Status == Enums.DataStatus.Inserted || content.Status == Enums.DataStatus.Updated
             : content.Status == Enums.DataStatus.Deleted));
 
             var filteredContents = _repoContent.GetContentWithUser(filterExpression).ToPagedList(page,criteria.ItemsPerPage);
 
+            var jsonResponse = new
+            {
+                PageNumber = filteredContents.PageNumber, // Mevcut sayfa
+                PageCount = filteredContents.PageCount,   // Toplam sayfa
+                HasNextPage = filteredContents.HasNextPage, // Sonraki sayfa var mı
+                HasPreviousPage = filteredContents.HasPreviousPage, // Önceki sayfa var mı
+                Contents = filteredContents // Sayfa içerikleri
+            };
+
+            var serializedResponse = JsonConvert.SerializeObject(jsonResponse, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                Formatting = Formatting.Indented
+            });
+
+            return Content(serializedResponse, "application/json");
+        }
+        public IActionResult FilterContentsForUser([FromBody] ContentFilterDto criteria, [FromQuery] int page)
+        {
+                criteria.UserId = _repoUser.GetUserId(HttpContext);
+
+                Expression<Func<Content, bool>> filterExpression = content =>
+                ((criteria.UserId) == null || content.AppUser.ID == criteria.UserId) &&
+                (string.IsNullOrEmpty(criteria.UserName) || content.AppUser.UserName.Contains(criteria.UserName)) &&
+                (string.IsNullOrEmpty(criteria.Title) || content.Title.Contains(criteria.Title)) &&
+                (string.IsNullOrEmpty(criteria.Entry) || content.Entry.Contains(criteria.Entry)) &&
+                (string.IsNullOrEmpty(criteria.Category) || (content.Category.ID).ToString().Equals(criteria.Category)) &&
+                (string.IsNullOrEmpty(criteria.Status) || (criteria.Status == "Active"
+            ? content.Status == Enums.DataStatus.Inserted || content.Status == Enums.DataStatus.Updated
+            : content.Status == Enums.DataStatus.Deleted));
+
+            var filteredContents = _repoContent.GetContentWithUser(filterExpression).ToPagedList(page, criteria.ItemsPerPage);
+            
             var jsonResponse = new
             {
                 PageNumber = filteredContents.PageNumber, // Mevcut sayfa

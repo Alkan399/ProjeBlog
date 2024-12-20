@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.getElementById("filterButton").addEventListener("click", function () {
     const filters = {
-        id: null,
-        userName: document.getElementById("filterUserName").value,
+        userId: null,
+        userName: null,
         title: document.getElementById("filterTitle").value,
         entry: document.getElementById("filterEntry").value,
         status: document.getElementById("filterStatus").value,
@@ -19,7 +19,7 @@ document.getElementById("filterButton").addEventListener("click", function () {
         category: document.getElementById("filterCategory").value.toString()
     };
     const page = parseInt(pageToGo);
-    const url = `/Management/Content/FilterContents?page=${encodeURIComponent(page)}`;
+    const url = `/Management/Content/FilterContentsForUser?page=${encodeURIComponent(page)}`;
 
     fetch(url, {
         method: 'POST',

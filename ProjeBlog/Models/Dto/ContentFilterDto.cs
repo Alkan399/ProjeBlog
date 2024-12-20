@@ -1,7 +1,10 @@
-﻿namespace ProjeBlog.Models.Dto
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ProjeBlog.Models.Dto
 {
     public class ContentFilterDto
     {
+        public int? UserId { get; set; }
         public string UserName { get; set; }
         public string Title { get; set; }
         public string Entry { get; set; }
