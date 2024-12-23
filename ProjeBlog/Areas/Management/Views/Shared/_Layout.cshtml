@@ -41,6 +41,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+
 </head>
 <body class="skin-blue">
     <div class="wrapper">
@@ -334,9 +335,8 @@
                             <span class="label label-primary pull-right">3</span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="~/management/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Kullanıcı Bilgileri</a></li>
-                            <li><a href="~/management/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Şifremi Değiştir</a></li>
-                            <li><a href="~/management/pages/layout/fixed.html"><i class="fa fa-circle-o"></i> İçeriklerim</a></li>
+                            <li><a asp-area="Management" asp-controller="User" asp-action="Index"><i class="fa fa-circle-o"></i> Kullanıcı Bilgileri</a></li>
+                            <li><a asp-area="Management" asp-controller="User" asp-action="PasswordChange"><i class="fa fa-circle-o"></i> Şifremi Değiştir</a></li>
                         </ul>
                     </li>
                     <li class="treeview">

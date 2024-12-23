@@ -37,6 +37,7 @@ namespace ProjeBlog
             services.AddScoped<IRepository<Basvuru>, Repository<Basvuru>>();
             services.AddScoped<IRepository<Category>, Repository<Category>>();
             services.AddScoped<IRepository<AppUser>, Repository<AppUser>>();
+            services.AddScoped<IRepository<AppUserDetail>, Repository<AppUserDetail>>();
             services.AddScoped<IRepository<Content>, Repository<Content>>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddScoped<IContentRepository, ContentRepository>();

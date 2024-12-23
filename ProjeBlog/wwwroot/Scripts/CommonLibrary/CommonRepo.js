@@ -20,4 +20,18 @@ export function checkDateTime(date) {
         return date;
     }
 }
+
+export function formatPhoneNumber(input) {
+
+    let value = input.value.replace(/\D/g, ''); // Sadece sayıları al
+    let formattedValue = '';
+
+    // Formatlama işlemi
+    if (value.length > 0) formattedValue += '(' + value.substring(0, 3);
+    if (value.length > 3) formattedValue += ') ' + value.substring(3, 6);
+    if (value.length > 6) formattedValue += '-' + value.substring(6, 10);
+
+    input.value = formattedValue;
+    
+}
 export default getStatusText;

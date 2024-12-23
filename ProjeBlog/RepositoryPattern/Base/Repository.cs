@@ -111,5 +111,6 @@ namespace ProjeBlog.RepositoryPattern.Base
             int userId = GetUserId(httpContext);
             return table.Find(userId);
         }
+        
     }
 }

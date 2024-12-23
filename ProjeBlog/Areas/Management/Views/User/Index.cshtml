@@ -1,0 +1,131 @@
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@using ProjeBlog.Models;
+@model ProjeBlog.Models.AppUser
+
+
+<div class="container mt-5" style="margin: 0 auto; max-width: 600px;">
+    <div>
+        @{
+            string message = TempData["Message"] as string;
+        }
+
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <div class="alert alert-info">
+                @message
+            </div>
+        }
+    </div>
+    <div class="card shadow">
+        <div class="card-header text-center bg-primary text-white">
+            <h4>Kullanıcı Bilgileri</h4>
+        </div>
+        <div class="card-body">
+            <div class="box" style="margin-left:auto;margin-right:auto;padding-bottom:2vh; text-align:center">
+               
+                <div style="margin:5vh">
+                    <div style="position: relative; display: inline-block;">
+                        <img id="profilePictureImg" style="width:256px; height:256px; border-radius:50%; border: 5px solid #3c8dbc; object-fit: cover;" src="@Model.AppUserDetail.ProfilePicture" />
+                        <a id="changeLink" href="#" style="position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%) scale(2,2); color: #fff; background-color: rgba(0, 0, 0, 0.5); padding: 5px 10px; text-decoration: none; border-radius: 5px;">Değiştir</a>
+                        
+                    </div>
+                    <form method="post" asp-area="Management" asp-controller="User" asp-action="UpdateDetails" asp-route-detailId="@Model.AppUserDetail.ID">
+                    <div class="box-info" id="profilePictureBox" style="display:none; margin:3vh;border: 3px solid #3c8dbc; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 15px; ">
+                        <label>URL:</label>
+                        <input oninput="changePicture(this)" class="form-control" type="text" id="textBox" style="margin-top:2vh;" placeholder="Yeni resim URL'sini girin..." asp-for="@Model.AppUserDetail.ProfilePicture" />
+
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="UserName">Kullanıcı Adı:</label>
+                        <input type="text" disabled="disabled" class="form-control" asp-for="UserName" id="UserName" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="Email">E-posta:</label>
+                        <input disabled="disabled" type="email" class="form-control" asp-for="Email" id="Email" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="CreatedDate">Kayıt Tarihi:</label>
+                        <input type="text" disabled="disabled" class="form-control" asp-for="CreatedDate" id="CreatedDate" />
+                    </div>
+                    
+                
+
+                        <div class="form-group mb-3">
+                            <label for="FirstName">Ad:</label>
+                            <input type="text" class="form-control" asp-for="AppUserDetail.FirstName" id="FirstName" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="LastName">Soyad:</label>
+                            <input type="text" class="form-control" asp-for="AppUserDetail.LastName" id="LastName" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="PhoneNumber">Telefon Numarası:</label>
+                            <input type="tel" class="form-control" asp-for="AppUserDetail.PhoneNumber" id="PhoneNumber" pattern="\(\d{3}\) \d{3}-\d{4}" oninput="formatPhoneNumber(this)" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="DateOfBirth">Doğum Tarihi:</label>
+                            <input type="date" class="form-control" asp-for="AppUserDetail.DateOfBirth" id="DateOfBirth" />
+                        </div>
+                
+                        <div class="text-center">
+                            <button type="submit" style="width:50%" class="btn btn-primary">Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function formatPhoneNumber(input) {
+        let value = input.value.replace(/\D/g, ''); // Sadece sayıları al
+        let formattedValue = '';
+
+        // Formatlama işlemi
+        if (value.length > 0) formattedValue += '(' + value.substring(0, 3);
+        if (value.length > 3) formattedValue += ') ' + value.substring(3, 6);
+        if (value.length > 6) formattedValue += '-' + value.substring(6, 10);
+
+        input.value = formattedValue;
+    }
+    function changePicture(inputPP) {
+        var profilePictureBox = document.getElementById('profilePictureImg');
+        console.log(profilePictureBox.src);
+        profilePictureBox.src = inputPP.value;
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const phoneInput = document.getElementById('PhoneNumber');
+        phoneInput.addEventListener('input', function () {
+            formatPhoneNumber(phoneInput);
+        });
+
+        const textBoxURL = document.getElementById('textBox');
+        textBoxURL.addEventListener('input', function () {
+            changePicture(textBoxURL);
+        });
+
+    });
+    document.getElementById('changeLink').addEventListener('click', function() {
+    var profilePictureBox = document.getElementById('profilePictureBox');
+    var textBox = document.getElementById('textBox');
+        // Eğer input zaten görünürse, gizle
+        // if (textBox.style.display === "none" || textBox.style.display === "") {
+        //     textBox.style.display = "block";
+        // } else {
+        //     textBox.style.display = "none";
+        // }
+        if (profilePictureBox.style.display === "none" || profilePictureBox.style.display === "") {
+            profilePictureBox.style.display = "block";
+        } else {
+            profilePictureBox.style.display = "none";
+        }
+    });
+</script>

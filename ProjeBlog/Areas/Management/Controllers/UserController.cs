@@ -22,14 +22,22 @@ namespace ProjeBlog.Areas.Management.Controllers
     {
         MyDbContext _db;
         IAppUserRepository _repoAppUser;
+        IRepository<AppUserDetail> _repoAppUserDetail;
 
         public UserController(MyDbContext db,
-            IAppUserRepository repoAppUser)
+            IAppUserRepository repoAppUser,
+            IRepository<AppUserDetail> repoAppUserDetail)
         {
             _db = db;
             _repoAppUser = repoAppUser;
+            _repoAppUserDetail = repoAppUserDetail;
         }
         public IActionResult Index()
+        {
+            AppUser user = _repoAppUser.GetUserWithDetailsByCookie(HttpContext);
+            return View(user);
+        }
+        public IActionResult PasswordChange()
         {
             return View();
         }
@@ -74,6 +82,28 @@ namespace ProjeBlog.Areas.Management.Controllers
                 ViewData["Message"] = msg;
             }
             return View(appUser);
+        }
+        public IActionResult UpdateDetails(AppUserDetail appUserDetail, int detailId)
+        {
+            string msg = "Kayıt güncelleme BAŞARISIZ!";
+            AppUserDetail UserDetail = _repoAppUserDetail.GetById(detailId);
+            UserDetail.FirstName = appUserDetail.FirstName;
+            UserDetail.LastName = appUserDetail.LastName;
+            UserDetail.DateOfBirth = appUserDetail.DateOfBirth;
+            UserDetail.PhoneNumber = appUserDetail.PhoneNumber;
+            UserDetail.ProfilePicture = appUserDetail.ProfilePicture;
+            _repoAppUserDetail.Update(UserDetail);
+            AppUserDetail c = _repoAppUserDetail.GetById(detailId);
+            if (UserDetail.FirstName == c.FirstName && UserDetail.LastName == c.LastName && UserDetail.DateOfBirth == c.DateOfBirth && UserDetail.PhoneNumber == c.PhoneNumber && UserDetail.ProfilePicture == c.ProfilePicture)
+            {
+                msg = "Kayıt güncelleme BAŞARILI!";
+                TempData["Message"] = msg;
+            }
+            else
+            {
+                TempData["Message"] = msg;
+            }
+            return RedirectToAction("Index");
         }
         public IActionResult Delete(int id)
         {

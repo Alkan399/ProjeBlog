@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
 using ProjeBlog.RepositoryPattern.Base;
@@ -49,5 +50,15 @@ namespace ProjeBlog.RepositoryPattern.Concrete
         {
             return table.Where(exp).Include(x => x.AppUserDetail).ToList();
         }
+        public AppUser GetUserWithDetailsByCookie(HttpContext httpContext)
+        {
+            int userId = GetUserId(httpContext);
+            AppUser user = GetUserWithDetailById(userId);
+            return user;
+        }
+        //public AppUser GetUsersWithAllDetail()
+        //{
+        //    return table.Include(d => d.AppUserDetail).Include(e => e.Contents).Include(f => f.Comment).ToList();
+        //}
     }
 }
