@@ -21,41 +21,10 @@ namespace ProjeBlog.Areas.Blog.Controllers
             _db = db;
             _repoContent = repoContent;
         }
-        public IActionResult Blog()
+        public IActionResult Index()
         {
             List<Content> content = _repoContent.GetAll().Where(x => x.Status != Enums.DataStatus.Deleted).ToList();
             return View(content);
-        }
-        public IActionResult Create()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Create(Content content)
-        {
-            content.AppUserID = 4;
-            _repoContent.Add(content);
-            return RedirectToAction("Blog");
-        }
-
-        public IActionResult Update(int id)
-        {
-            Content content = _repoContent.GetById(id);
-
-            return View(content);
-        }
-        [HttpPost]
-        public IActionResult Update(Content content)
-        {
-            content.AppUserID = 4;
-            _repoContent.Update(content);
-            return RedirectToAction("Blog");
-        }
-
-        public IActionResult Delete(int id)
-        {
-            _repoContent.Delete(id);
-            return RedirectToAction("Blog");
         }
         [Route("/{idx}")]   
         public IActionResult ContentPage(int idx)
@@ -64,8 +33,11 @@ namespace ProjeBlog.Areas.Blog.Controllers
             //ViewBag.Id = id.ToString();
 
             List<Content> content = _db.Contents.Where(x => x.ID == id && x.Status != Enums.DataStatus.Deleted).ToList();
+            
             if (content.Count > 0)
             {
+                content[0].Views += 1;
+                _db.SaveChanges();
                 return View(content);
             }
             else 

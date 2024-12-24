@@ -55,12 +55,16 @@ namespace ProjeBlog.Areas.Management.Controllers
         public IActionResult Update(int id)
         {
             Content content = _repoContent.GetById(id);
-
+            ViewData["Categories"] = _repoContent.GetCategories();
             return View(content);
         }
         [HttpPost]
         public IActionResult Update(Content content)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(content);
+            }
             string msg = "Kayıt güncelleme BAŞARISIZ!";
             content.AppUserID = _repoUser.GetUserId(HttpContext);
             _repoContent.Update(content);
@@ -68,22 +72,28 @@ namespace ProjeBlog.Areas.Management.Controllers
             if(content.Title == c.Title && content.CoverImagePath == c.CoverImagePath && content.Entry == c.Entry)
             {
                 msg = "Kayıt güncelleme BAŞARILI!";
-                ViewData["Message"] = msg;
+                TempData["Message"] = msg;
             }
             else
             {
-                ViewData["Message"] = msg;
+                TempData["Message"] = msg;
             }
-            return View(content);
+            return RedirectToAction("Update");
         }   
         public IActionResult Create()
         {
+            ViewData["Categories"] = _repoContent.GetCategories();
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(Content content)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewData["Categories"] = _repoContent.GetCategories();
+                return View(content);
+            }
             content.AppUserID = _repoUser.GetUserId(HttpContext);
             _repoContent.Add(content);
             return RedirectToAction("Index");

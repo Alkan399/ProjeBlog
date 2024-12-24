@@ -1,4 +1,5 @@
-﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using ProjeBlog.Models
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 @model ProjeBlog.Models.Content
 <head>
 
@@ -11,11 +12,22 @@
             <div class="mb-3">
                 <label class="col-form-label" asp-for="Title">Başlık</label>
                 <input type="text" class="form-control" asp-for="Title" />
+            <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="mb-3">
-                <label class="col-form-label">Kategori</label>
-            <input type="text" class="form-control" asp-for="CategoryID" />
-            </div>
+            <label for="CategoryID">Kategori</label>
+            <select asp-for="CategoryID" id="CategoryID" class="form-control">
+                @{
+                    var Categories = ViewData["Categories"] as List<Category>;
+                    foreach (var category in Categories)
+                    {
+                        if (category.Status != ProjeBlog.Enums.DataStatus.Deleted)
+                        {
+                            <option value="@category.ID">@category.Name</option>
+                        }
+                    }
+                }
+            </select>
+            <span asp-validation-for="CategoryID" class="text-danger"></span>
             <div class="mb-3">
                 <label class="col-form-label" asp-for="CoverImagePath">Kapak Resmi</label>
                 <input type="text" class="form-control" asp-for="CoverImagePath" />
@@ -23,6 +35,7 @@
             <div class="mb-3">
                 <label class="col-form-label" asp-for="Entry">Yazı</label>
                 <textarea type="text" class="ck-editor" id="editor" asp-for="Entry"></textarea>
+                <span asp-validation-for="Entry" class="text-danger"></span>
             </div>
 
         <button type="submit" class="btn btn-primary" style="margin-top:30px; width:25%; height:40px; float:right">Kaydet</button>

@@ -1,5 +1,8 @@
-﻿namespace ProjeBlog.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ProjeBlog.Models
 {
+    [NotMapped]
     public class PasswordChangeViewModel
     {
         public string OldPassword { get; set; }

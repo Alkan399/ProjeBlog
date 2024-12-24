@@ -8,6 +8,7 @@ namespace ProjeBlog.Models
 {
     public class Basvuru:BaseEntity
     {
+        [Required]
         public string Email { get; set; }
         [Required]
         public string FirstName { get; set; }

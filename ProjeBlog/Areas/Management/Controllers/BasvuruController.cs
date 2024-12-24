@@ -44,6 +44,11 @@ namespace ProjeBlog.Areas.Management.Controllers
         [HttpPost]
         public IActionResult Create(Basvuru basvuru)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(basvuru);
+            }
+
             _basvuruRepository.Add(basvuru);
             return View();
         }
@@ -55,6 +60,11 @@ namespace ProjeBlog.Areas.Management.Controllers
         [HttpPost]
         public IActionResult Update(Basvuru basvuru)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(basvuru);
+            }
+
             string msg = "Kayıt güncelleme BAŞARISIZ!";
             _basvuruRepository.Update(basvuru);
             if (basvuru == _basvuruRepository.GetById(basvuru.ID)) 

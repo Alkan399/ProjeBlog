@@ -1,4 +1,5 @@
-﻿
+﻿@using ProjeBlog.Models
+
 @addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 @model ProjeBlog.Models.Content
 <head>
@@ -12,22 +13,39 @@
         
             <div style="width:80%;display: flex; justify-content: center; align-items: center;margin-left:auto; margin-right:auto;">
                 <form method="post" asp-area="Management" asp-controller="Content" asp-action="Update">
-                    <div class="mb-3">
-                        <label style="padding:10px" class="col-form-label" asp-for="Title">Başlık</label>
-                        <input type="text" class="form-control" asp-for="Title" />
-                    </div>
-                    <div class="mb-3">
-                        <label style="padding:10px" class="col-form-label" asp-for="CategoryID">Kategori</label>
-                        <input type="text" class="form-control" asp-for="CategoryID" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="col-form-label" asp-for="CoverImagePath">Kapak Resmi</label>
-                        <input type="text" class="form-control" asp-for="CoverImagePath" />
-                    </div>
-                    <div class="mb-3">
-                        <label style="padding:10px" class="col-form-label" asp-for="Entry">Yazı</label>
-                        <textarea type="text" class="ck-editor" id="editor" asp-for="Entry"></textarea>
-                    </div>
+                <div class="mb-3">
+                    <label class="col-form-label" asp-for="Title">Başlık</label>
+                    <input type="text" class="form-control" asp-for="Title" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                @* <div class="mb-3">
+                    <label class="col-form-label">Kategori</label>
+                    <input type="text" class="form-control" asp-for="CategoryID" />
+                    <span asp-validation-for="CategoryID" class="text-danger"></span>
+                </div> *@
+                <label for="CategoryID">Kategori</label>
+                <select asp-for="CategoryID" id="CategoryID" class="form-control">
+                    @{
+                        var Categories = ViewData["Categories"] as List<Category>;
+                        foreach (var category in Categories)
+                        {
+                            if (category.Status != ProjeBlog.Enums.DataStatus.Deleted)
+                            {
+                                <option value="@category.ID">@category.Name</option>
+                            }
+                        }
+                    }
+                </select>
+                <span asp-validation-for="CategoryID" class="text-danger"></span>
+                <div class="mb-3">
+                    <label class="col-form-label" asp-for="CoverImagePath">Kapak Resmi</label>
+                    <input type="text" class="form-control" asp-for="CoverImagePath" />
+                </div>
+                <div class="mb-3">
+                    <label class="col-form-label" asp-for="Entry">Yazı</label>
+                    <textarea type="text" class="ck-editor" id="editor" asp-for="Entry"></textarea>
+                    <span asp-validation-for="Entry" class="text-danger"></span>
+                </div>
 
                     <button style="margin-top:15px;margin-bottom:15px;margin-left:auto;margin-right:0;float:right;width:25%" type="submit" class="btn btn-primary">Kaydet</button>
 
@@ -52,7 +70,7 @@
 
             <div>
                 @{
-                    string message = ViewData["Message"] as string;
+                    string message = TempData["Message"] as string;
                 }
 
                 @if (!string.IsNullOrEmpty(message))

@@ -13,6 +13,7 @@
                     <div class="form-group mb-3">
                         <label for="UserName">Kullanıcı Adı:</label>
                         <input type="text" class="form-control" asp-for="UserName" id="UserName" value="@Model.UserName" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
                     </div>
                     <input type="hidden" class="form-control" asp-for="AppUserDetail.AppUserID" id="UserId" value="@Model.ID" />
                     <input type="hidden" class="form-control" asp-for="AppUserDetail.ID" id="UserDetailsId" value="@Model.AppUserDetail.ID" />
@@ -20,6 +21,7 @@
                     <div class="form-group mb-3">
                         <label for="Password">Şifre:</label>
                         <input type="password" class="form-control" asp-for="Password" id="Password" value="@Model.Password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
@@ -30,21 +32,25 @@
                     <div class="form-group mb-3">
                         <label for="Email">E-posta:</label>
                         <input type="email" class="form-control" asp-for="Email" id="Email" value="@Model.Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="FirstName">Ad:</label>
                         <input type="text" class="form-control" asp-for="AppUserDetail.FirstName" id="FirstName" value="@Model.AppUserDetail.FirstName" />
+                        <span asp-validation-for="AppUserDetail.FirstName" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="LastName">Soyad:</label>
                         <input type="text" class="form-control" asp-for="AppUserDetail.LastName" id="LastName" value="@Model.AppUserDetail.LastName" />
+                        <span asp-validation-for="AppUserDetail.LastName" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="DateOfBirth">Doğum Tarihi:</label>
                         <input type="date" class="form-control" asp-for="AppUserDetail.DateOfBirth" id="DateOfBirth" value="@Model.AppUserDetail.DateOfBirth" />
+                        <span asp-validation-for="AppUserDetail.DateOfBirth" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mb-3">
@@ -53,6 +59,7 @@
                         <option value="0">Admin</option>
                         <option value="1">Kullanıcı</option>
                     </select>
+                        <span asp-validation-for="Role" class="text-danger"></span>
                     </div>
 
                     <div class="text-center">

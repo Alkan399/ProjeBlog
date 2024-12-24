@@ -36,7 +36,10 @@ namespace ProjeBlog.Areas.Management.Controllers
         public IActionResult Create(Category category)
         {
             string msg = "Kayıt ekleme BAŞARISIZ!";
-
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
             _repoCategory.Add(category);
             Category ControlObject = _repoCategory.GetById(category.ID);
             if (category.Name == ControlObject.Name && category.Description == ControlObject.Description)
@@ -88,6 +91,10 @@ namespace ProjeBlog.Areas.Management.Controllers
         public IActionResult Update(Category category)
         {
             string msg = "Kayıt güncelleme BAŞARISIZ!";
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
             _repoCategory.Update(category);
             Category ControlObject = _repoCategory.GetById(category.ID);
             if (category.Name == ControlObject.Name && category.Description == ControlObject.Description)

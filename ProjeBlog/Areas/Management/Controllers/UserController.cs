@@ -41,6 +41,24 @@ namespace ProjeBlog.Areas.Management.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult PasswordChange(PasswordChangeViewModel passwordChange)
+        {
+            string msg = "Şifre güncelleme BAŞARISIZ! Lütfen bilgileri doğru girdiğinizden emin olun.";
+            int Id = _repoAppUser.GetUserId(HttpContext);
+            AppUser selectedUser = _repoAppUser.Default(x => x.ID == Id && x.Status != Enums.DataStatus.Deleted);
+            bool isValid = BCrypt.Net.BCrypt.Verify(passwordChange.OldPassword, selectedUser.Password);
+            if (!ModelState.IsValid)
+            {
+                return View(passwordChange);
+            }
+            selectedUser.Password = BCrypt.Net.BCrypt.HashPassword(passwordChange.NewPassword);
+            _repoAppUser.Update(selectedUser);
+
+            msg = "Şifre güncelleme BAŞARILI!";
+            ViewData["Message"] = msg;
+            return View();
+        }
         public IActionResult GetCurrentUser()
         {
             return View();
@@ -57,8 +75,26 @@ namespace ProjeBlog.Areas.Management.Controllers
         [HttpPost]
         public IActionResult Create(AppUser user)
         {
-            
+            string msg = "Kayıt oluşturma  BAŞARISIZ!";
+
+            if (!ModelState.IsValid) 
+            {
+                return View(user);
+            }
+
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             _repoAppUser.Add(user);
+
+            AppUser c = _repoAppUser.GetById(user.ID);
+            if (user.UserName == c.UserName && user.Role == c.Role && user.Email == c.Email)
+            {
+                msg = "Kayıt oluşturma BAŞARILI!";
+                ViewData["Message"] = msg;
+            }
+            else
+            {
+                ViewData["Message"] = msg;
+            }
             return View();
         }
         public IActionResult Update(int id)
@@ -69,6 +105,11 @@ namespace ProjeBlog.Areas.Management.Controllers
         [HttpPost]
         public IActionResult Update(AppUser appUser)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(appUser);
+            }
+
             string msg = "Kayıt güncelleme BAŞARISIZ!";
             _repoAppUser.UpdateUserWithDetails(appUser);
             AppUser c = _repoAppUser.GetById(appUser.ID);

@@ -1,7 +1,10 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
+using ProjeBlog.Models.FluentValidators;
 using ProjeBlog.RepositoryPattern.Base;
 using ProjeBlog.RepositoryPattern.Concrete;
 using ProjeBlog.RepositoryPattern.Interfaces;
@@ -34,6 +38,8 @@ namespace ProjeBlog
         {
             services.AddDbContext<MyDbContext>(options => options.UseSqlServer(_configuration["ConnectionStrings:Mssql"]));
             services.AddControllersWithViews();
+            services.AddFluentValidationAutoValidation(x => { x.DisableDataAnnotationsValidation = true; }).AddFluentValidationClientsideAdapters();
+            services.AddValidatorsFromAssemblyContaining<AppUserValidator>();
             services.AddScoped<IRepository<Basvuru>, Repository<Basvuru>>();
             services.AddScoped<IRepository<Category>, Repository<Category>>();
             services.AddScoped<IRepository<AppUser>, Repository<AppUser>>();
