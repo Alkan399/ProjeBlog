@@ -1,5 +1,6 @@
-﻿@model List<ProjeBlog.Models.Content>
+﻿@model ProjeBlog.Models.Content
 @addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
 
 <div class="col-lg-10 col-sm-10" style="border-width:2px;border-right:groove;">
     <div class="container">
@@ -7,9 +8,9 @@
             
             <div style="padding-top:30px;text-align:center;">
                 <row>@{
-                        if(Model[0].CoverImagePath != null)
+                        if(Model.CoverImagePath != null)
                         {
-                            <img style="max-height:65vh;text-align:center; margin:3vh;" src="@Model[0].CoverImagePath" />
+                            <img style="max-height:65vh;text-align:center; margin:3vh;" src="@Model.CoverImagePath" />
                         }
                         else{
 
@@ -18,11 +19,11 @@
                     
                 </row>
                 <row>
-                    <h3 style="margin-left:auto; margin-right:auto">@Model[0].Title </h3>
+                    <h3 style="margin-left:auto; margin-right:auto">@Model.Title </h3>
                 </row>
             </div>
             <div class="row">
-                <article>@Html.Raw(@Model[0].Entry)</article>
+                <article>@Html.Raw(@Model.Entry)</article>
             </div>
         </div>
     </div>
@@ -32,7 +33,7 @@
         <h1 class="recent_taital">Recent post</h1>
         <div class="recent_box">
             <div class="recent_left">
-                <div class="image_6"><img src="images/img-6.png"></div>
+                <div class="image_6"><img src="~/images/img-6.png"></div>
             </div>
             <div class="recent_right">
                 <h3 class="consectetur_text">Consectetur adipiscing</h3>
@@ -41,7 +42,7 @@
         </div>
         <div class="recent_box">
             <div class="recent_left">
-                <div class="image_6"><img src="images/img-7.png"></div>
+                <div class="image_6"><img src="~/images/img-7.png"></div>
             </div>
             <div class="recent_right">
                 <h3 class="consectetur_text">Consectetur adipiscing</h3>

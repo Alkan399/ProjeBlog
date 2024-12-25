@@ -1,4 +1,5 @@
 ﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Html
 @using ProjeBlog.Models;
 @model List<ProjeBlog.Models.Content>
 @{ 
@@ -16,14 +17,17 @@
 
             <!-- Her içerik için dış katman -->
             <div class="" style="background-color:aliceblue">
+                
                 <div class="container d-flex flex-wrap justify-content-center align-items-center" style="padding-top:3vh; width:auto; text-align:center;">
+
                     <div class="row col-sm-6 col-md-8 col-lg-11" style="border-bottom-style:groove; border-width:2px; text-align:center; max-width:100%;background-color:white">
+                        <div class="row" style="width:100%;background-color:#ADD8E6;text-align:center;display:inline-flex;margin-bottom:2%;margin-top:2%">
+                            <p style="color:white;" class="post_text">@Model[i].CreatedDate</p>
+                            <p style="color:white;" class="post_text">@Model[i].Views defa tıklandı</p>
+                        </div>
                         <!-- Sol kısım: İçerik -->
                         <div style="padding:3%; text-align:center; margin-left:auto; margin-right:auto;">
-                            <row>
-                                <p class="post_text">@Model[i].CreatedDate</p>
-                                <p class="post_text">@Model[i].Views defa okundu</p>
-                            </row>
+                            
                             @if (Model[i].CoverImagePath != null)
                             {
                                 <div class="about_img">
@@ -31,26 +35,26 @@
                                 </div>
                             }
                             
-                            <p class="post_text">@Model[i].CreatedDate</p>
                             <h2 class="most_text">
                                 <a asp-controller="Blog" asp-action="ContentPage" asp-route-idx="@Model[i].ID">
                                     @Model[i].Title
                                 </a>
                             </h2>
                             <div class="content-preview">
-                                <p class="lorem_text">@Html.Raw(sString)</p>
+                                <div>@(new HtmlString(sString))@*Html.Raw(sString)*@</div>
                             </div>
-                            <div class="social_icon_main">
-                                <div class="social_icon col-lg-8">
-                                    <ul>
-                                        <li><a href="#"><img src="/images/fb-icon.png"></a></li>
-                                        <li><a href="#"><img src="/images/twitter-icon.png"></a></li>
-                                        <li><a href="#"><img src="/images/instagram-icon.png"></a></li>
-                                    </ul>
-                                </div>
-                                <div class="read_bt col-lg-2 d-flex flex-column">
-                                    <a asp-controller="Blog" asp-action="ContentPage" asp-route-idx="@Model[i].ID">Okumaya Devam Et</a>
-                                </div>
+                            
+                        </div>
+                        <div class="row" style ="width:100%;background-color:#ADD8E6;text-align:center;display:inline-flex;margin-bottom:2%;margin-top:2%">
+                            <div class=" col-lg-8">
+                                <ul style="list-style: none; padding: 0; margin: 0; display: flex; gap: 10px;">
+                                    <li><a href="#"><img src="/images/fb-icon.png"></a></li>
+                                    <li><a href="#"><img src="/images/twitter-icon.png"></a></li>
+                                    <li><a href="#"><img src="/images/instagram-icon.png"></a></li>
+                                </ul>
+                            </div>
+                            <div class="read_bt col-lg-4">
+                                <a style="width: auto;" asp-controller="Blog" asp-action="ContentPage" asp-route-idx="@Model[i].ID">Okumaya Devam Et</a>
                             </div>
                         </div>
                     </div>
@@ -64,7 +68,7 @@
         <h1 class="recent_taital">Recent post</h1>
         <div class="recent_box">
             <div class="recent_left">
-                <div class="image_6"><img src="images/img-6.png"></div>
+                <div class="image_6"><img src="~/images/img-6.png"></div>
             </div>
             <div class="recent_right">
                 <h3 class="consectetur_text">Consectetur adipiscing</h3>
@@ -73,7 +77,7 @@
         </div>
         <div class="recent_box">
             <div class="recent_left">
-                <div class="image_6"><img src="images/img-7.png"></div>
+                <div class="image_6"><img src="~/images/img-7.png"></div>
             </div>
             <div class="recent_right">
                 <h3 class="consectetur_text">Consectetur adipiscing</h3>
