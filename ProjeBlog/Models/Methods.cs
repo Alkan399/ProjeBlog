@@ -12,10 +12,10 @@ namespace ProjeBlog.Models
         {
             string sString = content.Entry;
             //sString = content.Entry.Substring(0, 200);
-            if (content.Entry.Length > 200)//Burası değişecek
+            if (content.Entry.Length > 450)//Burası değişecek
             {
 
-                for (int y = 0; y < 195; y++)
+                for (int y = 0; y < 445; y++)
                 {
                     //string sBr = String.Concat(sString[y + 1], sString[y + 2]) + sString[y + 3] + sString[y + 4];
                     string sBr = String.Concat(sString[y], sString[y + 1], sString[y + 2], sString[y + 3]);
@@ -31,7 +31,7 @@ namespace ProjeBlog.Models
 
                     else
                     {
-                        sString = content.Entry.Substring(0, 200);
+                        sString = content.Entry.Substring(0, 450);
                         continue;
                     }
                 }
@@ -65,7 +65,11 @@ namespace ProjeBlog.Models
 
             //return htmlDoc.DocumentNode.OuterHtml;
             sString = HttpUtility.HtmlDecode(sString);
-            return Regex.Replace(sString, "<.*?>", String.Empty);
+            string TagReplaced = Regex.Replace(sString, "<.*?>", String.Empty);
+            string pattern2 = @"<([a-zA-Z]+)([^>]*)>(.*?)<\/\1>|<([a-zA-Z]+)([^>]*)\/?>|<([a-zA-Z]+)([^>]*)$";
+            
+            string result = Regex.Replace(TagReplaced, pattern2, String.Empty);
+            return result;
         }
     }
 }

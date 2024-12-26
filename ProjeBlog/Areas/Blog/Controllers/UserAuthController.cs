@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Crypto.Generators;
 using ProjeBlog.Models;
@@ -14,8 +15,8 @@ namespace ProjeBlog.Areas.Blog.Controllers
 
     public class UserAuthController : Controller
     {
-        IRepository<AppUser> _repoUser;
-        public UserAuthController(IRepository<AppUser> repoUser)
+        IAppUserRepository _repoUser;
+        public UserAuthController(IAppUserRepository repoUser)
         {
             _repoUser = repoUser;
         }
@@ -72,6 +73,11 @@ namespace ProjeBlog.Areas.Blog.Controllers
         {
             await HttpContext.SignOutAsync();
             return Redirect("/Blog/Home/Index");
+        }
+
+        public AppUser GetCookieUserAuth()
+        {
+            return _repoUser.GetUserWithDetailsByCookie(HttpContext);
         }
     }
 }

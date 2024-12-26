@@ -1,10 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
+using ProjeBlog.Models.Dto;
 using ProjeBlog.RepositoryPattern.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace ProjeBlog.Areas.Blog.Controllers
 {
@@ -14,16 +19,21 @@ namespace ProjeBlog.Areas.Blog.Controllers
     {
         MyDbContext _db;
         int id;
-        IRepository<Content> _repoContent;
+        IContentRepository _repoContent;
         public BlogController(MyDbContext db,
-            IRepository<Content> repoContent)
+            IContentRepository repoContent)
         {
             _db = db;
             _repoContent = repoContent;
         }
-        public IActionResult Index()
+        public IActionResult Index(string filterTitle, string filterEntry, int page)
         {
-            List<Content> contents = _repoContent.GetAll().Where(x => x.Status != Enums.DataStatus.Deleted).ToList();
+            ContentFilterDto filterDto = new ContentFilterDto();
+            filterDto.Title = filterTitle;
+            filterDto.Entry = filterEntry;
+            
+            List<Content> contents = FilterContents(filterDto, page).ToList();
+            //List<Content> contents = _repoContent.GetAll().Where(x => x.Status != Enums.DataStatus.Deleted).ToList();
             return View(contents);
         }
           
@@ -46,6 +56,21 @@ namespace ProjeBlog.Areas.Blog.Controllers
 
             return View(content);
         }
-        
+        public IPagedList<Content> FilterContents([FromBody] ContentFilterDto criteria, [FromQuery] int page)
+        {
+
+            Expression<Func<Content, bool>> filterExpression = content =>
+                (string.IsNullOrEmpty(criteria.UserName) || content.AppUser.UserName.Contains(criteria.UserName)) &&
+                (string.IsNullOrEmpty(criteria.Title) || content.Title.Contains(criteria.Title)) &&
+                (string.IsNullOrEmpty(criteria.Entry) || content.Entry.Contains(criteria.Entry)) &&
+                (string.IsNullOrEmpty(criteria.Category) || (content.Category.ID).ToString().Equals(criteria.Category)) &&
+                (content.Status == Enums.DataStatus.Inserted || content.Status == Enums.DataStatus.Updated);
+
+            var filteredContents = _repoContent.GetContentWithUser(filterExpression).ToPagedList(page, criteria.ItemsPerPage);
+
+            
+
+            return filteredContents;
+        }
     }
 }

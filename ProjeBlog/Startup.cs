@@ -55,6 +55,7 @@ namespace ProjeBlog
             {
                 options.LoginPath = "/Blog/UserAuth/Login";
                 options.Cookie.Name = "UserLoginDetail";
+                options.Cookie.HttpOnly = false;
             });
             services.AddAuthorization(options =>
             {
