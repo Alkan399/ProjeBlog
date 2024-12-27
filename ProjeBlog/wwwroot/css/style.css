@@ -162,6 +162,17 @@ img {
     max-width: 100%;
     height: auto;
 }
+.title-overlay {
+    position: relative;
+    bottom: 150px; /* Baþlýðý görselin alt kýsmýna yerleþtirir */
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Siyah yarý saydam arka plan */
+    color: #fff; /* Beyaz metin rengi */
+    text-align: center;
+    padding: 10px 0;
+    overflow:hidden;
+}
 
  :focus {
     outline: 0;

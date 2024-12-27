@@ -560,7 +560,16 @@ pre code {
   margin-right: auto;
   margin-left: auto;
 }
-
+.container2 {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative; /* Baþlýk için referans noktasý oluþturur */
+    width: 100%;
+    height: 438px; /* Görsel boyutuna uygun olmalý */
+    overflow: hidden; /* Taþmalarý gizler */
+}
 @media (min-width: 576px) {
   .container {
     max-width: 540px;

@@ -1,4 +1,6 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
+    const userInfo = document.getElementById("user-info");
+    var userNames = document.getElementsByName("user-name-edited");
     var userImages = document.getElementsByName("leftPp");
     const url = `/Blog/UserAuth/GetCookieUserAuth`;
     fetch(url, {
@@ -16,6 +18,10 @@
                 // Eğer profil resmi varsa, tüm userImage'ler için src'yi güncelliyoruz
                 for (var i = 0; i < userImages.length; i++) {
                     userImages[i].src = data.appUserDetail.profilePicture;
+                    userInfo.innerHTML = data.userName + ' ' +data.role
+                }
+                for (var i = 0; i < userNames.length; i++) {
+                    userNames[i].innerHTML = data.userName;
                 }
                 console.log("Profile picture updated for all elements.");
             } else {
@@ -23,4 +29,9 @@
             }
         })
         .catch(error => console.error('Error:', error));
+
+    
+
 });
+
+
