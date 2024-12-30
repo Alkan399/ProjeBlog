@@ -20,18 +20,28 @@ namespace ProjeBlog.Areas.Blog.Controllers
         MyDbContext _db;
         int id;
         IContentRepository _repoContent;
+        IRepository<Category> _repoCategory;
         public BlogController(MyDbContext db,
-            IContentRepository repoContent)
+            IContentRepository repoContent,
+            IRepository<Category> repoCategory)
         {
             _db = db;
             _repoContent = repoContent;
+            _repoCategory = repoCategory;
         }
-        public IActionResult Index(string filterTitle, string filterEntry, int page)
+        public IActionResult Index(string filterTitle, string filterEntry, string filterCategory, int page)
         {
+            if(filterCategory == "null")
+            {
+                filterCategory = null;
+            }
             ContentFilterDto filterDto = new ContentFilterDto();
             filterDto.Title = filterTitle;
             filterDto.Entry = filterEntry;
-            
+            filterDto.Category = filterCategory;
+            ViewData["Categories"] = _repoCategory.GetActives();
+            ViewData["SelectedCategory"] = filterCategory;
+
             List<Content> contents = FilterContents(filterDto, page).ToList();
             //List<Content> contents = _repoContent.GetAll().Where(x => x.Status != Enums.DataStatus.Deleted).ToList();
             return View(contents);

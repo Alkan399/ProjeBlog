@@ -8,7 +8,49 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
 <div class="container col-lg-10 col-sm-10" style="border-right: 2px groove;">
-    
+    <div class="tag_section layout_padding">
+        <div class="container">
+            <h1 class="tag_taital">Kategoriler</h1>
+            @* <div class="tag_bt">
+                <ul>
+                    <li class="active"><a href="#">Ectetur</a></li>
+                    <li><a href="#">Onsectetur</a></li>
+                    <li><a href="#">Consectetur</a></li>
+                    <li><a href="#">Consectetur</a></li>
+                    <li><a href="#">Consectetur</a></li>
+                </ul>
+            </div> *@
+            <div class="tag_bt">
+                <ul>
+                    @{  
+                                                
+                        string selectedCategory = null;
+                        selectedCategory = ViewData["SelectedCategory"] as string;
+                        var categories = ViewData["Categories"] as List<Category>;
+
+                        if(selectedCategory == null){
+                            <li class="active" name="categoryTag" style="margin:2vh;"><a class="" href="#">Hepsi</a></li>
+                        }
+                        else{
+                            <li class="" name="categoryTag" style="margin:2vh;"><a class="" href="#">Hepsi</a></li>
+                        }
+
+                        foreach(Category category in categories)
+                        {
+                            if (selectedCategory != null && (category.ID).ToString() == selectedCategory)
+                            {
+                                <li class="active" style="margin:2vh;" data-categoryId="@category.ID" name="categoryTag"><a name="" data-categoryId="@category.ID" href="#">@category.Name</a></li>
+                            }
+                            else
+                            {
+                                <li style="margin:2vh;" name="categoryTag" data-categoryId="@category.ID"><a data-categoryId="@category.ID" name="" href="#">@category.Name</a></li>
+                            }
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
     <div>
     @{
         var methods = new Methods();
@@ -25,9 +67,12 @@
                     <div class="row col-sm-6 col-md-8 col-lg-11 box" style="border-bottom-style:groove; border-width:2px; text-align:center; max-width:100%;background-color:white">
 
                         <div class="row box" style="width:100%; background-color:#080C50; text-align:center; display:flex; justify-content:center; align-items:center;margin-left:auto;margin-right:auto; margin-bottom:2%; margin-top:2%;">
-                            <p style="width:50%; border-left:1px; color:white; display:inline-block;" class="post_text">@Model[i].CreatedDate</p>
-                            <p style="width:50%; color:white; display:inline-block;" class="post_text">@Model[i].Views defa tıklandı</p>
-                        </div>
+                            <p style="width:50%; border-bottom:1px solid white; border-left:1px; color:white; display:inline-block;" class="post_text">@Model[i].CreatedDate</p>
+                            <p style="width:50%; border-bottom:1px solid white; color:white; display:inline-block;" class="post_text">@Model[i].Views defa tıklandı</p>
+                            <p style="width:50%; color:white; display:inline-block; font-weight:bold; font-size:24px;" class="post_text">
+                                @Model[i].Category.Name
+                            </p>
+                            </div>
 
                         <!-- Sol kısım: İçerik -->
                         <div style="padding:3%; text-align:center; margin-left:auto; margin-right:auto;">
@@ -77,6 +122,28 @@
             <a href="#" id="sendButton" class="send_bt" style="padding: 10px 20px; margin-left:auto; margin-right:auto; margin-bottom:2vh; background-color:#4CAF50; color:white; text-decoration:none; border-radius:5px;"><img src="~/images/serach-icon.png"> ARA</a>
         </div>
     </div>
+    <div class="newsletter_main">
+        <h1 class="search_taital">Önerilen İçerikler</h1>
+        <div class="recent_box">
+            <div class="recent_left">
+                <div class="image_6"><img src="~/images/img-6.png"></div>
+            </div>
+            <div class="recent_right">
+                <h3 class="consectetur_text">Consectetur adipiscing</h3>
+                <p class="dolor_text">ipsum dolor sit amet, consectetur adipiscing </p>
+            </div>
+        </div>
+        <div class="recent_box">
+            <div class="recent_left">
+                <div class="image_6"><img src="~/images/img-7.png"></div>
+            </div>
+            <div class="recent_right">
+                <h3 class="consectetur_text">Consectetur adipiscing</h3>
+                <p class="dolor_text">ipsum dolor sit amet, consectetur adipiscing </p>
+            </div>
+        </div>
+    </div>
+
     <div class="newsletter_main">
         <h1 class="search_taital">Önerilen İçerikler</h1>
         <div class="recent_box">
