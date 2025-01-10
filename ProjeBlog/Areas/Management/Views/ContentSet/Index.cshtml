@@ -1,0 +1,82 @@
+﻿@using ProjeBlog.Models
+@using ProjeBlog.Enums
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<ProjeBlog.Models.ContentSet>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+@*<script src="js/jquery.min.js" type="text/javascript"></script>*@
+@*<script src="js/jquery.dataTables.js/jquery.dataTables.js/jquery.dataTables.min.js" type="text/javascript"></script>*@
+<script src="/management/plugins/datatables/jquery.dataTables.js"></script>
+
+
+<!DOCTYPE html>
+<h3>İçerik Seti Yönetim</h3>
+<div class="box">
+
+    <div class="box-header">
+        <div class="row">
+            <div class="col-md-2">
+                <label for="filterIdL">Id</label>
+                <input type="text" id="filterId" class="form-control" placeholder="Id">
+            </div>
+            <div class="col-md-2">
+                <label for="filterNameL">İçerik Seti Adı</label>
+                <input type="text" id="filterName" class="form-control" placeholder="Adı">
+            </div>
+            <div class="col-md-2">
+                <label for="filterDescriptionL">Açıklama</label>
+                <input id="filterDescription" class="form-control">
+                    
+            </div>
+
+            <div class="col-md-2">
+                <label for="filterStatusL">Durum</label>
+                <select id="filterStatus" class="form-control">
+                    <option value="">Hepsi</option>
+                    <option value="Active">Aktif</option>
+                    <option value="Inactive">Pasif</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>Sayfada Gösterilecek Kayıt Sayısı</label>
+                <select id="dropdownPage" class="form-control">
+                    <option value="1">1(Test)</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>&nbsp;</label>
+                <button id="filterButton" class="btn btn-primary btn-block">Filtreleri Uygula</button>
+            </div>
+        </div>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <table id="tableContents" class="table table-bordered table-hover">
+            <thead>
+                <tr style="text-align:center;">
+                    <th scope="col" style="text-align:center;">Id</th>
+                    <th scope="col" style="text-align:center;">Adı</th>
+                    <th scope="col" style="text-align:center; width:75px">Açıklama</th>
+                    <th scope="col" style="text-align:center;">İçerik Sayısı</th>
+                    <th scope="col" style="text-align:center; max-width:40px">Oluşturma Tarihi</th>
+                    <th scope="col" style="text-align:center;">Güncelleme Tarihi</th>
+                    <th scope="col" style="text-align:center;">Durumu</th>
+                    <th scope="col" style="text-align:center;">İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot style="text-align:center">
+                <tr>
+                    <td colspan="9">
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+<script type="module" src="~/Scripts/ContentSetIndex.js"></script>

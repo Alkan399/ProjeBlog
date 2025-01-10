@@ -68,7 +68,7 @@ namespace ProjeBlog.RepositoryPattern.Base
 
         public List<T> GetByFilter(Expression<Func<T, bool>> exp)
         {
-            return table.Where(exp).ToList();
+                return table.Where(exp).ToList();
         }
 
         public T GetById(int id)

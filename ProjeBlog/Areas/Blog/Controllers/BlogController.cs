@@ -29,21 +29,32 @@ namespace ProjeBlog.Areas.Blog.Controllers
             _repoContent = repoContent;
             _repoCategory = repoCategory;
         }
-        public IActionResult Index(string filterTitle, string filterEntry, string filterCategory, int page)
+        public IActionResult Index(string filterTitle, string filterEntry, string filterCategory, int page, int itemsPerPage)
         {
+            if (itemsPerPage == 0)
+            {
+                itemsPerPage = 5;
+            }
             if(filterCategory == "null")
             {
                 filterCategory = null;
             }
             ContentFilterDto filterDto = new ContentFilterDto();
+            filterDto.ItemsPerPage = itemsPerPage;
             filterDto.Title = filterTitle;
             filterDto.Entry = filterEntry;
             filterDto.Category = filterCategory;
             ViewData["Categories"] = _repoCategory.GetActives();
             ViewData["SelectedCategory"] = filterCategory;
 
-            List<Content> contents = FilterContents(filterDto, page).ToList();
-            //List<Content> contents = _repoContent.GetAll().Where(x => x.Status != Enums.DataStatus.Deleted).ToList();
+            var fc = FilterContents(filterDto, page);
+
+            ViewData["PageCount"] = fc.PageCount;
+            ViewData["CurrentPage"] = fc.PageNumber;
+            ViewData["HasPreviousPage"] = fc.HasPreviousPage;
+            ViewData["HasNextPage"] = fc.HasNextPage;
+            List<Content> contents = fc.ToList();
+
             return View(contents);
         }
           
@@ -78,8 +89,7 @@ namespace ProjeBlog.Areas.Blog.Controllers
 
             var filteredContents = _repoContent.GetContentWithUser(filterExpression).ToPagedList(page, criteria.ItemsPerPage);
 
-            
-
+                
             return filteredContents;
         }
     }
