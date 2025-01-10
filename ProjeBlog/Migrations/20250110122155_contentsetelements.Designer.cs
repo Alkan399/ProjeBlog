@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjeBlog.Context;
 
 namespace ProjeBlog.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250110122155_contentsetelements")]
+    partial class contentsetelements
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -315,47 +317,6 @@ namespace ProjeBlog.Migrations
                     b.ToTable("ContentSetsContents");
                 });
 
-            modelBuilder.Entity("ProjeBlog.Models.ContentSetElement", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("ContentSetID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ElementID")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Location")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("MostPopular")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Recent")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ShowCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ContentSetID");
-
-                    b.ToTable("ContentSetsElements");
-                });
-
             modelBuilder.Entity("ProjeBlog.Models.AppUser", b =>
                 {
                     b.HasOne("ProjeBlog.Models.Basvuru", "Basvuru")
@@ -427,15 +388,6 @@ namespace ProjeBlog.Migrations
                         .IsRequired();
 
                     b.Navigation("Content");
-
-                    b.Navigation("ContentSet");
-                });
-
-            modelBuilder.Entity("ProjeBlog.Models.ContentSetElement", b =>
-                {
-                    b.HasOne("ProjeBlog.Models.ContentSet", "ContentSet")
-                        .WithMany()
-                        .HasForeignKey("ContentSetID");
 
                     b.Navigation("ContentSet");
                 });

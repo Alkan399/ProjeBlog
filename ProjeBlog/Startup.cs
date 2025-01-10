@@ -47,9 +47,11 @@ namespace ProjeBlog
             services.AddScoped<IRepository<Content>, Repository<Content>>();
             services.AddScoped<IRepository<ContentSet>, Repository<ContentSet>>();
             services.AddScoped<IRepository<ContentSetContent>, Repository<ContentSetContent>>();
+            services.AddScoped<IRepository<ContentSetElement>, Repository<ContentSetElement>>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<IContentSetContentRepository, ContentSetContentRepository>();
+
             services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;

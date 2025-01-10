@@ -1,0 +1,74 @@
+﻿@using ProjeBlog.Enums
+@using ProjeBlog.Models
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProjeBlog.Models.ContentSetElement
+<head>
+
+    <meta charset="utf-8">
+    <title>CKEditor</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+</head>
+<div style="width:60%; margin-left:auto; margin-right:auto; padding-top: 80px">
+    <form method="post" asp-area="Management" asp-controller="ContentSetElements" asp-action="Create">
+        
+        <div class="mb-3">
+            <label class="col-form-label" asp-for="Location">Lokasyon</label>
+            <select id="Location" class="form-control">
+                @foreach (var value in Enum.GetValues(typeof(ElementLocation)))
+                {
+                    <option value="@((int)value)">@value</option>
+                }
+            </select>
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div>
+        <div class="box" style="margin-top:2vh; margin-bottom:2vh; padding:1vh;">
+            <label style="margin-top:1vh;margin-bottom:1vh;"><b>İçerik Seti Seçimi</b></label>
+            <div id="radio-container">
+                <label>
+                    <input type="radio" name="option" value="Option1" onclick="toggleDiv()"> Son Eklenenler
+                </label>
+                <label>
+                    <input type="radio" name="option" value="Option2" onclick="toggleDiv()"> Popüler Olanlar
+                </label>
+                <label>
+                    <input type="radio" name="option" value="Option3" onclick="toggleDiv()"> Özel Seçim
+                </label>
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label" asp-for="ContentSetID">İçerik Seti ID</label>
+                <input type="text" class="form-control" asp-for="ContentSetID" id="ContentSetID" name="ContentSetID" disabled />
+                <span asp-validation-for="ContentSetID" class="text-danger"></span>
+            </div>
+        </div>
+        
+
+        <div class="mb-3">
+            <label class="col-form-label" asp-for="ElementID">Element ID</label>
+            <input type="text" class="form-control" asp-for="ElementID" />
+            <span asp-validation-for="ElementID" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="col-form-label" asp-for="ShowCount">Görüntülenecek Element Sayısı</label>
+            <input type="text" class="form-control" asp-for="ShowCount" />
+            <span asp-validation-for="ShowCount" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin-top:30px; width:25%; height:40px; float:right">Kaydet</button>
+
+    </form>
+
+</div>
+<script>
+    function toggleDiv() {
+        const option3 = document.querySelector('input[name="option"][value="Option3"]');
+        const contentSetInput = document.getElementById('ContentSetID');
+
+        if (option3.checked) {
+            console.log("checked")
+            contentSetInput.disabled = false;
+        } else {
+            console.log("unchecked")
+            contentSetInput.disabled = true;
+        }
+    }
+</script>
