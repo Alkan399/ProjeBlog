@@ -9,14 +9,17 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 </head>
 <div style="width:60%; margin-left:auto; margin-right:auto; padding-top: 80px">
-    <form method="post" asp-area="Management" asp-controller="ContentSetElements" asp-action="Create">
+    <form method="post" asp-area="Management" asp-controller="ContentSetElements" asp-action="Update">
 
         <div class="mb-3">
             <label class="col-form-label" asp-for="Location">Lokasyon</label>
             <select id="Location" class="form-control" asp-for="Location">
                 @foreach (var value in Enum.GetValues(typeof(ElementLocation)))
                 {
-                    <option value="@((int)value)">@value</option>
+                    var selected = (Model.Location.HasValue && (int)Model.Location == (int)value) ? "selected" : "";
+                    <option value="@((int)value)" selected="@selected">
+                        @value
+                    </option>
                 }
             </select>
             <span asp-validation-for="Location" class="text-danger"></span>
@@ -24,14 +27,15 @@
         <div class="box" style="margin-top:2vh; margin-bottom:2vh; padding:1vh;">
             <label style="margin-top:1vh;margin-bottom:1vh;"><b>İçerik Seti Seçimi</b></label>
             <div id="radio-container">
+                
                 <label>
-                    <input type="radio" asp-for="ContentSetOption" name="ContentSetOption" value="Recent" onclick="toggleDiv()" /> Son Eklenenler
+                    <input type="radio" asp-for="ContentSetOption" name="ContentSetOption" value="Recent"  onclick="toggleDiv()" checked="@Model.Recent" /> Son Eklenenler
                 </label>
                 <label>
-                    <input type="radio" asp-for="ContentSetOption" name="ContentSetOption" value="MostPopular" onclick="toggleDiv()" /> Popüler Olanlar
+                    <input type="radio" asp-for="ContentSetOption" name="ContentSetOption" value="MostPopular" onclick="toggleDiv()" checked="@Model.MostPopular" /> Popüler Olanlar
                 </label>
                 <label>
-                    <input type="radio" asp-for="ContentSetOption" name="ContentSetOption" value="Custom" id="option3" onclick="toggleDiv()" /> Özel Seçim
+                    <input type="radio" asp-for="ContentSetOption" name="ContentSetOption" value="Custom" id="option3" onclick="toggleDiv()" checked="@Model.Custom" /> Özel Seçim
                 </label>
             </div>
             <div class="mb-3">

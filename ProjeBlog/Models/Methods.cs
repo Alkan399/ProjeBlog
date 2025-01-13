@@ -1,13 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
 using System.Web;
 using HtmlAgilityPack;
+using ProjeBlog.Context;
+using ProjeBlog.RepositoryPattern.Concrete;
+using ProjeBlog.RepositoryPattern.Interfaces;
 
 namespace ProjeBlog.Models
 {
     public class Methods
     {
+        
         public string BlogContentFormatting(Content content)
         {
             string sString = content.Entry;

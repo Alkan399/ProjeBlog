@@ -21,13 +21,16 @@ namespace ProjeBlog.Areas.Blog.Controllers
         int id;
         IContentRepository _repoContent;
         IRepository<Category> _repoCategory;
+        IContentSetElementRepository _repoContentSetElement;
         public BlogController(MyDbContext db,
             IContentRepository repoContent,
-            IRepository<Category> repoCategory)
+            IRepository<Category> repoCategory,
+            IContentSetElementRepository repoContentSetElement)
         {
             _db = db;
             _repoContent = repoContent;
             _repoCategory = repoCategory;
+            _repoContentSetElement = repoContentSetElement;
         }
         public IActionResult Index(string filterTitle, string filterEntry, string filterCategory, int page, int itemsPerPage)
         {

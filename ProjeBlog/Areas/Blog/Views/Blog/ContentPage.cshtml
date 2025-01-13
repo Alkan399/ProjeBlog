@@ -1,11 +1,14 @@
-﻿@model ProjeBlog.Models.Content
+﻿@using ProjeBlog.Models
+@using ProjeBlog.RepositoryPattern
+@using ProjeBlog.RepositoryPattern.Interfaces
+@model ProjeBlog.Models.Content
 @addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 
 
 <div class="col-lg-10 col-sm-10" style="border-width:2px;border-right:groove;">
     <div class="container">
         <div  style="padding:3vh">
-            
+
             <div style="padding-top:30px;text-align:center;">
                 <row>@{
                         if(Model.CoverImagePath != null)
@@ -16,7 +19,7 @@
 
                         }
                     }
-                    
+
                 </row>
                 <row>
                     <h3 style="margin-left:auto; margin-right:auto">@Model.Title </h3>
@@ -30,24 +33,29 @@
 </div>
 <div class="col-lg-2 col-sm-2">
     <div class="newsletter_main">
-        <h1 class="recent_taital">Recent post</h1>
-        <div class="recent_box">
-            <div class="recent_left">
-                <div class="image_6"><img src="~/images/img-6.png"></div>
-            </div>
-            <div class="recent_right">
-                <h3 class="consectetur_text">Consectetur adipiscing</h3>
-                <p class="dolor_text">ipsum dolor sit amet, consectetur adipiscing </p>
-            </div>
-        </div>
-        <div class="recent_box">
-            <div class="recent_left">
-                <div class="image_6"><img src="~/images/img-7.png"></div>
-            </div>
-            <div class="recent_right">
-                <h3 class="consectetur_text">Consectetur adipiscing</h3>
-                <p class="dolor_text">ipsum dolor sit amet, consectetur adipiscing </p>
-            </div>
-        </div>
+        @{
+
+            var blogRightBar = Utility.ContentSetElements(ProjeBlog.Enums.ElementLocation.BlogRightBar);
+            foreach (var item in blogRightBar)
+            {
+                <h1 class="search_taital">@item.ContentSet.Name</h1>
+                {
+                    foreach (var content in item.ContentSet.ContentSetContents)
+                    {
+                        <div class="recent_box">
+                            <div class="recent_left">
+                                <div class="image_6"><img src="@content.Content.CoverImagePath"></div>
+                            </div>
+                            <div class="recent_right">
+                                <a asp-area="Blog" asp-controller="Blog" asp-action="ContentPage" asp-route-idx="@content.Content.ID"><h3 class="consectetur_text">@content.Content.Title</h3></a>
+                                <p class="dolor_text">@Utility.BlogContentFormatting2(content.Content, 80) </p>
+                            </div>
+                        </div>
+                    }
+                }
+                
+            }
+        }
+       
     </div>
 </div>

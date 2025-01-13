@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
 using ProjeBlog.Models.FluentValidators;
+using ProjeBlog.RepositoryPattern;
 using ProjeBlog.RepositoryPattern.Base;
 using ProjeBlog.RepositoryPattern.Concrete;
 using ProjeBlog.RepositoryPattern.Interfaces;
@@ -51,6 +52,9 @@ namespace ProjeBlog
             services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<IContentSetContentRepository, ContentSetContentRepository>();
+            services.AddScoped<IContentSetElementRepository, ContentSetElementRepository>();
+            services.AddScoped<UtilityMethods>();
+
 
             services.AddControllers().AddJsonOptions(options =>
             {

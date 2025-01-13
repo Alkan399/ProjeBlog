@@ -5,6 +5,7 @@ namespace ProjeBlog.Models.FluentValidators
     public class BaseValidator<T>: AbstractValidator<T> where T : class
     {
         public string MsgZorunlu = "* Zorunlu alan.";
+        public string MsgGeneric = "Bir Hata Oluştu";
         public string MsgMaxStr(int count) 
         {
             return "Maksimum "+ count.ToString() +" karakter olabilir.";
