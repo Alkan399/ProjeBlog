@@ -147,48 +147,38 @@
         </div>
     </div>
     <div id="BlogRightColumnContentSets">
-        <div class="newsletter_main">
-            <h1 class="search_taital">Önerilen İçerikler</h1>
-            <div class="recent_box">
-                <div class="recent_left">
-                    <div class="image_6"><img src="~/images/img-6.png"></div>
-                </div>
-                <div class="recent_right">
-                    <h3 class="consectetur_text">Consectetur adipiscing</h3>
-                    <p class="dolor_text">ipsum dolor sit amet, consectetur adipiscing </p>
-                </div>
-            </div>
-            <div class="recent_box">
-                <div class="recent_left">
-                    <div class="image_6"><img src="~/images/img-7.png"></div>
-                </div>
-                <div class="recent_right">
-                    <h3 class="consectetur_text">Consectetur adipiscing</h3>
-                    <p class="dolor_text">ipsum dolor sit amet, consectetur adipiscing </p>
-                </div>
-            </div>
-        </div>
+        
 
         <div class="newsletter_main">
-            <h1 class="search_taital">Önerilen İçerikler</h1>
-            <div class="recent_box">
-                <div class="recent_left">
-                    <div class="image_6"><img src="~/images/img-6.png"></div>
-                </div>
-                <div class="recent_right">
-                    <h3 class="consectetur_text">Consectetur adipiscing</h3>
-                    <p class="dolor_text">ipsum dolor sit amet, consectetur adipiscing </p>
-                </div>
-            </div>
-            <div class="recent_box">
-                <div class="recent_left">
-                    <div class="image_6"><img src="~/images/img-7.png"></div>
-                </div>
-                <div class="recent_right">
-                    <h3 class="consectetur_text">Consectetur adipiscing</h3>
-                    <p class="dolor_text">ipsum dolor sit amet, consectetur adipiscing </p>
-                </div>
-            </div>
+            @{
+
+                var blogRightBar = Utility.ContentSetElements(ProjeBlog.Enums.ElementLocation.BlogIndexRightBar);
+                foreach (var item in blogRightBar)
+                {
+                    <h1 class="search_taital">@item.ContentSet.Name</h1>
+                    {
+                        foreach (var content in item.ContentSet.ContentSetContents)
+                        {
+                            string cPath = content.Content.CoverImagePath;
+                            if (cPath == null)
+                            {
+                                cPath = "/images/noImage.png";
+                            }
+                            <div class="recent_box">
+                                <div class="recent_left">
+                                    <div class="image_6"><img style="width:100px" src="@cPath"></div>
+                                </div>
+                                <div class="recent_right">
+                                    <a asp-area="Blog" asp-controller="Blog" asp-action="ContentPage" asp-route-idx="@content.Content.ID"><h3 class="consectetur_text">@content.Content.Title</h3></a>
+                                    <p class="dolor_text">@Utility.BlogContentFormatting2(content.Content, 80) </p>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                }
+            }
+
         </div>
     </div>
     

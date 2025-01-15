@@ -172,6 +172,11 @@ namespace ProjeBlog.RepositoryPattern
                     {
                         ContentSetContent contentSetContent = new ContentSetContent();
                         contentSetContent.Content = item;
+                        contentSetContent.Content.Entry = BlogContentFormatting2(item, 80);
+                        if(contentSetContent.Content.CoverImagePath == null)
+                        {
+                            contentSetContent.Content.CoverImagePath = "/images/noImage";
+                        }
                         contentSetContent.ContentID = item.ID;
                         element.ContentSet.ContentSetContents.Add(contentSetContent);
                     }
@@ -184,11 +189,17 @@ namespace ProjeBlog.RepositoryPattern
                     element.ShowCount = contentSetElement.ShowCount;
                     var contents = _repoContent.GetActives().OrderByDescending(c => c.Views).Take(contentSetElement.ShowCount).ToList();
                     element.ContentSet = new ContentSet();
+                    element.ContentSet.Name = "En Çok Tıklananlar";
                     element.ContentSet.ContentSetContents = new List<ContentSetContent>();
                     foreach (var item in contents)
                     {
                         ContentSetContent contentSetContent = new ContentSetContent();
                         contentSetContent.Content = item;
+                        contentSetContent.Content.Entry = BlogContentFormatting2(item, 80);
+                        if (contentSetContent.Content.CoverImagePath == null)
+                        {
+                            contentSetContent.Content.CoverImagePath = "/images/noImages";
+                        }
                         contentSetContent.ContentID = item.ID;
                         element.ContentSet.ContentSetContents.Add(contentSetContent);
                     }
@@ -205,6 +216,11 @@ namespace ProjeBlog.RepositoryPattern
                     {
                         ContentSetContent contentSetContent = new ContentSetContent();
                         contentSetContent.Content = item;
+                        contentSetContent.Content.Entry = BlogContentFormatting2(item, 80);
+                        if (contentSetContent.Content.CoverImagePath == null)
+                        {
+                            contentSetContent.Content.CoverImagePath = "/images/noImages";
+                        }
                         contentSetContent.ContentID = item.ID;
                         element.ContentSet.ContentSetContents.Add(contentSetContent);
                     }

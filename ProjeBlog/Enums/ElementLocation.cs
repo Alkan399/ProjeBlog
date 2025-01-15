@@ -4,6 +4,7 @@
     {
         None = 0,
         BlogRightBar = 1,
-        BlogCarousel = 2
+        BlogCarousel = 2,
+        BlogIndexRightBar = 3
     }
 }

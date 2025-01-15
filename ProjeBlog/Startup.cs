@@ -97,6 +97,8 @@ namespace ProjeBlog
                 name: "Default",
                 pattern: "{controller=Home}/{action=Index}/{id?}"
                 );
+                endpoints.MapControllers(); // API Controller'larý etkinleþtirir
+
             });
         }
     }

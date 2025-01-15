@@ -31,8 +31,8 @@
         </div>
     </div>
 </div>
-<div class="col-lg-2 col-sm-2">
-    <div class="newsletter_main">
+<div class="col-lg-2 col-sm-2" id="RightBar">
+    <div class="newsletter_main" id="RightBarMain">
         @{
 
             var blogRightBar = Utility.ContentSetElements(ProjeBlog.Enums.ElementLocation.BlogRightBar);
@@ -42,9 +42,14 @@
                 {
                     foreach (var content in item.ContentSet.ContentSetContents)
                     {
+                        string cPath = content.Content.CoverImagePath;
+                        if(cPath == null)
+                        {
+                            cPath = "/images/noImage.png";
+                        }
                         <div class="recent_box">
                             <div class="recent_left">
-                                <div class="image_6"><img src="@content.Content.CoverImagePath"></div>
+                                <div class="image_6"><img style="width:100px" src="@cPath"></div>
                             </div>
                             <div class="recent_right">
                                 <a asp-area="Blog" asp-controller="Blog" asp-action="ContentPage" asp-route-idx="@content.Content.ID"><h3 class="consectetur_text">@content.Content.Title</h3></a>
@@ -59,3 +64,4 @@
        
     </div>
 </div>
+<script type="module" src="~/Scripts/Blog/ContentPage.js"></script>
