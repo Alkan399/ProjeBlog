@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
+using ProjeBlog.Models.ConstantModels;
 using ProjeBlog.RepositoryPattern.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ProjeBlog.Areas.Blog.Controllers
 {
@@ -13,30 +15,26 @@ namespace ProjeBlog.Areas.Blog.Controllers
         MyDbContext _db;
         int id;
         IRepository<Content> _repoContent;
+        IRepository<About> _repoAbout;
         public HomeController(MyDbContext db, 
-            IRepository<Content> repository)
+            IRepository<Content> repoContent,
+            IRepository<About> repoAbout)
         {
             _db = db;
-            _repoContent = repository;
+            _repoContent = repoContent;
+            _repoAbout = repoAbout;
         }
         public IActionResult Index()
         {
-            List<Content> content = _repoContent.GetAll();
+            List<Content> content = _repoContent.GetAll().Where(a=> a.Status != Enums.DataStatus.Deleted).ToList();
             return View(content);
         }
         public IActionResult About()
         {
-            return View();
+            About about = _repoAbout.GetActives().FirstOrDefault();
+            return View(about);
         }
         public IActionResult Contact()
-        {
-            return View();
-        }
-        public IActionResult Login()
-        {
-            return View();
-        }
-        public IActionResult ContentPage()
         {
             return View();
         }

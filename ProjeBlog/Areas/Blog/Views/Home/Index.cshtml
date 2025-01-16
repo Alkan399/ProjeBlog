@@ -15,45 +15,47 @@
                 
                 @{
                     bool first = true;
-                    
-                    foreach (Content item in Model)
+                    var carouselItems = Utility.ContentSetElements(ProjeBlog.Enums.ElementLocation.BlogCarousel);
+
+                    foreach(ContentSetElement cse in carouselItems)
                     {
-                        if(first)
-                        {
-                            <div class="carousel-item active">
-                                <div class="image_main">
-                                    <div class="container" style="text-align:center;">
-                                        <img style="background-color:grey;border:30px solid #ffffff; text-align:center; width:100%; height:438px; margin-left:auto; margin-right:auto;object-fit: cover;" src="@item.CoverImagePath" class="">
-                                        <div class="title-overlay">
-                                            <a asp-area="Blog" asp-controller="Blog" asp-action="ContentPage" asp-route-idx="@item.ID">
-                                                <h3 style="color:white;" class="most_text">
-                                                    @item.Title
-                                                </h3>
-                                            </a>
+                        foreach(var csc in cse.ContentSet.ContentSetContents){
+                            if (first)
+                            {
+                                <div class="carousel-item active">
+                                    <div class="image_main">
+                                        <div class="container" style="text-align:center;">
+                                            <img style="background-color:grey;border:30px solid #ffffff; text-align:center; width:100%; height:438px; margin-left:auto; margin-right:auto;object-fit: cover;" src="@csc.Content.CoverImagePath" class="">
+                                            <div class="title-overlay">
+                                                <a asp-area="Blog" asp-controller="Blog" asp-action="ContentPage" asp-route-idx="@csc.Content.ID">
+                                                    <h3 style="color:white;" class="most_text">
+                                                        @csc.Content.Title
+                                                    </h3>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            first = false;
-                        }
-                        else
-                        {
-                            <div class="carousel-item">
-                                <div class="image_main">
-                                    <div class="container" style="text-align:center;">
-                                        <img style="background-color:grey; border:30px solid #ffffff; text-align:center; width:100%; height:438px; margin-left:auto; margin-right:auto;object-fit: cover;" src="@item.CoverImagePath" class="">
-                                        <div class="title-overlay">
-                                            <a asp-area="Blog" asp-controller="Blog" asp-action="ContentPage" asp-route-idx="@item.ID">
-                                                <h3 style="color:white;" class="most_text">
-                                                    @item.Title
-                                                </h3>
-                                            </a>
+                                first = false;
+                            }
+                            else
+                            {
+                                <div class="carousel-item">
+                                    <div class="image_main">
+                                        <div class="container" style="text-align:center;">
+                                            <img style="background-color:grey; border:30px solid #ffffff; text-align:center; width:100%; height:438px; margin-left:auto; margin-right:auto;object-fit: cover;" src="@csc.Content.CoverImagePath" class="">
+                                            <div class="title-overlay">
+                                                <a asp-area="Blog" asp-controller="Blog" asp-action="ContentPage" asp-route-idx="@csc.Content.ID">
+                                                    <h3 style="color:white;" class="most_text">
+                                                        @csc.Content.Title
+                                                    </h3>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                         }
-                        
                         
                     }
 
@@ -165,59 +167,13 @@
     </div>
 </div>
 <!-- recent section end -->
-<!-- tag section start -->
-<div class="tag_section layout_padding">
-    <div class="container">
-        <h1 class="tag_taital">Tag</h1>
-        <div class="tag_bt">
-            <ul>
-                <li class="active"><a href="#">Ectetur</a></li>
-                <li><a href="#">Onsectetur</a></li>
-                <li><a href="#">Consectetur</a></li>
-                <li><a href="#">Consectetur</a></li>
-                <li><a href="#">Consectetur</a></li>
-            </ul>
-        </div>
-        <div class="tag_bt_2">
-            <ul>
-                <li><a href="#">Tetur</a></li>
-                <li><a href="#">Conse</a></li>
-                <li><a href="#">Nsectetur</a></li>
-                <li><a href="#">Sectetur</a></li>
-                <li><a href="#">Consectetur</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<!-- tag section end -->
 
 <!-- contact section start -->
 <div class="contact_section layout_padding">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active" style="text-indent: 0; border: none; color: #000; font-size: 18px; text-align: center;">1</li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1" style="text-indent: 0; border: none; color: #000; font-size: 18px; text-align: center;">2</li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2" style="text-indent: 0; border: none; color: #000; font-size: 18px; text-align: center;">3</li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="3" style="text-indent: 0; border: none; color: #000; font-size: 18px; text-align: center;">4</li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="contact_img"></div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="contact_img"></div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="contact_img"></div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="contact_img"></div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
             
             <div class="col-md-6">

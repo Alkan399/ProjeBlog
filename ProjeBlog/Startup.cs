@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProjeBlog.Context;
 using ProjeBlog.Models;
+using ProjeBlog.Models.ConstantModels;
 using ProjeBlog.Models.FluentValidators;
 using ProjeBlog.RepositoryPattern;
 using ProjeBlog.RepositoryPattern.Base;
@@ -49,6 +50,7 @@ namespace ProjeBlog
             services.AddScoped<IRepository<ContentSet>, Repository<ContentSet>>();
             services.AddScoped<IRepository<ContentSetContent>, Repository<ContentSetContent>>();
             services.AddScoped<IRepository<ContentSetElement>, Repository<ContentSetElement>>();
+            services.AddScoped<IRepository<About>, Repository<About>>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<IContentSetContentRepository, ContentSetContentRepository>();

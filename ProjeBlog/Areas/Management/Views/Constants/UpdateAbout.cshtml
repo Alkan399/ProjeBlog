@@ -1,0 +1,34 @@
+﻿@using ProjeBlog.Models
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProjeBlog.Models.ConstantModels.About
+<meta charset="utf-8">
+<title>CKEditor</title>
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+<div style="width:60%; margin-left:auto; margin-right:auto; padding-top: 80px">
+    
+    <form method="post" asp-area="Management" asp-controller="Constants" asp-action="UpdateAbout">
+        <input style="display:none" asp-for="ID"/>
+        <label class="col-form-label" asp-for="Entry">Yazı</label>
+        <textarea type="text" class="ck-editor" id="editor" asp-for="Entry"></textarea>
+        <span asp-validation-for="Entry" class="text-danger" style="height:500px"></span>
+        <button type="submit" class="btn btn-primary" style="margin-top:30px; width:25%; height:40px; float:right">Kaydet</button>
+
+    </form>
+    
+</div>
+
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+                    //CKEDITOR.instances.editor.setData('<p>This is the editor data.</p>');
+
+                    //CKEDITOR.instances['#editor'].setData('<p>Deneme</p>');
+                    //CKEDITOR.instances.{ { id } }.insertText($("asd").attr('data-value'));
+</script>
