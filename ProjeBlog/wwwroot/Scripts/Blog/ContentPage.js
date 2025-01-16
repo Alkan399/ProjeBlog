@@ -1,4 +1,6 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+﻿import { getStatusText, checkDateTime, updateElementForRightBar } from '/Scripts/CommonLibrary/CommonRepo.js';
+
+document.addEventListener("DOMContentLoaded", function () {
     //const url = `/Blog/Blog/FilterContents?page=${encodeURIComponent(page)}`;
 
     //fetch(url, {
@@ -47,41 +49,12 @@
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            updateElement(data);
+            element.innerHTML = "";
+            updateElementForRightBar(element, data, Math.round(count));
 
         })
         .catch(error => console.error('Hata:', error));
     
-    function updateElement(contents) {
-
-
-
-
-        // İçerik varsa, tabloyu doldur
-        contents.forEach(contentSet => {
-            const SetName = `
-                    <h1 class="search_taital">${contentSet.ContentSet.Name}</h1>
-                    `
-            element.insertAdjacentHTML("beforeend", SetName); // Yeni satırları tabloya ekle
-            contentSet.ContentSet.ContentSetContents.forEach(csc => {
-                const Content = `
-                            <div class="recent_box">
-                                <div class="recent_left">
-                                    <div class="image_6"><img style="width:100px" src="${csc.Content.CoverImagePath}"></div>
-                                </div>
-                                <div class="recent_right">
-                                    <a href="/Blog/Blog/ContentPage?idx=${csc.Content.ID}"><h3 class="consectetur_text">${csc.Content.Title}</h3></a>
-                                    <p class="dolor_text">${csc.Content.Entry}</p>
-                                </div>
-                            </div>
-                            
-            `;
-                element.insertAdjacentHTML("beforeend", Content); // Yeni satırları tabloya ekle
-
-            })
-
-        });
-    }
 
 });
 

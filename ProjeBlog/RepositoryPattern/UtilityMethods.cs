@@ -175,7 +175,7 @@ namespace ProjeBlog.RepositoryPattern
                         contentSetContent.Content.Entry = BlogContentFormatting2(item, 80);
                         if(contentSetContent.Content.CoverImagePath == null)
                         {
-                            contentSetContent.Content.CoverImagePath = "/images/noImage";
+                            contentSetContent.Content.CoverImagePath = "/images/noImage.png";
                         }
                         contentSetContent.ContentID = item.ID;
                         element.ContentSet.ContentSetContents.Add(contentSetContent);
@@ -198,7 +198,7 @@ namespace ProjeBlog.RepositoryPattern
                         contentSetContent.Content.Entry = BlogContentFormatting2(item, 80);
                         if (contentSetContent.Content.CoverImagePath == null)
                         {
-                            contentSetContent.Content.CoverImagePath = "/images/noImages";
+                            contentSetContent.Content.CoverImagePath = "/images/noImage.png";
                         }
                         contentSetContent.ContentID = item.ID;
                         element.ContentSet.ContentSetContents.Add(contentSetContent);
@@ -219,7 +219,7 @@ namespace ProjeBlog.RepositoryPattern
                         contentSetContent.Content.Entry = BlogContentFormatting2(item, 80);
                         if (contentSetContent.Content.CoverImagePath == null)
                         {
-                            contentSetContent.Content.CoverImagePath = "/images/noImages";
+                            contentSetContent.Content.CoverImagePath = "/images/noImage.png";
                         }
                         contentSetContent.ContentID = item.ID;
                         element.ContentSet.ContentSetContents.Add(contentSetContent);

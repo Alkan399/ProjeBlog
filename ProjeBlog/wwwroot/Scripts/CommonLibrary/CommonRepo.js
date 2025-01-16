@@ -34,4 +34,39 @@ export function formatPhoneNumber(input) {
     input.value = formattedValue;
     
 }
+
+export function updateElementForRightBar(element, contents, count) {
+
+
+    for (var i = 0; i < count; i++) {
+
+        // İçerik varsa, tabloyu doldur
+        contents.forEach(contentSet => {
+            const SetName = `
+                    <h1 class="search_taital">${contentSet.ContentSet.Name}</h1>
+                    `
+            element.insertAdjacentHTML("beforeend", SetName); // Yeni satırları tabloya ekle
+            contentSet.ContentSet.ContentSetContents.forEach(csc => {
+                const Content = `
+                            <div class="recent_box">
+                                <div class="recent_left">
+                                    <div class="image_6"><img style="width:100px" src="${csc.Content.CoverImagePath}"></div>
+                                </div>
+                                <div class="recent_right">
+                                    <a href="/Blog/Blog/ContentPage?idx=${csc.Content.ID}"><h3 class="consectetur_text">${csc.Content.Title}</h3></a>
+                                    <p class="dolor_text">${csc.Content.Entry}</p>
+                                </div>
+                            </div>
+                            
+                    `;
+                element.insertAdjacentHTML("beforeend", Content); // Yeni satırları tabloya ekle
+
+            })
+
+        });
+    }
+
+
+}
+
 export default getStatusText;
