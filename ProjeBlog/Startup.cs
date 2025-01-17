@@ -56,6 +56,7 @@ namespace ProjeBlog
             services.AddScoped<IContentSetContentRepository, ContentSetContentRepository>();
             services.AddScoped<IContentSetElementRepository, ContentSetElementRepository>();
             services.AddScoped<UtilityMethods>();
+            services.AddScoped<IUtilityMethods, UtilityMethods>();
 
 
             services.AddControllers().AddJsonOptions(options =>

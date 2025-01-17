@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.Mozilla;
@@ -10,6 +11,7 @@ using ProjeBlog.Models.Dto;
 using ProjeBlog.RepositoryPattern.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using X.PagedList.Extensions;
@@ -23,10 +25,17 @@ namespace ProjeBlog.Areas.Management.Controllers
         MyDbContext _db;
         int id;
         IRepository<Basvuru> _basvuruRepository;
-        public BasvuruController(MyDbContext db, IRepository<Basvuru> basvuruRepository)
+        IAppUserRepository _appUserRepository;
+        IUtilityMethods _utilityMethods;
+        public BasvuruController(MyDbContext db,
+            IRepository<Basvuru> basvuruRepository,
+            IAppUserRepository appUserRepository,
+            IUtilityMethods utilityMethods)
         {
             _db = db;
             _basvuruRepository = basvuruRepository;
+            _appUserRepository = appUserRepository;
+            _utilityMethods = utilityMethods;
         }
         public IActionResult Index()
         {
@@ -34,8 +43,8 @@ namespace ProjeBlog.Areas.Management.Controllers
         }
         public IActionResult BasvuruList()
         {
-            List<Basvuru> content = _db.Basvurus.ToList();
-            return View(content);
+            List<Basvuru> basvurus = _basvuruRepository.GetAll().ToList();
+            return View(basvurus);
         }
         public IActionResult Create()
         {
@@ -78,6 +87,36 @@ namespace ProjeBlog.Areas.Management.Controllers
         public IActionResult Delete(int id)
         {
             _basvuruRepository.Delete(id);
+            return RedirectToAction("BasvuruList");
+        }
+        public IActionResult CreateUserFromBasvuru(Basvuru basvuru, int Role)
+        {
+            AppUser user = new AppUser();
+            user.AppUserDetail = new AppUserDetail();
+            user.AppUserDetail.FirstName = basvuru.FirstName;
+            user.AppUserDetail.LastName = basvuru.LastName;
+            user.AppUserDetail.DateOfBirth = basvuru.DateOfBirth;
+            user.UserName = _utilityMethods.GenerateUsername(7);
+            user.Email = basvuru.Email;
+            user.Basvuru = basvuru;
+            string randomUserName = _utilityMethods.GenerateUsername(7);
+            while (_appUserRepository.GetByFilter(x=> x.UserName == randomUserName) == null)
+            {
+                randomUserName = _utilityMethods.GenerateUsername(7);
+            }
+            user.UserName = randomUserName;
+            string password = _utilityMethods.GenerateUsername(8);
+            user.Password = BCrypt.Net.BCrypt.HashPassword(password);
+
+            //daha sora e-posta servisi ile kullanıcı adı ve şifre gönderilecek.
+
+            string subject = "Blog Projemin Demosunun Kullanıcı Paneline Giriş Bilgileriniz";
+            string body = "Kullanıcı Giriş Bilgileriniz:{Kullanıcı Adı: "+user.UserName+", Şifre: "+password+" Yetki: "+user.Role+"}";
+            string email = user.Email;
+
+            _utilityMethods.SendMail(subject, body, false, email);
+
+            _appUserRepository.Add(user);
             return RedirectToAction("BasvuruList");
         }
         public IActionResult FilterBasvurus([FromBody] BasvuruFilterDto criteria, [FromQuery] int page)

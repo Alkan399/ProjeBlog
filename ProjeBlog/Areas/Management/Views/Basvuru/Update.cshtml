@@ -56,6 +56,54 @@
                         <button type="submit" style="width:50%; margin:10%" class="btn btn-primary">Kaydet</button>
                     </div>
                 </form>
+                    <div>
+                        <form asp-area="Management" asp-controller="Basvuru" asp-action="CreateUserFromBasvuru">
+                            <div style="display:none">
+                                <div class="form-group mb-3">
+                                    <label for="Name">Ad:</label>
+                                    <input type="text" class="form-control" asp-for="FirstName" id="Name2" />
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="LastName">Soyad</label>
+                                    <input type="text" class="form-control" asp-for="LastName" id="LastName2" />
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="Email">E-posta:</label>
+                                    <input type="email" class="form-control" asp-for="Email" id="Email2" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="DateOfBirth">Doğum Tarihi:</label>
+                                    <input type="date" class="form-control" asp-for="DateOfBirth" id="DateOfBirth2" />
+                                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                                </div>
+
+
+                                <div class="form-group mb-3">
+                                    <label for="Description">Açıklama</label>
+                                    <input type="text" class="form-control" asp-for="Description" id="Description2" />
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="Status">Kullanıcı Durumu:</label>
+                                <select name="Role" class="form-control" value="Role" id="Role">
+                                    <option value="0">Admin</option>
+                                    <option value="1">Kullanıcı</option>
+                                </select>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" style="width:50%; margin:10%" class="btn btn-primary">Başvurudan Kullanıcı Oluştur</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                
             </div>
         </div>
     </div>

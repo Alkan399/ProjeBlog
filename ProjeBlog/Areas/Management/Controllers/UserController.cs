@@ -23,14 +23,17 @@ namespace ProjeBlog.Areas.Management.Controllers
         MyDbContext _db;
         IAppUserRepository _repoAppUser;
         IRepository<AppUserDetail> _repoAppUserDetail;
+        IRepository<Basvuru> _repoBasvuru;
 
         public UserController(MyDbContext db,
             IAppUserRepository repoAppUser,
-            IRepository<AppUserDetail> repoAppUserDetail)
+            IRepository<AppUserDetail> repoAppUserDetail,
+            IRepository<Basvuru> repoBasvuru)
         {
             _db = db;
             _repoAppUser = repoAppUser;
             _repoAppUserDetail = repoAppUserDetail;
+            _repoBasvuru = repoBasvuru;
         }
         public IActionResult Index()
         {
@@ -150,6 +153,11 @@ namespace ProjeBlog.Areas.Management.Controllers
         {
             _repoAppUser.Delete(id);
             return RedirectToAction("UserList");
+        }
+        public IActionResult CreateFromBasvuru()
+        {
+            List<Basvuru> Basvurus =  _repoBasvuru.GetAll();
+            return View(Basvurus);
         }
         public IActionResult FilterUsers([FromBody] AppUserFilterDto criteria, [FromQuery]int page)
         {

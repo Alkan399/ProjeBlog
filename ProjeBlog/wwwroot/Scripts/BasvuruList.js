@@ -122,8 +122,7 @@ function updateTable(basvurus) {
                     <td>${checkDateTime(new Date(content.UpdatedDate).toLocaleDateString())}</td>
                     <td>${getStatusText(content.Status)}</td>
                     <td>
-                        <a href="/Management/Basvuru/Update/${(content.ID).toString()}">Edit</a> |
-                        <a href="/Management/Basvuru/DetailsManagement/${(content.ID).toString()}" class="details-btn">Görüntüle</a> | 
+                        <a href="/Management/Basvuru/Update/${(content.ID).toString()}">Düzenle/Görüntüle</a> |
                         <a href="/Management/basvuru/Delete/${(content.ID).toString()}">Delete</a>
                     </td>
                 </tr>

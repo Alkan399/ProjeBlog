@@ -7,6 +7,12 @@ using System.Web;
 using System;
 using System.Linq;
 using ProjeBlog.Context;
+using System.Text;
+using System.Net.Mail;
+using System.Net;
+using Org.BouncyCastle.Crypto.Macs;
+using Microsoft.AspNetCore.Razor.Language;
+using ProjeBlog.RepositoryPattern.Base;
 
 namespace ProjeBlog.RepositoryPattern
 {
@@ -15,10 +21,12 @@ namespace ProjeBlog.RepositoryPattern
         MyDbContext _context;
         private readonly IContentSetElementRepository _repoContentSetElement;
         IContentRepository _repoContent;
-        public UtilityMethods(IContentSetElementRepository repoContentSetElement, IContentRepository contentRepository)
+        IRepository<ContentSet> _repoContentSet; 
+        public UtilityMethods(IContentSetElementRepository repoContentSetElement, IContentRepository contentRepository, IRepository<ContentSet> repoContentSet)
         {
             _repoContentSetElement = repoContentSetElement;
             _repoContent = contentRepository;
+            _repoContentSet = repoContentSet;
         }
         public string BlogContentFormatting(Content content)
         {
@@ -211,6 +219,7 @@ namespace ProjeBlog.RepositoryPattern
                     element.ShowCount = contentSetElement.ShowCount;
                     var contents = _repoContent.GetActives().OrderByDescending(c => c.Views).Take(contentSetElement.ShowCount).ToList();
                     element.ContentSet = new ContentSet();
+                    element.ContentSet.Name = _repoContentSet.GetById((contentSetElement.ContentSetID).GetValueOrDefault()).Name;
                     element.ContentSet.ContentSetContents = new List<ContentSetContent>();
                     foreach (var item in contents)
                     {
@@ -228,6 +237,54 @@ namespace ProjeBlog.RepositoryPattern
                 contentSetElementList.Add(element);
             }
             return contentSetElementList;
+        }
+        public string GenerateUsername(int length)
+        {
+            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            StringBuilder username = new StringBuilder();
+            Random random = new Random();
+
+            for (int i = 0; i < length; i++)
+            {
+                char randomChar = chars[random.Next(chars.Length)];
+                username.Append(randomChar);
+            }
+
+            return username.ToString();
+        }
+        public string SendMail(string subject, string body, bool isBodyHtml, string email)
+        {
+            try
+            {
+                // SMTP sunucusu ve kimlik doğrulama bilgileri
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential("ialkanarpatblog@gmail.com", "nomd lste xatz fcgd"),
+                    EnableSsl = true
+                };
+
+                // Gönderilecek e-posta
+                MailMessage mail = new MailMessage
+                {
+                    From = new MailAddress("ialkanarpatblog@gmail.com"),
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = false
+                };
+
+                // Alıcı adresi ekle
+                mail.To.Add(email);
+
+                // E-postayı gönder
+                smtpClient.Send(mail);
+                Console.WriteLine("E-posta başarıyla gönderildi!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"E-posta gönderilemedi: {ex.Message}");
+            }
+            return "";
         }
     }
 }
