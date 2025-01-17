@@ -1,48 +1,57 @@
 ﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 @model ProjeBlog.Models.Basvuru
 <script src="~/Scripts/basvur.js"></script>
-<div>
-    <h2 style="text-align:center; padding-top:200px; font-size:32px;">Başvuru</h2>
-</div>
-<div>
-    <form method="post" asp-controller="Home" asp-action="Basvur">
-        <div class="mb-3">
-            <label class="col-form-label" >Ad</label>
-            <input type="text" class="email_text" placeholder="Ad" asp-for="FirstName" required/>
-        </div>
-        <div class="mb-3">
-            <label class="col-form-label" >Soyad</label>
-            <input type="text" class="email_text" placeholder="Soyad" asp-for="LastName" required/>
-        </div>
-        <div class="mb-3">
-            <label class="col-form-label" >E-posta</label>
-            <input type="text" class="email_text" placeholder="E-Posta" asp-for="Email" required/>
-        </div>
-        <div class="mb-3">
-            <label class="col-form-label">Doğum Tarihi</label>
-            <input type="date" class="email_text" placeholder="Doğum Tarihi" asp-for="DateOfBirth" required/>
-        </div>
-        <div style="padding-top:100px;padding-left:88%">
-            <button id="btnSubmit" type="submit" class="btn btn-primary" style="font-size:32px">Gönder</button>
-        </div>
-        
-    </form>
-</div>
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+
+<div style="width:80%; margin-left:auto; margin-right:auto; margin-top:6vh">
+    <div style="text-align:center">
+        <h2 style="text-align:center; font-size:32px;">Başvuru</h2>
+        <p>Bu demoya ait yönetim ve kullanıcı panelini incelemek isterseniz buradan başvuruda bulunabilirsiniz. Adınıza bir kullanıcı oluşturulup size e-posta olarak gönderilecektir.</p>
+    </div>
+    <div>
+        <form method="post" asp-controller="Home" asp-action="Basvur">
+            <div class="mb-3">
+                <label class="col-form-label" >Ad</label>
+                <input type="text" class="email_text" placeholder="Ad" asp-for="FirstName" required/>
             </div>
-            <div class="modal-body">
-                ...
+            <div class="mb-3">
+                <label class="col-form-label" >Soyad</label>
+                <input type="text" class="email_text" placeholder="Soyad" asp-for="LastName" required/>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="mb-3">
+                <label class="col-form-label" >E-posta</label>
+                <input type="text" class="email_text" placeholder="E-Posta" asp-for="Email" required/>
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label">Doğum Tarihi</label>
+                <input type="date" class="email_text" placeholder="Doğum Tarihi" asp-for="DateOfBirth" required/>
+            </div>
+            <div class="mb-3">
+                <label class="col-form-label">Açıklama(Opsiyonel)</label>
+                <textarea class="massage_text" placeholder="Bu alanda kendinizi tanıtabilir, inceleme isteği nedeninizi söyleyebilir veya istediğiniz başka birşeyi yazabilirsiniz." asp-for="Description" required></textarea>
+            </div>
+            <div style="padding-top:100px;margin-left:auto;margin-top:4vh">
+                <button id="btnSubmit" type="submit" class="btn btn-primary" style="font-size:32px">Gönder</button>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
     </div>

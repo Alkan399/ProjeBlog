@@ -18,7 +18,7 @@ namespace ProjeBlog.Models
         public string Email { get; set; }
         public Role Role { get; set; }
 
-        // Relational Property
+        // Relational Property 
         public virtual AppUserDetail AppUserDetail { get; set; }
         public virtual List<Content> Contents { get; set; }
         public virtual Basvuru Basvuru { get; set; }

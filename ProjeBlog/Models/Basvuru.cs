@@ -14,7 +14,6 @@ namespace ProjeBlog.Models
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
-        [Required]
         public DateTime DateOfBirth { get; set; }
         public string Description { get; set; }
     }

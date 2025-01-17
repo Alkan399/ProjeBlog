@@ -37,13 +37,13 @@
     <style>
         header {
             position: sticky;
-            top: 0; /* Sayfanın üst kısmına yapışır */
+            top: 0;
             background-color: lightblue;
-            z-index: 100; /* Diğer öğelerin üstünde görünmesi için */
+            z-index: 100;
             width:100%;
         }
         .nav-link {
-            transition: transform 0.3s ease-in-out; /* Yumuşak geçiş */
+            transition: transform 0.3s ease-in-out;
         }
     </style>
 </head>
@@ -127,7 +127,7 @@
     </footer>
     <div class="copyright_section">
         <div class="container">
-            <p class="copyright_text">Copyright 2020 All Right Reserved By.<a href="https://html.design"> Free  html Templates</a></p>
+            <p class="copyright_text"><a style="text-decoration:underline white 2px" href="https://github.com/Alkan399/ProjeBlog">Blog Demo </a>by İbrahim Alkan Arpat</p>
         </div>
     </div>
 </body>
@@ -159,17 +159,17 @@
     // };
         window.onscroll = function () {
         const header = document.getElementById("header");
-        const navLinks = header.querySelectorAll(".nav-link"); // <a> elemanlarını seçiyoruz
+        const navLinks = header.querySelectorAll(".nav-link");
 
         if (window.scrollY > 50) {
-            header.style.top = "-4%"; // Header biraz yukarı
+            header.style.top = "-4%"; // Header yukarı
             navLinks.forEach(link => {
-                link.style.transform = "translateY(50%)"; // Nav-link'leri aşağı kaydır
+                link.style.transform = "translateY(50%)"; // navlinkler aşağı
             });
         } else {
             header.style.top = "0"; // Header eski yerine
             navLinks.forEach(link => {
-                link.style.transform = "translateY(0)"; // Nav-link'ler eski yerine
+                link.style.transform = "translateY(0)"; // navlinkler yukarı
             });
         }
     };

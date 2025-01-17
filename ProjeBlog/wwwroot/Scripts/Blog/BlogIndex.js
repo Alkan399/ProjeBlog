@@ -1,6 +1,7 @@
 ﻿import { getStatusText, checkDateTime, updateElementForRightBar } from '/Scripts/CommonLibrary/CommonRepo.js';
 
 var page = document.getElementsByName("currentPage")[0].dataset.currentpage;
+var pageChange = false;
 document.addEventListener("DOMContentLoaded", function () {
     const categoryTags = document.getElementsByName("categoryTag");
     const previousPageButton = document.getElementsByName("previousPageButton");
@@ -10,14 +11,18 @@ document.addEventListener("DOMContentLoaded", function () {
     if (previousPageButton[0] != null) {
         previousPageButton[0].addEventListener("click", function () {
             page--;
+            pageChange = true;
             document.getElementById("sendButton").click();
+            pageChange = false;
         });
     }
     if (nextPageButton[0] != null) {
         nextPageButton[0].addEventListener("click", function () {
             page++;
             console.log(page);
+            pageChange = true;
             document.getElementById("sendButton").click();
+            pageChange = false;
         });
     }
     
@@ -96,7 +101,11 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 
     const filterTitle = document.getElementById("titleInput").value;
     const filterEntry = document.getElementById("entryInput").value;
-    
+
+    if (pageChange == false) {
+        page = 1;
+    }
+
     const itemsPerPage = 5;
     const baseUrl = "/Blog/Blog/Index";
     const queryString = `?filterTitle=${encodeURIComponent(filterTitle)}&filterEntry=${encodeURIComponent(filterEntry)}&filterCategory=${encodeURIComponent(filterCategory)}&page=${page}&itemsPerPage=${itemsPerPage}`;
