@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjeBlog.Context;
 
 namespace ProjeBlog.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250122074244_ContentStatistics1")]
+    partial class ContentStatistics1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -394,7 +396,7 @@ namespace ProjeBlog.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ContentID")
+                    b.Property<int?>("ContentID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -540,9 +542,7 @@ namespace ProjeBlog.Migrations
                 {
                     b.HasOne("ProjeBlog.Models.Content", "Content")
                         .WithMany("ContentStatistics")
-                        .HasForeignKey("ContentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ContentID");
 
                     b.Navigation("Content");
                 });

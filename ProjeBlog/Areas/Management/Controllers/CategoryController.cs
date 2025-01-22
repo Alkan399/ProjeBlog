@@ -58,7 +58,7 @@ namespace ProjeBlog.Areas.Management.Controllers
             Expression<Func<Category, bool>> filterExpression = category =>
                 (string.IsNullOrEmpty(criteria.Name) || category.Name.Contains(criteria.Name)) &&
                 (string.IsNullOrEmpty(criteria.Description) || category.Description.Contains(criteria.Description)) &&
-                (string.IsNullOrEmpty(criteria.CategoryId) || category.ID.Equals(criteria.CategoryId)) &&
+                (string.IsNullOrEmpty(criteria.Id) || category.ID.Equals(Int32.Parse(criteria.Id))) &&
                 (string.IsNullOrEmpty(criteria.Status) || (criteria.Status == "Active"
             ? category.Status == Enums.DataStatus.Inserted || category.Status == Enums.DataStatus.Updated
             : category.Status == Enums.DataStatus.Deleted));

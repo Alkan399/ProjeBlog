@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjeBlog.Context;
 
 namespace ProjeBlog.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250121122932_Statistics_Model_Added3")]
+    partial class Statistics_Model_Added3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -387,38 +389,6 @@ namespace ProjeBlog.Migrations
                     b.ToTable("ContentSetsElements");
                 });
 
-            modelBuilder.Entity("ProjeBlog.Models.ContentStatistics", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ContentID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ViewCount")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ContentID");
-
-                    b.ToTable("ContentStatistics");
-                });
-
             modelBuilder.Entity("ProjeBlog.Models.Statistics", b =>
                 {
                     b.Property<int>("ID")
@@ -536,17 +506,6 @@ namespace ProjeBlog.Migrations
                     b.Navigation("ContentSet");
                 });
 
-            modelBuilder.Entity("ProjeBlog.Models.ContentStatistics", b =>
-                {
-                    b.HasOne("ProjeBlog.Models.Content", "Content")
-                        .WithMany("ContentStatistics")
-                        .HasForeignKey("ContentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Content");
-                });
-
             modelBuilder.Entity("ProjeBlog.Models.AppUser", b =>
                 {
                     b.Navigation("AppUserDetail");
@@ -566,8 +525,6 @@ namespace ProjeBlog.Migrations
                     b.Navigation("Comment");
 
                     b.Navigation("ContentSetContents");
-
-                    b.Navigation("ContentStatistics");
                 });
 
             modelBuilder.Entity("ProjeBlog.Models.ContentSet", b =>

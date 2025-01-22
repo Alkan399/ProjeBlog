@@ -23,9 +23,13 @@ namespace ProjeBlog.RepositoryPattern.Concrete
         { 
             return table.Where(exp).Include(x => x.AppUser).Include(x => x.Category).ToList();
         }
+        public List<Content> GetContentWithUserAndStatistics(Expression<Func<Content, bool>> exp)
+        { 
+            return table.Where(exp).Include(x => x.AppUser).Include(x => x.Category).Include(x => x.ContentStatistics).ToList();
+        }
         public List<Content> GetAllContent()
         {
-            return table.Include(x => x.AppUser).Include(x => x.Category).ToList();
+            return table.Include(x => x.AppUser).Include(x => x.Category).Include(x => x.ContentStatistics).ToList();
         }
 
         public List<Category> GetCategories()

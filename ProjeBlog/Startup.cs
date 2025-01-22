@@ -50,7 +50,10 @@ namespace ProjeBlog
             services.AddScoped<IRepository<ContentSet>, Repository<ContentSet>>();
             services.AddScoped<IRepository<ContentSetContent>, Repository<ContentSetContent>>();
             services.AddScoped<IRepository<ContentSetElement>, Repository<ContentSetElement>>();
+            services.AddScoped<IRepository<Comment>, Repository<Comment>>();
             services.AddScoped<IRepository<About>, Repository<About>>();
+            services.AddScoped<IRepository<Statistics>, Repository<Statistics>>();
+            services.AddScoped<IRepository<ContentStatistics>, Repository<ContentStatistics>>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<IContentSetContentRepository, ContentSetContentRepository>();

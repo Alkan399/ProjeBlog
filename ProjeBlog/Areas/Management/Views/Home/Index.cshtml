@@ -1,5 +1,5 @@
 ﻿<!-- Right side column. Contains the navbar and content of the page -->
-<div class="content-wrapper">
+<div class="">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
@@ -20,11 +20,21 @@
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3>150</h3>
-                        <p>New Orders</p>
+                        <h3>@ViewBag.ContentCountToday</h3>
+                        <p>Bugün Oluşturulan İçerik Sayısı</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-bag"></i>
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>@ViewBag.ContentViewsToday</h3>
+                        <p>Bugün İçeriklere Tıklanma Sayısı</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
                     </div>
                     <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
@@ -33,8 +43,8 @@
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3>53<sup style="font-size: 20px">%</sup></h3>
-                        <p>Bounce Rate</p>
+                        <h3>@ViewBag.CommentsCreatedToday</h3>
+                        <p>Bugün Yapılan Yorumlar</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
@@ -46,8 +56,8 @@
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>44</h3>
-                        <p>User Registrations</p>
+                        <h3>@ViewBag.UsersCreatedToday</h3>
+                        <p>Bugün Oluşturulan Kullanıcı Sayısı</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>

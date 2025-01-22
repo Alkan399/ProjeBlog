@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using X.PagedList;
 using X.PagedList.Extensions;
 
@@ -22,15 +23,21 @@ namespace ProjeBlog.Areas.Blog.Controllers
         IContentRepository _repoContent;
         IRepository<Category> _repoCategory;
         IContentSetElementRepository _repoContentSetElement;
+        IRepository<Statistics> _repoStatistics;
+        IRepository<ContentStatistics> _repoContentStatistics;
         public BlogController(MyDbContext db,
             IContentRepository repoContent,
             IRepository<Category> repoCategory,
-            IContentSetElementRepository repoContentSetElement)
+            IContentSetElementRepository repoContentSetElement,
+            IRepository<Statistics> repoStatistics,
+            IRepository<ContentStatistics> repoContentStatistics)
         {
             _db = db;
             _repoContent = repoContent;
             _repoCategory = repoCategory;
             _repoContentSetElement = repoContentSetElement;
+            _repoStatistics = repoStatistics;
+            _repoContentStatistics = repoContentStatistics;
         }
         public IActionResult Index(string filterTitle, string filterEntry, string filterCategory, int page, int itemsPerPage)
         {
@@ -61,23 +68,34 @@ namespace ProjeBlog.Areas.Blog.Controllers
             return View(contents);
         }
           
-        public IActionResult ContentPage(int idx)
+        public async Task<IActionResult> ContentPage(int idx)
         {
             id = idx;
            
-            List<Content> contents = _repoContent.GetByFilter(x => x.ID == id && x.Status != Enums.DataStatus.Deleted);
-            if (contents.Count < 1) 
+            Content content = _repoContent.GetContentWithUserAndStatistics(x => x.ID == id && x.Status != Enums.DataStatus.Deleted).FirstOrDefault();
+            if (content == null) 
             {
                 return NotFound();
             }
-            Content content = contents[0];
 
             if (HttpContext.Request.Method == "GET")
             {
+                ContentStatistics contentStatistics = content.ContentStatistics.Where(x => x.Content.ID == id && x.CreatedDate.Date == (System.DateTime.Now).Date).FirstOrDefault();
+                if (contentStatistics != null)
+                {
+                    contentStatistics.ViewCount += 1;
+                    _db.SaveChanges();
+                }
+                else if(contentStatistics == null)
+                {
+                    ContentStatistics contentStatisticsToCreate = new ContentStatistics();
+                    contentStatisticsToCreate.ViewCount += 1;
+                    contentStatisticsToCreate.ContentID = id;
+                    _repoContentStatistics.Add(contentStatisticsToCreate);
+                }
                 content.Views += 1;
                 _db.SaveChanges();
             }
-
             return View(content);
         }
         public IPagedList<Content> FilterContents([FromBody] ContentFilterDto criteria, [FromQuery] int page)

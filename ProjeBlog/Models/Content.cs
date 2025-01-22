@@ -19,6 +19,7 @@ namespace ProjeBlog.Models
         public virtual List<Comment> Comment { get; set; }
         public virtual Category Category { get; set; }
         public virtual List<ContentSetContent> ContentSetContents { get; set; }
+        public virtual List<ContentStatistics> ContentStatistics { get; set; }
 
     }
 }
