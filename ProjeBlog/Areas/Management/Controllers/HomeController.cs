@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjeBlog.Models;
 using ProjeBlog.RepositoryPattern.Concrete;
 using ProjeBlog.RepositoryPattern.Interfaces;
+using System;
 using System.Linq;
 
 namespace ProjeBlog.Areas.Management.Controllers
@@ -26,10 +27,16 @@ namespace ProjeBlog.Areas.Management.Controllers
             int contentsCreatedToday = _contentRepository.GetActives().Where(x => x.CreatedDate.Date == System.DateTime.Today.Date).Count();
             int usersCreatedToday = _appUserRepository.GetActives().Where(x => x.CreatedDate.Date == System.DateTime.Today.Date).Count();
             int commentsCreatedToday = _commentRepository.GetActives().Where(x => x.CreatedDate.Date == System.DateTime.Today.Date).Count();
-            int contentViewsToday = _contentRepository.GetContentWithUserAndStatistics(x => x.Status != Enums.DataStatus.Deleted)
-                .Select(x => x.ContentStatistics.Count)
-                .ToList()
+            int contentViewsToday = _contentRepository.GetContentWithUserAndStatistics(
+                    x => x.Status != Enums.DataStatus.Deleted &&
+                         x.ContentStatistics.Any(cs => cs.Date.Date == DateTime.Now.Date)
+                )
+                .Select(x => x.ContentStatistics
+                    .Where(cs => cs.Date.Date == DateTime.Now.Date)
+                    .Sum(cs => cs.ViewCount)
+                )
                 .Sum();
+
             ViewBag.ContentViewsToday = contentViewsToday;
             ViewBag.ContentCountToday = contentsCreatedToday;
             ViewBag.UsersCreatedToday = usersCreatedToday;

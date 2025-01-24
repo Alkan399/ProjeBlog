@@ -15,6 +15,13 @@ using System.Reflection.Metadata;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using X.PagedList.Extensions;
+using LoggerPrototype;
+using Microsoft.Extensions.Logging;
+using LoggerPrototype.Interfaces;
+using LoggerPrototype.Interfaces.Base;
+using LoggerPrototype.Interfaces.Concrete;
+using ProjeBlog.Models.LogModels;
+using Microsoft.Extensions.Configuration;
 
 namespace ProjeBlog.Areas.Management.Controllers
 {
@@ -26,14 +33,23 @@ namespace ProjeBlog.Areas.Management.Controllers
         int id;
         IRepository<AppUser> _repoUser;
         IContentRepository _repoContent;
+        ICustomLogger _logger;
+        ICustomDbLogger _customDbLogger;
+        readonly IConfiguration _configuration;
         public ContentController(MyDbContext db,
             IRepository<AppUser> repoUser,
-            IContentRepository repoContent)
+            IContentRepository repoContent,
+            ICustomLogger logger,
+            ICustomDbLogger customDbLogger,
+            IConfiguration configuration
+            )
         {
             _db = db;
             _repoUser  = repoUser;
             _repoContent = repoContent;
-
+            _logger = logger;
+            _customDbLogger = customDbLogger;
+            _configuration = configuration;
         }
         public HttpContext _httpContext;
         public  IActionResult Index()
@@ -54,9 +70,19 @@ namespace ProjeBlog.Areas.Management.Controllers
         }
         public IActionResult Update(int id)
         {
-            Content content = _repoContent.GetById(id);
-            ViewData["Categories"] = _repoContent.GetCategories();
-            return View(content);
+            try
+            {
+                Content content = _repoContent.GetById(id);
+                ViewData["Categories"] = _repoContent.GetCategories();
+                return View(content);
+
+            }
+            catch (Exception ex) 
+            {
+                
+                return View(ex.Message);
+            }
+            
         }
         [HttpPost]
         public IActionResult Update(Content content)
@@ -66,8 +92,19 @@ namespace ProjeBlog.Areas.Management.Controllers
                 return View(content);
             }
             string msg = "Kayıt güncelleme BAŞARISIZ!";
-            content.AppUserID = _repoUser.GetUserId(HttpContext);
+            int Uid = _repoUser.GetUserId(HttpContext);
+            content.AppUserID = Uid;
             _repoContent.Update(content);
+            string logMsg = $"{Uid} kullanicisi, {content.ID} id' sine sahip icerigi guncelledi.";
+            _logger.LogInfo(logMsg);
+            OperationsLog operationsLog = new OperationsLog();
+            operationsLog.Message = logMsg;
+            operationsLog.UserId = null;
+            operationsLog.Ip = "";
+            operationsLog.ModelName = "Content";
+            operationsLog.Operation = "Update";
+                        
+            _customDbLogger.LogToDb("deneme", operationsLog, "OperationsLog");
             Content c = _repoContent.GetById(content.ID);
             if(content.Title == c.Title && content.CoverImagePath == c.CoverImagePath && content.Entry == c.Entry)
             {

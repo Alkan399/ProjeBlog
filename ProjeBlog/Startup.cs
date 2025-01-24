@@ -23,6 +23,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using LoggerPrototype;
+using Microsoft.Extensions.Logging;
+using LoggerPrototype.Interfaces;
+using LoggerPrototype.Interfaces.Base;
+using LoggerPrototype.Interfaces.Concrete;
 
 namespace ProjeBlog
 {
@@ -42,6 +47,8 @@ namespace ProjeBlog
             services.AddControllersWithViews();
             services.AddFluentValidationAutoValidation(x => { x.DisableDataAnnotationsValidation = true; }).AddFluentValidationClientsideAdapters();
             services.AddValidatorsFromAssemblyContaining<AppUserValidator>();
+            services.AddSingleton<ICustomLogger, CustomConsoleLogger>();
+            services.AddSingleton<ICustomDbLogger>(provider => new CustomDbLogger(_configuration["ConnectionStrings:Mssql"]));
             services.AddScoped<IRepository<Basvuru>, Repository<Basvuru>>();
             services.AddScoped<IRepository<Category>, Repository<Category>>();
             services.AddScoped<IRepository<AppUser>, Repository<AppUser>>();
