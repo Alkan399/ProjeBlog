@@ -95,16 +95,17 @@ namespace ProjeBlog.Areas.Management.Controllers
             int Uid = _repoUser.GetUserId(HttpContext);
             content.AppUserID = Uid;
             _repoContent.Update(content);
-            string logMsg = $"{Uid} kullanicisi, {content.ID} id' sine sahip icerigi guncelledi.";
+            string logMsg = $"{Uid} kullanicisi, {content.ID} idsine sahip icerigi guncelledi.";
             _logger.LogInfo(logMsg);
             OperationsLog operationsLog = new OperationsLog();
             operationsLog.Message = logMsg;
-            operationsLog.UserId = null;
-            operationsLog.Ip = "";
+            operationsLog.UserId = 0;
+            operationsLog.Ip = "0";
             operationsLog.ModelName = "Content";
             operationsLog.Operation = "Update";
+            operationsLog.UpdatedDate = operationsLog.CreatedDate;
                         
-            _customDbLogger.LogToDb("deneme", operationsLog, "OperationsLog");
+            _customDbLogger.LogToDb("deneme", operationsLog, "OperationsLogs", operationsLog.Status.GetType());
             Content c = _repoContent.GetById(content.ID);
             if(content.Title == c.Title && content.CoverImagePath == c.CoverImagePath && content.Entry == c.Entry)
             {
