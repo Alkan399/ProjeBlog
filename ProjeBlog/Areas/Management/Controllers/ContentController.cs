@@ -105,7 +105,7 @@ namespace ProjeBlog.Areas.Management.Controllers
             operationsLog.Operation = "Update";
             operationsLog.UpdatedDate = operationsLog.CreatedDate;
                         
-            _customDbLogger.LogToDb("deneme", operationsLog, "OperationsLogs", operationsLog.Status.GetType());
+            _customDbLogger.LogInformation("deneme", operationsLog, "OperationsLogs", operationsLog.Status.GetType());
             Content c = _repoContent.GetById(content.ID);
             if(content.Title == c.Title && content.CoverImagePath == c.CoverImagePath && content.Entry == c.Entry)
             {
