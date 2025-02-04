@@ -16,6 +16,7 @@
                 <div class="mb-3">
                     <label class="col-form-label" asp-for="Title">Başlık</label>
                     <input type="text" class="form-control" asp-for="Title" />
+
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 @* <div class="mb-3">
@@ -37,6 +38,7 @@
                     }
                 </select>
                 <span asp-validation-for="CategoryID" class="text-danger"></span>
+                <input type="datetime" asp-for="CreatedDate" hidden="true"/>
                 <div class="mb-3">
                     <label class="col-form-label" asp-for="CoverImagePath">Kapak Resmi</label>
                     <input type="text" class="form-control" asp-for="CoverImagePath" />
