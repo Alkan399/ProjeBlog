@@ -87,6 +87,7 @@ namespace ProjeBlog.Areas.Management.Controllers
         [HttpPost]
         public IActionResult Update(Content content)
         {
+
             if (!ModelState.IsValid)
             {
                 return View(content);
@@ -99,7 +100,7 @@ namespace ProjeBlog.Areas.Management.Controllers
             _logger.LogInfo(logMsg);
             OperationsLog operationsLog = new OperationsLog();
             operationsLog.Message = logMsg;
-            operationsLog.UserId = 0;
+            operationsLog.UserId = Uid;
             operationsLog.Ip = "0";
             operationsLog.ModelName = "Content";
             operationsLog.Operation = "Update";

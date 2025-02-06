@@ -28,6 +28,7 @@ using Microsoft.Extensions.Logging;
 using LoggerPrototype.Interfaces;
 using LoggerPrototype.Interfaces.Base;
 using LoggerPrototype.Interfaces.Concrete;
+using ProjeBlog.RepositoryPattern.Services.Api;
 
 namespace ProjeBlog
 {
@@ -67,6 +68,7 @@ namespace ProjeBlog
             services.AddScoped<IContentSetElementRepository, ContentSetElementRepository>();
             services.AddScoped<UtilityMethods>();
             services.AddScoped<IUtilityMethods, UtilityMethods>();
+            services.AddHttpClient<IpApiService>();
 
 
             services.AddControllers().AddJsonOptions(options =>
