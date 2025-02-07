@@ -29,6 +29,7 @@ using LoggerPrototype.Interfaces;
 using LoggerPrototype.Interfaces.Base;
 using LoggerPrototype.Interfaces.Concrete;
 using ProjeBlog.RepositoryPattern.Services.Api;
+using ProjeBlog.Middlewares;
 
 namespace ProjeBlog
 {
@@ -112,9 +113,11 @@ namespace ProjeBlog
                 name: "Default",
                 pattern: "{controller=Home}/{action=Index}/{id?}"
                 );
-                endpoints.MapControllers(); // API Controller'larý etkinleþtirir
+                endpoints.MapControllers();
 
             });
+            app.UseMiddleware<VisitorMiddleware>();
+
         }
     }
 }
