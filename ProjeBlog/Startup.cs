@@ -30,6 +30,7 @@ using LoggerPrototype.Interfaces.Base;
 using LoggerPrototype.Interfaces.Concrete;
 using ProjeBlog.RepositoryPattern.Services.Api;
 using ProjeBlog.Middlewares;
+using ProjeBlog.Models.LogModels;
 
 namespace ProjeBlog
 {
@@ -63,6 +64,7 @@ namespace ProjeBlog
             services.AddScoped<IRepository<About>, Repository<About>>();
             services.AddScoped<IRepository<Statistics>, Repository<Statistics>>();
             services.AddScoped<IRepository<ContentStatistics>, Repository<ContentStatistics>>();
+            services.AddScoped<IRepository<VisitorsLog>, Repository<VisitorsLog>>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<IContentSetContentRepository, ContentSetContentRepository>();
